@@ -1,0 +1,9 @@
+.hero {
+  &__grey--main {
+    height: 80vh;
+    background: $grey-background;
+    top: 0;
+    position: fixed;
+    width: 100%;
+  }
+}

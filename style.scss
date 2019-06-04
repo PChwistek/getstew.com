@@ -1,4 +1,34 @@
-$font-size: 50px;
-.example {
-  font-size: $font-size;
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Oxygen|Quicksand:400,700&display=swap');
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
 }
+
+// Define defaults for each variable.
+$base-font-family: Quicksand, Helvetica, Arial;
+$oxygen: Oxygen, Helvetica, Arial;
+
+$base-font-size:   16px !default;
+$base-font-weight: 400 !default;
+$small-font-size:  $base-font-size * 0.875 !default;
+$base-line-height: 1.5 !default;
+
+$spacing-unit:     30px !default;
+
+$text-color:       #4C5B5C !default;
+$brand-color:      #E74B85 !default;
+
+$white-background: #fdfdfd !default;
+$grey-background: linear-gradient(39deg, #EAECF1 0%, #D1D5DE 99%);
+
+@import "partials/typography";
+@import "partials/header";
+@import "partials/heros";
+@import "partials/body";
+@import "partials/button";
+@import "partials/video";
