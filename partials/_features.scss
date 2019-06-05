@@ -1,0 +1,37 @@
+.features {
+
+  &__container {
+    display: inline-block;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  &__row {
+    display: flex;
+  }
+
+  &__title {
+    color: $brand-color;
+    font-family: $base-font-family;
+    font-size: $font-size-large;
+    text-transform: uppercase;
+    font-variant: small-caps;
+    line-height: 35px;
+  }
+
+  &__body {
+    color: $text-color;
+    font-family: $oxygen;
+    font-size: $font-size-regular;
+    line-height: 28px;
+    font-weight: 400;
+
+  }
+
+  &__item {
+    padding: 5px;
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+}

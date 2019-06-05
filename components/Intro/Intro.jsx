@@ -1,11 +1,11 @@
-import Body from '../Body'
+import Content from '../Content'
 import Button from '../Button'
 
 const Intro = () => {
 
   return (
     <div className="content content__intro">
-      <Body>
+      <Content>
         <h1>
           hermits get s*** done
         </h1>
@@ -15,7 +15,7 @@ const Intro = () => {
         <Button>
           Add to Chrome (it's free)
         </Button>
-      </Body>
+      </Content>
     </div>
   )
 }
