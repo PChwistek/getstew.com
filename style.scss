@@ -29,10 +29,7 @@ $grey-background: linear-gradient(to right,$grey-color 0%, $grey-color 100%);
 
 @import "partials/typography";
 @import "partials/header";
-@import "partials/heros";
 @import "partials/content";
 @import "partials/button";
 @import "partials/video";
-@import "partials/features";
-@import "partials/banner";
-@import "partials/textwithimage";
+@import "partials/layouts";

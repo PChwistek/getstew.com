@@ -4,7 +4,7 @@ $font-size-big: 3.375em;
 $font-size-larger: 2.25em;
 $font-size-large: 1.5em;
 $font-size-regular: 1em;
-$font-size-maller: 0.667em;
+$font-size-smaller: 0.667em;
 
 
 .content {
@@ -27,5 +27,19 @@ $font-size-maller: 0.667em;
       line-height: 40px;
       padding-bottom: 20px;
     }
+  }
+
+  h2 {
+    font-size: $font-size-larger;
+    font-family: $base-font-family;
+    font-weight: 700;
+    line-height: 60px;
+  }
+
+  p {
+    font-size: $font-size-large;
+    font-family: $oxygen;
+    line-height: 45px;
+    font-weight: 300;
   }
 }

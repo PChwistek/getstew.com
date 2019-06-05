@@ -1,4 +1,4 @@
-import Content from '../Content'
+import Content from '../../Content'
 
 const TextWithImage = props => {
 
@@ -6,18 +6,20 @@ const TextWithImage = props => {
     <div className="text-image__container">
       <Content>
       <div className="text-image__rows">
-        <div className="text-image__item">
+        <div className="text-image__item text-image--center">
           <img src={ props.image } class="text-image__image"/>
         </div>
         <div className="text-image__item">
-          <div className="text-image__title">
+          <h2>
             { props.title }
-          </div>
-          <div className="text-image__body">
-            { props.body }
-            <div text-image__aux>
-              <img src={ props.auxImage } className="text-image__aux-image" />
-            </div>
+          </h2>
+          <div>
+            <p>
+              { props.body }
+            </p>
+              <div text-image__aux>
+                <img src={ props.auxImage } className="text-image__aux-image" />
+              </div>
           </div>
         </div>
       </div>

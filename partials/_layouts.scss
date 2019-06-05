@@ -1,0 +1,161 @@
+.hero {
+  position: relative;
+  display: inline-block; 
+  width: 100%;
+
+  &__grey--main {
+    height: 80vh;
+    background: $grey-background;
+    top: -15px;
+  }
+}
+
+.banner {
+
+  &__container {
+    display: inline-block; 
+    width: 100%;
+  }
+
+  &__body {
+    width: 80%;
+  }
+
+  &__rows {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__item {
+    flex-grow: 1;
+    flex-basis: 1;
+  }
+
+  &--center {
+    text-align: right;
+  }
+
+  &__image {
+    width: 150px;
+  }
+
+  &--grey {
+    background: $grey-background;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+}
+
+.text-image {
+  &__container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  &__image {
+    width: 200px;
+    padding-right: 100px;
+  }
+
+  &__aux-image {
+    padding-top: 15px;
+  }
+  
+  &__rows {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__item {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+  &--center {
+    text-align: center;
+  }
+}
+
+.image-row {
+
+  &__container {
+    padding-top: 50px;
+    padding-bottom: 30px;
+    text-align: center;
+  }
+
+  &__image {
+    width: 50px;
+  }
+
+  &__caption {
+    font-size: $font-size-smaller;
+    font-family: $base-font-family;
+    font-weight: 700;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin: auto;
+    align-items: self-end;
+  }
+
+  &__item {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+}
+
+.features {
+
+  &__container {
+    display: inline-block;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  &__row {
+    display: flex;
+  }
+
+  &__title {
+    color: $brand-color;
+    font-family: $base-font-family;
+    font-size: $font-size-large;
+    text-transform: uppercase;
+    font-variant: small-caps;
+    line-height: 35px;
+  }
+
+  &__body {
+    color: $text-color;
+    font-family: $oxygen;
+    font-size: $font-size-regular;
+    line-height: 28px;
+    font-weight: 400;
+
+  }
+
+  &__item {
+    padding: 5px;
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+}
+
+.cta {
+  &__container {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  &__button-wrapper {
+    padding-top: 20px;
+  }
+}
