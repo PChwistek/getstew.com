@@ -25,8 +25,8 @@ const FeaturesRow = () => {
       <div className={ "features features__container" }>
         <div className={ "features features__row"} >
         {
-            features.map(feature => (
-              <div className="features features__item">
+            features.map((feature, index) => (
+              <div key={ index } className="features features__item">
                 <div className="features features__title">
                   { feature.title }
                 </div>

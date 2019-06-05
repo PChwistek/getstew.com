@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Content from '../../Content'
 
 const TextWithImage = props => {
@@ -7,7 +8,7 @@ const TextWithImage = props => {
       <Content>
       <div className="text-image__rows">
         <div className="text-image__item text-image--center">
-          <img src={ props.image } class="text-image__image"/>
+          <img src={ props.image } className="text-image__image"/>
         </div>
         <div className="text-image__item">
           <h2>
@@ -26,6 +27,13 @@ const TextWithImage = props => {
       </Content>
     </div>
   )
+}
+
+TextWithImage.propTypes = {
+  image: PropTypes.string,
+  title: PropTypes.string,
+  body: PropTypes.string,
+  auxImage: PropTypes.string
 }
 
 export default TextWithImage

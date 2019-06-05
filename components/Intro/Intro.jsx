@@ -13,7 +13,7 @@ const Intro = () => {
           hermitly squashes digital distractions and helps you get your projects done <br /> — all from inside your browser. 
         </p>
         <Button>
-          Add to Chrome (it's free)
+          Add to Chrome (it&apos;s free)
         </Button>
       </Content>
     </div>

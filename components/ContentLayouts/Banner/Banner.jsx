@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 import Content from "../../Content"
 
 const Banner = props => {
@@ -16,6 +18,12 @@ const Banner = props => {
       </Content>
     </div>
   )
+}
+
+Banner.propTypes = {
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired
 }
 
 export default Banner

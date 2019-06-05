@@ -4,14 +4,17 @@
   width: 100%;
 
   &__grey--main {
+    padding-top: 64px;
     height: 80vh;
     background: $grey-background;
-    top: -15px;
   }
+  &__grey--mini {
+    background: $grey-background;
+  }
+
 }
 
 .banner {
-
   &__container {
     display: inline-block; 
     width: 100%;
@@ -152,8 +155,8 @@
 .cta {
   &__container {
     text-align: center;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 100px;
+    padding-bottom: 100px;
   }
   &__button-wrapper {
     padding-top: 20px;

@@ -1,3 +1,5 @@
+import React from 'react'
+
 import "../style.scss"
 import Header from '../components/Header'
 import Hero from '../components/Hero'
@@ -7,54 +9,64 @@ import FeaturesRow from '../components/ContentLayouts/FeaturesRow'
 import Banner from '../components/ContentLayouts/Banner'
 import TextWithImage from '../components/ContentLayouts/TextWithImage'
 import ImageRow from '../components/ContentLayouts/ImageRow'
-import CTA from '../components/CallToAction'
+import Cta from '../components/CallToAction'
+import Footer from '../components/Footer'
+import Modal from '../components/Modal'
 
-const Index = () => {
-  return (
-    <div>
-      <Hero color={ "grey" }>
+
+class Index extends React.Component {
+
+  render() {
+    return (
+      <div>
+        <Modal show={ false }/>
         <Header />
-        <Intro />
-        <Video />
-      </Hero>
-      <Hero>
-        <FeaturesRow />
-      </Hero>
-      <Banner 
-        title="Your attention is valuable" 
-        body="Everyone wants it. Make sure that they only have it when you’re not being a productive legend."
-        image="../static/chest.png"
-      />
-      <Hero>
-        <ImageRow 
-          title="Bring your favorite tools into your shell"
-          body="hermitly works with what you already use"
-          imageList={ 
-            [
-              { caption: "Evernote", image: "../static/evernote.png" },
-              { caption: "Todoist", image: "../static/todoist.png" },
-              { caption: "Asana", image: "../static/asana.png" },
-              { caption: "Google Keep", image: "../static/keep.png" }
-            ] 
-          }
+        <Hero type={ "grey" }>
+          <Intro />
+          <Video />
+        </Hero>
+        <Hero>
+          <FeaturesRow />
+        </Hero>
+        <Banner 
+          title="Your attention is valuable" 
+          body="Everyone wants it. Make sure that they only have it when you’re not being a productive legend."
+          image="../static/chest.png"
         />
-        <TextWithImage
-          title="And it blocks your phone too."
-          body="So Karen can’t distract you with cat memes."
-          image={ "../static/Apple iPhone XS Max Space Grey.png" }
-          auxImage="../static/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+        <Hero>
+          <ImageRow 
+            title="Bring your favorite tools into your shell"
+            body="hermitly works with what you already use"
+            imageList={ 
+              [
+                { caption: "Evernote", image: "../static/evernote.png" },
+                { caption: "Todoist", image: "../static/todoist.png" },
+                { caption: "Asana", image: "../static/asana.png" },
+                { caption: "Google Keep", image: "../static/keep.png" }
+              ] 
+            }
+          />
+          <TextWithImage
+            title="And it blocks your phone too."
+            body="So Karen can’t distract you with cat memes."
+            image={ "../static/Apple iPhone XS Max Space Grey.png" }
+            auxImage="../static/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+          />
+        </Hero>
+        <Banner 
+          title="Multi-taskers get automated" 
+          body="Everyone wants it. Make sure that they only have it when you’re not being a productive legend."
+          image="../static/support.png"
         />
-      </Hero>
-      <Banner 
-        title="Multi-taskers get automated" 
-        body="Everyone wants it. Make sure that they only have it when you’re not being a productive legend."
-        image="../static/support.png"
-      />
-      <Hero>
-        <CTA />
-      </Hero>
+        <Hero>
+          <Cta />
+        </Hero>
+        <Hero type="grey-mini">
+          <Footer />
+        </Hero>
     </div>
-  )
+    )
+  }
 }
 
 export default Index
