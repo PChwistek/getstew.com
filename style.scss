@@ -34,11 +34,12 @@ $spacing-unit:     30px !default;
 $text-color:       #4C5B5C !default;
 $brand-color:      #E74B85 !default;
 $grey-color: rgba(242, 244, 243, 0.43);
+$white: #fdfdfd;
 
-
+$modal-background-color: rgba(242, 244, 243, 0.95);
 $white-background: #fdfdfd !default;
 $grey-background: linear-gradient(to right,$grey-color 0%, $grey-color 100%);
-$modal-background: #fff;
+$modal-background: linear-gradient(to right,$modal-background-color 0%, $modal-background-color 100%);
 
 @import "partials/typography";
 @import "partials/header";

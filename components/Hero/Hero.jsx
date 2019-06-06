@@ -24,7 +24,7 @@ const Hero = props => {
 
 Hero.propTypes = {
   type: PropTypes.string,
-  children: PropTypes.children
+  children: PropTypes.node
 }
 
 export default Hero

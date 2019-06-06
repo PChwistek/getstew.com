@@ -16,13 +16,30 @@ import Modal from '../components/Modal'
 
 class Index extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModal: false
+    }
+  }
+
+  toggleModal = () => {
+    const { showModal } = this.state
+    const newShowModal = !showModal
+    this.setState({
+      showModal: newShowModal
+    })
+    document.body.style.overflow = newShowModal ? "hidden": "visible"
+  }
+
   render() {
+    const { showModal } = this.state
     return (
       <div>
-        <Modal show={ false }/>
-        <Header />
+        <Modal show={ showModal } closeModal={ this.toggleModal } />
+        <Header onLoginClick={ this.toggleModal } />
         <Hero type={ "grey" }>
-          <Intro />
+          <Intro onButtonClick={ this.toggleModal } />
           <Video />
         </Hero>
         <Hero>
@@ -50,7 +67,7 @@ class Index extends React.Component {
             title="And it blocks your phone too."
             body="So Karen can’t distract you with cat memes."
             image={ "../static/Apple iPhone XS Max Space Grey.png" }
-            auxImage="../static/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+            auxImage={ "../static/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" }
           />
         </Hero>
         <Banner 
@@ -59,7 +76,7 @@ class Index extends React.Component {
           image="../static/support.png"
         />
         <Hero>
-          <Cta />
+          <Cta onButtonClick={ this.toggleModal } />
         </Hero>
         <Hero type="grey-mini">
           <Footer />

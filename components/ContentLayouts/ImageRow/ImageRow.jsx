@@ -30,7 +30,10 @@ const ImageRow = props => {
 }
 
 ImageRow.propTypes = {
-  imageList: PropTypes.arrayOf({ image: PropTypes.string, caption: PropTypes.string }),
+  imageList: PropTypes.arrayOf(PropTypes.shape({
+    image: PropTypes.string,
+    caption: PropTypes.string
+  })),
   title: PropTypes.string,
   body: PropTypes.string
 }

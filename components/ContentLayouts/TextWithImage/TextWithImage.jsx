@@ -18,7 +18,7 @@ const TextWithImage = props => {
             <p>
               { props.body }
             </p>
-              <div text-image__aux>
+              <div>
                 <img src={ props.auxImage } className="text-image__aux-image" />
               </div>
           </div>
