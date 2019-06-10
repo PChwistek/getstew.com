@@ -5,15 +5,12 @@ import { initGA, logPageView } from '../../utils/analytics'
 export default class Layout extends React.Component {
   componentDidMount () {
     /* eslint-disable */
-    const isProduction = process.env.NODE_ENV === 'production'
-
-    if (!window.GA_INITIALIZED && isProduction) {
+    
+    if (!window.GA_INITIALIZED) {
       initGA()
       window.GA_INITIALIZED = true
     }
-    if (isProduction) {
-      logPageView()
-    }
+    logPageView()
   }
   render () {
     return (
