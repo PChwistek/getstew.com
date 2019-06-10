@@ -4,15 +4,15 @@ const FeaturesRow = () => {
   const features = [
     {
       title: "Customize",
-      body: "Adjust the blacklist according to your needs. Whitelist or blacklist domains temporarily"
+      body: "Adjust the timer according to your needs. Blacklist any site you find distracting. Choose your background noise."
     },
     {
       title: "Organize",
-      body: "Break down intimidating projects into smaller, workable chunks. Manage your progress and hours"
+      body: "Break down intimidating projects into smaller, workable chunks. Manage your progress and hours."
     },
     {
       title: "Do More, Better",
-      body: "Isolating problems and working on them deeply yields better results."
+      body: "Isolating problems and working on them deeply yields better results, faster."
     },
     {
       title: "Improve",

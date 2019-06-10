@@ -1,7 +1,11 @@
+
+import MailchimpSubscribe from "react-mailchimp-subscribe"
 import PropTypes from 'prop-types'
-import Button from '../Button'
+import SubscriptionForm from '../Form'
+
 const Modal = props => {
-  
+  const url = "//xxxx.us13.list-manage.com/subscribe/post?u=zefzefzef&id=fnfgn"
+
   return (
     <div className={ props.show ? "modal" : "modal--hide"}>
       <div className="modal__container">
@@ -11,15 +15,19 @@ const Modal = props => {
           Sorry about that!
         </h2>
         <p>
-          hermitly is still in development. If you&apos;re interested in being one the first to embrace hermitivity, enter your email for development updates.
+          hermitly is still in development. If you&apos;re interested in becoming one the first certified internet hermits, enter your email below to hear when hermitly goes live.
         </p>
         <br />
-        <div className="modal__form">
-          <input className="modal__textfield" placeholder="Your email" type="email" />
-          <Button onButtonClick={ () => {} }>
-            Submit
-          </Button>
-        </div>
+        <MailchimpSubscribe
+          url={url}
+          render={({ subscribe, status, message }) => (
+            <SubscriptionForm
+              status={status}
+              message={message}
+              onValidated={formData => subscribe(formData)}
+            />
+          )}
+        />
       </div>
     </div>
   )

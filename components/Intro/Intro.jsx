@@ -12,11 +12,11 @@ const Intro = props => {
         </h1>
         <div className="content content__intro__desc">
           <p>
-            hermitly squashes digital distractions and helps you get your projects done — all from inside your browser. 
+            hermitly is a task-management tool that cuts out the distracting parts of the internet while you work
           </p>
         </div>
-        <Button onButtonClick={ props.onButtonClick }>
-          Add to Chrome (it&apos;s free)
+        <Button onClick={ props.onButtonClick }>
+          Add to { props.browser } (it&apos;s free)
         </Button>
       </Content>
     </div>
@@ -24,7 +24,8 @@ const Intro = props => {
 }
 
 Intro.propTypes = {
-  onButtonClick: PropTypes.func
+  onButtonClick: PropTypes.func,
+  browser: PropTypes.string
 }
 
 export default Intro

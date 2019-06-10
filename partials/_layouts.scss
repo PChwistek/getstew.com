@@ -207,7 +207,7 @@
   }
 
   &__item {
-    padding: 5px;
+    margin: 10px;
     flex-grow: 1;
     flex-basis: 0;
     @include respond(tablet) { // width < 1200?

@@ -14,8 +14,8 @@ export default function CTA(props) {
           (productivity + being an internet hermit)
         </p>
         <div className="cta__button-wrapper">
-          <Button onButtonClick={ props.onButtonClick }>
-            Add to Chrome (it&apos;s free)
+          <Button onClick={ props.onButtonClick }>
+            Add to { props.browser } (it&apos;s free)
           </Button>
         </div>
       </div>
@@ -24,5 +24,6 @@ export default function CTA(props) {
 }
 
 CTA.propTypes = {
-  onButtonClick: PropTypes.func
+  onButtonClick: PropTypes.func,
+  browser: PropTypes.string
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 const Button = props => {
 
   return (
-    <button className="button button--primary" onClick={ props.onButtonClick }>
+    <button className="button button--primary" onClick={ props.onClick }>
       { props.children }      
     </button>
   )
@@ -11,7 +11,7 @@ const Button = props => {
 
 Button.propTypes = {
   children: PropTypes.node,
-  onButtonClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired
 }
 
 export default Button

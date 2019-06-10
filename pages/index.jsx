@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 
+import Layout from '../components/Layout'
 import Header from '../components/Header'
 import Hero from '../components/Hero'
 import Intro from '../components/Intro'
@@ -13,14 +14,15 @@ import Cta from '../components/CallToAction'
 import Footer from '../components/Footer'
 import Modal from '../components/Modal'
 import "../style.scss"
-
+import { findBrowserType } from '../utils/device_check'
 
 class Index extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false
+      showModal: false,
+      browser: 'Chrome'
     }
   }
 
@@ -33,10 +35,17 @@ class Index extends React.Component {
     document.body.style.overflow = newShowModal ? "hidden": "visible"
   }
 
+  componentDidMount() {
+    const detectedBrowser = findBrowserType()
+    this.setState({
+      browser: detectedBrowser
+    })
+  }
+
   render() {
-    const { showModal } = this.state
+    const { showModal, browser } = this.state
     return (
-      <div>
+      <Layout>
         <Head>
           <title>hermitly: Productive self-exile </title>
           <link rel="icon" href={ '../static/hermitly favicon-02.png' } type="image/png" />
@@ -45,7 +54,7 @@ class Index extends React.Component {
         <Modal show={ showModal } closeModal={ this.toggleModal } />
         <Header onLoginClick={ this.toggleModal } />
         <Hero type={ "grey" }>
-          <Intro onButtonClick={ this.toggleModal } />
+          <Intro onButtonClick={ this.toggleModal } browser={ browser } />
           <Video />
         </Hero>
         <Hero>
@@ -78,16 +87,16 @@ class Index extends React.Component {
         </Hero>
         <Banner 
           title="Multi-taskers get automated" 
-          body="Everyone wants it. Make sure that they only have it when you’re not being a productive legend."
+          body="The world's most valuable minds work deeply one task at a time. hermitly makes sure you do too."
           image="../static/support.png"
         />
         <Hero>
-          <Cta onButtonClick={ this.toggleModal } />
+          <Cta onButtonClick={ this.toggleModal } browser={ browser } />
         </Hero>
         <Hero type="grey-mini">
           <Footer />
         </Hero>
-    </div>
+    </Layout>
     )
   }
 }
