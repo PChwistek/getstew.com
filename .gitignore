@@ -5,3 +5,4 @@ yarn.lock
 .DS_store
 components/.DS_store
 build
+out
