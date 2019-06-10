@@ -10,9 +10,11 @@ const Intro = props => {
         <h1>
           hermits get s*** done
         </h1>
-        <p>
-          hermitly squashes digital distractions and helps you get your projects done <br /> — all from inside your browser. 
-        </p>
+        <div className="content content__intro__desc">
+          <p>
+            hermitly squashes digital distractions and helps you get your projects done — all from inside your browser. 
+          </p>
+        </div>
         <Button onButtonClick={ props.onButtonClick }>
           Add to Chrome (it&apos;s free)
         </Button>

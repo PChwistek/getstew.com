@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 const Content = props => {
 
   return (
@@ -6,5 +8,10 @@ const Content = props => {
     </div>
   )
 }
+
+Content.propTypes = {
+  children: PropTypes.node
+}
+
 
 export default Content

@@ -8,5 +8,10 @@
   &__vid {
     width: 80%;
     border-radius: 15px;
+
+    @include respond(phone) { // width < 1200?
+      width: 95%;
+      border-radius: 5px;
+    }
   }
 }

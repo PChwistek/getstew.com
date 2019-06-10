@@ -20,6 +20,10 @@ $font-size-tiny: 0.444em;
       font-family: $base-font-family;
       line-height: 63px;
       padding-bottom: 15px;
+      @include respond(phone) { // width < 1200?
+        font-size: $font-size-larger;
+        line-height: 50px;
+      }
     }
 
     p {
@@ -27,6 +31,21 @@ $font-size-tiny: 0.444em;
       font-family: $oxygen;
       line-height: 40px;
       padding-bottom: 20px;
+      @include respond(phone) { // width < 1200?
+        font-size: $font-size-regular;
+        line-height: 40px;
+      }
+    }
+
+    &__desc {
+      width: 60%;
+
+      @include respond(phone) { // width < 1200?
+        width: inherit;
+      }
+      @include respond(tablet) { // width < 1200?
+        width: 90%;
+      }
     }
   }
 
@@ -35,6 +54,11 @@ $font-size-tiny: 0.444em;
     font-family: $base-font-family;
     font-weight: 700;
     line-height: 60px;
+    @include respond(phone) { // width < 1200?
+      font-size: $font-size-larger;
+      line-height: 42px;
+      padding-bottom: 10px;
+    }
   }
 
   p {
@@ -42,5 +66,9 @@ $font-size-tiny: 0.444em;
     font-family: $oxygen;
     line-height: 45px;
     font-weight: 300;
+    @include respond(phone) { // width < 1200?
+      font-size: $font-size-regular;
+      line-height: 28px;
+    }
   }
 }

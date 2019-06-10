@@ -1,6 +1,6 @@
 import React from 'react'
+import Head from 'next/head'
 
-import "../style.scss"
 import Header from '../components/Header'
 import Hero from '../components/Hero'
 import Intro from '../components/Intro'
@@ -12,6 +12,7 @@ import ImageRow from '../components/ContentLayouts/ImageRow'
 import Cta from '../components/CallToAction'
 import Footer from '../components/Footer'
 import Modal from '../components/Modal'
+import "../style.scss"
 
 
 class Index extends React.Component {
@@ -36,6 +37,11 @@ class Index extends React.Component {
     const { showModal } = this.state
     return (
       <div>
+        <Head>
+          <title>hermitly: Productive self-exile </title>
+          <link rel="icon" href={ '../static/hermitly favicon-02.png' } type="image/png" />
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        </Head>
         <Modal show={ showModal } closeModal={ this.toggleModal } />
         <Header onLoginClick={ this.toggleModal } />
         <Hero type={ "grey" }>

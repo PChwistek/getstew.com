@@ -7,6 +7,15 @@
     padding-top: 64px;
     height: 80vh;
     background: $grey-background;
+
+    @include respond(tablet) { // width < 1200?
+      height: 50vh;
+    }
+
+    @include respond(phone) { // width < 1200?
+      height: 60vh;
+    }
+
   }
   &__grey--mini {
     background: $grey-background;
@@ -18,15 +27,26 @@
   &__container {
     display: inline-block; 
     width: 100%;
+    @include respond(phone) { // width < 1200?
+      font-size: $font-size-regular;
+    }
   }
 
   &__body {
     width: 80%;
+    @include respond(phone) { // width < 1200?
+      width: 100%;
+    }
   }
 
   &__rows {
     display: flex;
     flex-direction: row;
+    @include respond(phone) { // width < 1200?
+      flex-direction: column-reverse;
+      padding-left: 5%;
+      padding-right: 5%;
+    }
   }
 
   &__item {
@@ -36,10 +56,19 @@
 
   &--center {
     text-align: right;
+    align-self: center;
+    @include respond(phone) { // width < 1200?
+      flex-direction: column-reverse;
+      align-self: baseline;
+    }
   }
 
   &__image {
     width: 150px;
+    @include respond(phone) { // width < 1200?
+      width: 50px;
+      padding-bottom: 5px;
+    }
   }
 
   &--grey {
@@ -53,11 +82,20 @@
   &__container {
     padding-top: 30px;
     padding-bottom: 30px;
+    @include respond(phone) { // width < 1200?
+      padding-left: 5%;
+      padding-right: 5%;
+    }
   }
 
   &__image {
     width: 200px;
     padding-right: 100px;
+    @include respond(phone) { // width < 1200?
+      padding-right: 0px;
+      width: 100px;
+      padding-bottom: 10px;
+    }
   }
 
   &__aux-image {
@@ -67,6 +105,9 @@
   &__rows {
     display: flex;
     flex-direction: row;
+    @include respond(phone) { // width < 1200?
+      flex-direction: column;
+    }
   }
 
   &__item {
@@ -85,10 +126,22 @@
     padding-top: 50px;
     padding-bottom: 30px;
     text-align: center;
+    @include respond(phone) { // width < 1200?
+      padding-left: 5%;
+      padding-right: 5%;
+    }
   }
 
   &__image {
     width: 50px;
+
+    @include respond(tablet) { // width < 1200?
+      width: 40px;
+    }
+
+    @include respond(phone) { // width < 1200?
+      width: 30px;
+    }
   }
 
   &__caption {
@@ -105,6 +158,10 @@
     padding-bottom: 50px;
     margin: auto;
     align-items: self-end;
+    @include respond(phone) { // width < 1200?
+      width: 90%;
+      padding-bottom: 15px;
+    }
   }
 
   &__item {
@@ -124,6 +181,11 @@
 
   &__row {
     display: flex;
+    @include respond(phone) { // width < 1200?
+      flex-direction: column;
+      padding-left: 5%;
+      padding-right: 5%;
+    }
   }
 
   &__title {
@@ -148,6 +210,10 @@
     padding: 5px;
     flex-grow: 1;
     flex-basis: 0;
+    @include respond(tablet) { // width < 1200?
+      margin: 10px;
+      padding: 0px;
+    }
   }
 
 }
