@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import SubscriptionForm from '../Form'
 
 const Modal = props => {
-  const url = "//xxxx.us13.list-manage.com/subscribe/post?u=zefzefzef&id=fnfgn"
+  const url = "https://hermitly.us20.list-manage.com/subscribe/post?u=eb4249f284dc270a2dc86b08b&amp;id=0685a4162f"
 
   return (
     <div className={ props.show ? "modal" : "modal--hide"}>

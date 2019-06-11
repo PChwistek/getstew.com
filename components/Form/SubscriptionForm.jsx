@@ -12,9 +12,9 @@ const SubscriptionForm = ({ status, message, onValidated }) => {
 
   return (
     <div>
-      {status === "sending" && <div>sending...</div>}
-      {status === "error" && <div dangerouslySetInnerHTML={{__html: message}}/>}
-      {status === "success" && <div>Confirmation email Sent !</div>}
+      {status === "sending" && <div className="submission-form__status">sending...</div>}
+      {status === "error" && <div className="submission-form__status" dangerouslySetInnerHTML={{__html: message}}/>}
+      {status === "success" && <div className="submission-form__status">Confirmation email sent!</div>}
       <input
         className={ "modal__textfield" }
         ref={node => (email = node)}
