@@ -15,7 +15,7 @@ const Modal = props => {
           Sorry about that!
         </h2>
         <p>
-          hermitly is still in development. If you&apos;re interested in becoming one the first certified internet hermits, enter your email below to hear when hermitly goes live.
+          hermitly is still in development. If you&apos;re interested in becoming one the first certified internet hermits, enter your email below to hear when we launch.
         </p>
         <br />
         <MailchimpSubscribe

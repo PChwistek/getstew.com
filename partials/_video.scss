@@ -3,6 +3,7 @@
     text-align: center;
     padding-top: 30px;
     display: inline-block;
+    width: 100%;
   }
 
   &__vid {
@@ -18,9 +19,7 @@
 
 .loader {
   margin: auto;
-  &__none {
-    display: none;
-  }
+  padding: 100px;
 }
 
 .spinner {

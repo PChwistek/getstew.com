@@ -22,13 +22,16 @@ export default class Video extends React.Component {
     return (
       <Content>
         <div className="video video__container">
-          <div className={loading ? "loader" : "loader__none" }>
-            <img src={ "/static/spinner.gif" } className="spinner"/>
-          </div>
-          <video autoPlay muted loop playsinline className={"video video__vid"}>
-              <source src="https://storage.googleapis.com/hermitly-assets/hermitly_demo_6.mp4" type="video/mp4" />
-              Your browser is not supported!
-          </video>
+            {
+              loading 
+                ? <div className="loader">
+                  <img src={ "/static/spinner.gif" } className="spinner"/>
+                </div>
+                : <video autoPlay muted loop playsInline className={"video video__vid"}>
+                    <source src="https://storage.googleapis.com/hermitly-assets/hermitly_demo_6.mp4" type="video/mp4" />
+                    Your browser is not supported!
+                  </video>
+            }
         </div>
       </Content>
     )

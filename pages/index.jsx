@@ -47,7 +47,7 @@ class Index extends React.Component {
     return (
       <Layout>
         <Head>
-          <title>hermitly: Productive self-exile </title>
+          <title>hermitly: productive self-exile </title>
           <link rel="icon" href={ '../static/hermitly favicon-02.png' } type="image/png" />
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <meta name="description" content="hermitly is a task-management tool that cuts out the distracting parts of the internet while you work" />
