@@ -228,3 +228,14 @@
     padding-top: 20px;
   }
 }
+
+
+.submission-form {
+  &__status {
+    color: $text-color;
+    font-family: $oxygen;
+    font-size: $font-size-smaller;
+    line-height: 16px;
+    font-weight: 400;
+  }
+}
