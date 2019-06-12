@@ -11,9 +11,7 @@ export const logPageView = () => {
 
 export const logEvent = (category = '', action = '') => {
   if (category && action) {
-    console.log('logging', category)
-    console.log('logging', action)
-    ReactGA.event({ category, action })
+    ReactGA.event({ category, action, label: 'Add', value: 0 })
   }
 }
 
