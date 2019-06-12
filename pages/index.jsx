@@ -15,6 +15,7 @@ import Footer from '../components/Footer'
 import Modal from '../components/Modal'
 import "../style.scss"
 import { findBrowserType } from '../utils/device_check'
+import { logEvent } from '../utils/analytics'
 
 class Index extends React.Component {
 
@@ -35,6 +36,11 @@ class Index extends React.Component {
     document.body.style.overflow = newShowModal ? "hidden": "visible"
   }
 
+  onButtonClick = () => {
+    this.toggleModal()
+    logEvent('add to', 'click')
+  }
+
   componentDidMount() {
     const detectedBrowser = findBrowserType()
     this.setState({
@@ -53,9 +59,9 @@ class Index extends React.Component {
           <meta name="description" content="hermitly is a task-management tool that cuts out the distracting parts of the internet while you work" />
         </Head>
         <Modal show={ showModal } closeModal={ this.toggleModal } />
-        <Header onLoginClick={ this.toggleModal } />
+        <Header onLoginClick={ this.onButtonClick } />
         <Hero type={ "grey" }>
-          <Intro onButtonClick={ this.toggleModal } browser={ browser } />
+          <Intro onButtonClick={ this.onButtonClick } browser={ browser } />
           <Video />
         </Hero>
         <Hero>
@@ -92,7 +98,7 @@ class Index extends React.Component {
           image="../static/support.png"
         />
         <Hero>
-          <Cta onButtonClick={ this.toggleModal } browser={ browser } />
+          <Cta onButtonClick={ this.onButtonClick } browser={ browser } />
         </Hero>
         <Hero type="grey-mini">
           <Footer />
