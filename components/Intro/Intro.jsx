@@ -12,7 +12,7 @@ const Intro = props => {
         </h1>
         <div className="content content__intro__desc">
           <p>
-            hermitly is a task-management tool that cuts out the distracting parts of the internet while you work
+            hermitly is a task management tool that cuts out the distracting parts of the internet while you work
           </p>
         </div>
         <Button onClick={ props.onButtonClick }>
