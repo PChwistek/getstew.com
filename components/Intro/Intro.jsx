@@ -8,11 +8,11 @@ const Intro = props => {
     <div className="content content__intro">
       <Content>
         <h1>
-          hermits get s*** done
+          { props.slogan }
         </h1>
         <div className="content content__intro__desc">
           <p>
-            hermitly is a task management tool that cuts out the distracting parts of the internet while you work
+            { props.description }
           </p>
         </div>
         <Button onClick={ props.onButtonClick }>
@@ -25,7 +25,9 @@ const Intro = props => {
 
 Intro.propTypes = {
   onButtonClick: PropTypes.func,
-  browser: PropTypes.string
+  browser: PropTypes.string,
+  slogan: PropTypes.string,
+  description: PropTypes.string,
 }
 
 export default Intro

@@ -8,10 +8,10 @@ export default function CTA(props) {
     <Content>
       <div className="cta__container">
         <h2>
-          Embrace Hermitivity
+          { props.title }
         </h2>
         <p>
-          (productivity + being an internet hermit)
+          { props.body }
         </p>
         <div className="cta__button-wrapper">
           <Button onClick={ props.onButtonClick }>
@@ -24,6 +24,8 @@ export default function CTA(props) {
 }
 
 CTA.propTypes = {
+  title: PropTypes.string,
+  body: PropTypes.string,
   onButtonClick: PropTypes.func,
   browser: PropTypes.string
 }

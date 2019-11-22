@@ -6,7 +6,7 @@ export default function header(props) {
       <div className="header header__container">
         <div className="header header__body">
           <div>
-            <img src={ "../static/hermitly 2-01.png" } className="header header__logo"/>
+            <img src={ props.heroPhotoPath } className="header header__logo"/>
           </div>
           <div className="header header__items">
               <div className="header header__item" onClick={ props.onLoginClick }>
@@ -20,5 +20,6 @@ export default function header(props) {
 }
 
 header.propTypes = {
-  onLoginClick: PropTypes.func
+  onLoginClick: PropTypes.func,
+  heroPhotoPath: PropTypes.string
 }

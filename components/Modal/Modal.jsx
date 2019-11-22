@@ -15,7 +15,7 @@ const Modal = props => {
           Sorry about that!
         </h2>
         <p>
-          hermitly is still in development. If you&apos;re interested in becoming one the first certified internet hermits, enter your email below to receive an update when we launch.
+          stew is still in development. If you&apos;re interested in, enter your email below to receive an update when we launch.
         </p>
         <br />
         <MailchimpSubscribe

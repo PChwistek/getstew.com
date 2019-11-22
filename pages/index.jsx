@@ -9,7 +9,7 @@ import Video from '../components/Video'
 import FeaturesRow from '../components/ContentLayouts/FeaturesRow'
 import Banner from '../components/ContentLayouts/Banner'
 import TextWithImage from '../components/ContentLayouts/TextWithImage'
-import ImageRow from '../components/ContentLayouts/ImageRow'
+import TextWithImageTop from '../components/ContentLayouts/TextWithImageTop'
 import Cta from '../components/CallToAction'
 import Footer from '../components/Footer'
 import Modal from '../components/Modal'
@@ -53,52 +53,49 @@ class Index extends React.Component {
     return (
       <Layout>
         <Head>
-          <title>hermitly: productive self-exile </title>
-          <link rel="icon" href={ '../static/hermitly favicon-02.png' } type="image/png" />
+          <title>stew: collaborative tab management </title>
+          <link rel="icon" href={ '../static/favicon.png' } type="image/png" />
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-          <meta name="description" content="hermitly is a task-management tool that cuts out the distracting parts of the internet while you work" />
+          <meta name="description" content="stew is the smart tab manager built for collaboration" />
         </Head>
         <Modal show={ showModal } closeModal={ this.toggleModal } />
-        <Header onLoginClick={ this.onButtonClick } />
+        <Header onLoginClick={ this.onButtonClick } heroPhotoPath={ '../static/stew-logo.png' } />
         <Hero type={ "grey" }>
-          <Intro onButtonClick={ this.onButtonClick } browser={ browser } />
-          <Video />
+          <Intro 
+            onButtonClick={ this.onButtonClick } 
+            browser={ browser } 
+            slogan="Get your f***ing tabs in order"
+            description="stew is the smart tab manager built for collaboration"
+          />
+          <Video videoUrl="https://stew-landing.s3.us-east-2.amazonaws.com/stew.mp4" />
         </Hero>
         <Hero>
           <FeaturesRow />
         </Hero>
         <Banner 
-          title="Your attention is valuable" 
-          body="Everyone wants it. Make sure that they only have it when you’re not being a productive legend."
-          image="../static/chest.png"
+          title="Browsers used to be just for browsing." 
+          body="stew makes sure your browser works for work."
+          image="../static/browsing-2.png"
         />
         <Hero>
-          <ImageRow 
-            title="Bring your favorite tools into your shell"
-            body="hermitly works with what you already use"
-            imageList={ 
-              [
-                { caption: "Evernote", image: "../static/evernote.png" },
-                { caption: "Todoist", image: "../static/todoist.png" },
-                { caption: "Asana", image: "../static/asana.png" },
-                { caption: "Google Keep", image: "../static/keep.png" }
-              ] 
-            }
-          />
           <TextWithImage
-            title="And it blocks your phone too."
-            body="So Karen can’t distract you with cat memes."
-            image={ "../static/Apple iPhone XS Max Space Grey.png" }
-            auxImage={ "../static/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" }
+            title="Save time when setting up projects."
+            body="stew helps you find custom or community-made tab setups to get your work done better and faster."
+            image={ "../static/chest.png" }
+          />
+          <TextWithImageTop 
+            title="It's great for teams too"
+            body="private repositories enable your team to do more, together"
+            imagePath="../static/team.png"
           />
         </Hero>
         <Banner 
-          title="Multi-taskers get automated" 
-          body="The world's most valuable minds work deeply one task at a time. hermitly makes sure you do too."
-          image="../static/support.png"
+          title="Sharing is caring." 
+          body="Great things come from collaboration: Wikipedia, Open Source Software, and now, better browser workflows."
+          image="../static/share.png"
         />
         <Hero>
-          <Cta onButtonClick={ this.onButtonClick } browser={ browser } />
+          <Cta onButtonClick={ this.onButtonClick } browser={ browser } title="Discover the best workflow recipes!" body="it’s like your grandma’s cookbook, but for tabs" />
         </Hero>
         <Hero type="grey-mini">
           <Footer />

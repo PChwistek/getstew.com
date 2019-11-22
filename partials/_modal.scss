@@ -52,7 +52,7 @@
     width: 50%;
     padding: 10px;
     margin-right: 20px;
-    border: 1px solid rgba(231, 75, 133, 0.55);
+    border: 1px solid $brand-color;
     outline-width: 0;
 
     @include respond(phone) { // width < 1200?

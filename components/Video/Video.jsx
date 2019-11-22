@@ -1,5 +1,5 @@
 import React from 'react'
-
+import PropTypes from 'prop-types'
 import Content from '../Content'
 
 export default class Video extends React.Component {
@@ -19,6 +19,7 @@ export default class Video extends React.Component {
 
   render() {
     const { loading } = this.state
+    const { videoUrl } = this.props
     return (
       <Content>
         <div className="video video__container">
@@ -28,7 +29,7 @@ export default class Video extends React.Component {
                   <img src={ "/static/spinner.gif" } className="spinner"/>
                 </div>
                 : <video autoPlay muted loop playsInline className={"video video__vid"}>
-                    <source src="https://storage.googleapis.com/hermitly-assets/hermitly_demo_6.mp4" type="video/mp4" />
+                    <source src={ videoUrl } type="video/mp4" />
                     Your browser is not supported!
                   </video>
             }
@@ -36,4 +37,8 @@ export default class Video extends React.Component {
       </Content>
     )
   }
+}
+
+Video.propTypes = {
+  videoUrl: PropTypes.string,
 }

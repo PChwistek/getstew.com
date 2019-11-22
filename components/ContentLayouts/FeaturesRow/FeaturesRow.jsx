@@ -3,20 +3,20 @@ import Content from '../../Content'
 const FeaturesRow = () => {
   const features = [
     {
-      title: "Customize",
-      body: "Adjust the timer according to your needs. Blacklist any site you find distracting. Choose your background noise."
+      title: "Save",
+      body: "Take a snapshot of your current browser setup for later. Save time when setting up a project."
     },
     {
-      title: "Organize",
-      body: "Break down intimidating projects into smaller, workable chunks. Manage your progress and hours."
+      title: "Share",
+      body: "Export your configuration and share with others, inside or outside your organization."
     },
     {
-      title: "Do More, Better",
-      body: "Isolating problems and working on them deeply yields better results, faster."
+      title: "Publish",
+      body: "Share your stew in the global directory. Improve your karma when someone uses your recipe."
     },
     {
-      title: "Improve",
-      body: "Receive diagnostics regarding your productivity. Identify distracting or problematic sites."
+      title: "Search",
+      body: "Find and save a browser worflow that suits your needs. Powered by natural language processing."
     }  
   ]
 
