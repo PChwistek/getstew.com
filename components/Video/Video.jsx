@@ -12,9 +12,11 @@ export default class Video extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      loading: false
-    })
+    setTimeout(() => {
+      this.setState({
+        loading: false
+      })
+    }, 500)
   }
 
   render() {
@@ -26,7 +28,7 @@ export default class Video extends React.Component {
             {
               loading 
                 ? <div className="loader">
-                  <img src={ "/static/balls.gif" } className="spinner"/>
+                  <img src={ "/static/flask.svg" } className="spinner"/>
                 </div>
                 : <video autoPlay muted loop playsInline className={"video video__vid"}>
                     <source src={ videoUrl } type="video/mp4" />
