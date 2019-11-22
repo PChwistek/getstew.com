@@ -79,7 +79,7 @@ class Index extends React.Component {
         />
         <Hero>
           <TextWithImage
-            title="Save time when setting up projects."
+            title="Save time when setting up."
             body="stew helps you find custom or community-made tab setups to get your work done better and faster."
             image={ "../static/chest.png" }
           />
