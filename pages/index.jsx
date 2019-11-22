@@ -95,7 +95,7 @@ class Index extends React.Component {
           image="../static/share.png"
         />
         <Hero>
-          <Cta onButtonClick={ this.onButtonClick } browser={ browser } title="Discover the best workflow recipes!" body="it’s like your grandma’s cookbook, but for tabs" />
+          <Cta onButtonClick={ this.onButtonClick } browser={ browser } title="Discover the best workflow recipes!" body="It’s like your grandma’s cookbook, but for tabs" />
         </Hero>
         <Hero type="grey-mini">
           <Footer />
