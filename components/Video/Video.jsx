@@ -26,7 +26,7 @@ export default class Video extends React.Component {
             {
               loading 
                 ? <div className="loader">
-                  <img src={ "/static/spinner.gif" } className="spinner"/>
+                  <img src={ "/static/balls.gif" } className="spinner"/>
                 </div>
                 : <video autoPlay muted loop playsInline className={"video video__vid"}>
                     <source src={ videoUrl } type="video/mp4" />
