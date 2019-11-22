@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import SubscriptionForm from '../Form'
 
 const Modal = props => {
-  const url = "https://hermitly.us20.list-manage.com/subscribe/post?u=eb4249f284dc270a2dc86b08b&amp;id=0685a4162f"
+  const url = "https://getstew.us4.list-manage.com/subscribe/post?u=354711416b98e94318e76705e&amp;id=c65f16bba9"
 
   return (
     <div className={ props.show ? "modal" : "modal--hide"}>
@@ -15,7 +15,7 @@ const Modal = props => {
           Sorry about that!
         </h2>
         <p>
-          stew is still in development. If you&apos;re interested in, enter your email below to receive an update when we launch.
+          stew is still in development. If you&apos;re interested, enter your email below to receive an update when we launch.
         </p>
         <br />
         <MailchimpSubscribe
