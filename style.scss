@@ -42,6 +42,16 @@ $grey-background: linear-gradient(to right,$grey-color 0%, $grey-color 100%);
 $modal-background: linear-gradient(to right,$modal-background-color 0%, $modal-background-color 100%);
 
 
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: $text-color;
+}
+
+
+
 @mixin respond($breakpoint) {
     @if $breakpoint == phone {
         @media only screen and (max-width: 37.5em) { @content };    //600px
