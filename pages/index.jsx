@@ -1,8 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
-
 import Layout from '../components/Layout'
-import Header from '../components/Header'
+import Header from '../components/LandingHeader'
 import Hero from '../components/Hero'
 import Intro from '../components/Intro'
 import Video from '../components/Video'
@@ -12,10 +11,11 @@ import TextWithImage from '../components/ContentLayouts/TextWithImage'
 import TextWithImageTop from '../components/ContentLayouts/TextWithImageTop'
 import Cta from '../components/CallToAction'
 import Footer from '../components/Footer'
-import Modal from '../components/Modal'
-import "../style.scss"
+import MailModal from '../components/Modal/MailModal'
 import { findBrowserType } from '../utils/device_check'
 import { logEvent } from '../utils/analytics'
+import "../style.scss"
+
 
 class Index extends React.Component {
 
@@ -58,7 +58,7 @@ class Index extends React.Component {
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <meta name="description" content="stew is the smart tab manager built for collaboration" />
         </Head>
-        <Modal show={ showModal } closeModal={ this.toggleModal } />
+        <MailModal show={ showModal } closeModal={ this.toggleModal } />
         <Header heroPhotoPath={ '../static/stew-logo.png' } />
         <Hero type={ "grey" }>
           <Intro 

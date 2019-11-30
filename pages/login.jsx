@@ -1,25 +1,30 @@
-/* eslint-disable no-console */
-import PropTypes from 'prop-types'
-import Link from 'next/link'
 import React, { useState } from 'react'
+import Layout from '../components/Layout'
 import fetch from 'isomorphic-unfetch'
-import { login } from '../../utils/auth'
+import Head from 'next/head'
+import Hero from '../components/Hero'
+import Header from '../components/LandingHeader'
+import { login } from '../utils/auth'
+import CenteredPanel from '../components/ContentLayouts/CenteredPanel'
+import "../style.scss"
 
-export default function header(props) {
-  const [userData, setUserData] = useState({ username: 'test2', error: '' })
+const Login = props => {
+  const [userData, setUserData] = useState({ username: '', error: '' })
 
   async function handleSubmit (event) {
     event.preventDefault()
     setUserData(Object.assign({}, userData, { error: '' }))
 
     // const username = userData.username
+    const username = userData.username
+    const password = userData.password
     const url = 'http://localhost:3009/auth/login'
 
     try {
       const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: 'test2', password: 'test2' })
+        body: JSON.stringify({ username, password })
       })
       if (response.status >= 200 && response.status < 300) {
         const { access_token } = await response.json()
@@ -47,30 +52,23 @@ export default function header(props) {
   }
 
   return(
-    <nav>
-      <div className="header header__container">
-        <div className="header header__body">
-          <div>
-            <img src={ props.heroPhotoPath } className="header header__logo"/>
-          </div>
-          <div className="header header__items">
-              <div className="header header__item">
-                <div onClick={ handleSubmit }>
-                  Pricing
-                </div>
-              </div>
-              <div className="header header__item">
-                <Link href={ '/account' }> 
-                  <a> Account </a>
-                </Link>
-              </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <Layout>
+      <Head>
+        <title>stew | Login </title>
+        <link rel="icon" href={ '../static/favicon.png' } type="image/png" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="description" content="stew login" />
+      </Head>
+      <Header heroPhotoPath={ '../static/stew-logo.png' } />
+      <Hero type="grey-lg">
+        <CenteredPanel>
+          Login, baby
+        </CenteredPanel>
+      </Hero>
+    </Layout> 
   )
 }
 
-header.propTypes = {
-  heroPhotoPath: PropTypes.string
-}
+
+
+export default Login

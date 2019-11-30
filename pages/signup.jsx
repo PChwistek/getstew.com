@@ -1,28 +1,25 @@
 import React from 'react'
 import Layout from '../components/Layout'
 import Head from 'next/head'
-import Hero from '../components/Hero'
-import Header from '../components/LandingHeader'
 import "../style.scss"
 
-class Pricing extends React.Component {
+class SignUp extends React.Component {
 
   render() {
     return(
       <Layout>
         <Head>
-          <title>stew | Pricing </title>
+          <title>stew | Sign Up </title>
           <link rel="icon" href={ '../static/favicon.png' } type="image/png" />
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-          <meta name="description" content="stew pricing" />
+          <meta name="description" content="stew sign up" />
         </Head>
-        <Header heroPhotoPath={ '../static/stew-logo.png' } />
-        <Hero type="grey-lg">
-            Pricing
-        </Hero>
+        <div>
+          Login, baby
+        </div>
       </Layout>
     )
   }
 }
 
-export default Pricing
+export default SignUp

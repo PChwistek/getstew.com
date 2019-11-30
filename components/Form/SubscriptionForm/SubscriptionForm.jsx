@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Button from '../Button'
+import Button from '../../Button'
 
 const SubscriptionForm = ({ status, message, onValidated }) => {
   let email

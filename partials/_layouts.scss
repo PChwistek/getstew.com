@@ -21,6 +21,11 @@
     background: $grey-background;
   }
 
+  &__grey--lg {
+    height: 100vh;
+    background: $grey-background;
+  }
+
 }
 
 .banner {
@@ -241,5 +246,16 @@
     font-size: $font-size-smaller;
     line-height: 16px;
     font-weight: 400;
+  }
+}
+
+.centered-panel {
+  @include absCenter;
+
+  width: 400px;
+  height: 500px;
+
+  &--white {
+    background: #ffffff;
   }
 }

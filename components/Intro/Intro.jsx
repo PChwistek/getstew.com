@@ -15,9 +15,12 @@ const Intro = props => {
             { props.description }
           </p>
         </div>
-        <Button onClick={ props.onButtonClick }>
-          Add to { props.browser } (it&apos;s free)
-        </Button>
+        {
+          props.onButtonClick && 
+          <Button onClick={ props.onButtonClick }>
+            Add to { props.browser } (it&apos;s free)
+          </Button>
+        }
       </Content>
     </div>
   )
