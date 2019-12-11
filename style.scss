@@ -32,7 +32,9 @@ $base-line-height: 1.5 !default;
 $spacing-unit:     30px !default;
 
 $text-color:       #4C5B5C !default;
+$text-color-lighter:       rgb(93, 111, 112) !default;
 $brand-color:      #BCDB71 !default;
+$error-color: #E26D5A !default;
 $grey-color: rgba(242, 244, 243, 0.43);
 $white: #fdfdfd;
 
@@ -76,3 +78,4 @@ a:visited {
 @import "partials/video";
 @import "partials/layouts";
 @import "partials/modal";
+@import "partials/textfield";

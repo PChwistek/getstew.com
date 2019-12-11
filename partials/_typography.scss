@@ -5,7 +5,7 @@ $font-size-larger: 2.25em;
 $font-size-large: 1.5em;
 $font-size-regular: 1em;
 $font-size-smaller: 0.667em;
-$font-size-tiny: 0.444em;
+$font-size-tiny: 0.6em;
 
 
 .content {
@@ -69,6 +69,31 @@ $font-size-tiny: 0.444em;
     @include respond(phone) { // width < 1200?
       font-size: $font-size-regular;
       line-height: 28px;
+    }
+  }
+
+  &__app {
+    h2 {
+      font-size: $font-size-larger;
+      font-family: $base-font-family;
+      font-weight: 700;
+      line-height: 60px;
+      @include respond(phone) { // width < 1200?
+        font-size: $font-size-larger;
+        line-height: 42px;
+        padding-bottom: 10px;
+      }
+    }
+
+    p {
+      font-size: $font-size-regular;
+      font-family: $oxygen;
+      line-height: 45px;
+      font-weight: 300;
+      @include respond(phone) { // width < 1200?
+        font-size: $font-size-regular;
+        line-height: 28px;
+      }
     }
   }
 }

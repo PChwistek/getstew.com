@@ -17,7 +17,7 @@ const Intro = props => {
         </div>
         {
           props.onButtonClick && 
-          <Button onClick={ props.onButtonClick }>
+          <Button primary onClick={ props.onButtonClick }>
             Add to { props.browser } (it&apos;s free)
           </Button>
         }

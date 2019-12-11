@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import Layout from '../components/Layout'
 import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
-import Hero from '../components/Hero'
-import Header from '../components/LandingHeader'
 import { login } from '../utils/auth'
-import CenteredPanel from '../components/ContentLayouts/CenteredPanel'
+import SplitPanels, { Panel } from '../components/ContentLayouts/SplitPanels'
+import TextField from '../components/TextField'
+import Button from '../components/Button'
 import "../style.scss"
 
 const Login = props => {
@@ -30,17 +30,12 @@ const Login = props => {
         const { access_token } = await response.json()
         await login({ access_token })
       } else {
-        console.log('Login failed.')
         // https://github.com/developit/unfetch#caveats
         let error = new Error(response.statusText)
         error.response = response
         throw error
       }
     } catch (error) {
-      console.error(
-        'You have an error in your code or there are Network issues.',
-        error
-      )
 
       const { response } = error
       setUserData(
@@ -59,12 +54,27 @@ const Login = props => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content="stew login" />
       </Head>
-      <Header heroPhotoPath={ '../static/stew-logo.png' } />
-      <Hero type="grey-lg">
-        <CenteredPanel>
-          Login, baby
-        </CenteredPanel>
-      </Hero>
+      <SplitPanels>
+        <Panel left={ true }>
+          <img src={ '../static/stew-logo.png' } className={ 'split__image' }/>
+        </Panel>
+        <Panel left={ false }>
+          <div className={ 'content content__app split__login-form'}>
+            <h2> Sign In </h2>
+            <div className="split__login-form-item">
+              <TextField type={ 'text' } label={ 'USERNAME' } /> 
+            </div>
+            <div className="split__login-form-item">
+              <TextField type={ 'password' } label={ 'PASSWORD' } />
+            </div>
+            <div className="split__login-form-item">
+              <Button>
+                Sign In
+              </Button>
+            </div>
+          </div>
+        </Panel>
+      </SplitPanels>
     </Layout> 
   )
 }
