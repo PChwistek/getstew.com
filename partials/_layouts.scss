@@ -332,4 +332,13 @@
     }
   }
 
+  &__text {
+    font-family: $base-font-family;
+    font-size: $font-size-regular; 
+
+    &--bold {
+      font-weight: 600;
+    }
+  }
+
 }

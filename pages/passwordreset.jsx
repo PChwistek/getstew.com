@@ -10,7 +10,7 @@ import Button from '../components/Button'
 import Checkbox from '../components/Checkbox'
 import "../style.scss"
 
-const SignUp = props => {
+const PasswordReset = props => {
   // const [userData, setUserData] = useState({ username: '', error: '' })
 
   async function handleSubmit (event) {
@@ -32,30 +32,21 @@ const SignUp = props => {
         <Panel left={ false }>
           <img src={ '../static/stew-logo.png' } className={ 'split__image split__image--mobile' }/>
           <div className={ 'content__app split__form'}>
-            <h2> Sign Up </h2>
+            <h2> Let&apos;s get your stew back! </h2>
+            <div className={ 'split__form-item split__text' }>
+              We&apos;ll send you an email with instructions to reset your password.
+            </div>
             <div className="split__form-item">
               <TextField type={ 'text' } label={ 'EMAIL' } /> 
             </div>
             <div className="split__form-item">
-              <TextField type={ 'password' } label={ 'PASSWORD' } />
-            </div>
-            <div className="split__form-item">
-              <Checkbox label={ 'Subscribe to the stew newsletter' } />
-            </div>
-            <div className="split__form-item">
-              <div className="split__small-text">
-                By clicking Sign Up, you agree to our <a> terms of service </a> and <a> privacy policy. </a> 
-                You&apos;ll also receive account-related emails that you can opt out of at any time.
-              </div>
-            </div>
-            <div className="split__form-item">
               <Button onClick={ e => this.handleSubmit(e) }>
-                Sign Up
+                Reset
               </Button>
             </div>
             <div className="split__form-item--extra-space">
               <div className="split__small-text">
-                Already have an account? &nbsp;
+                Know your password? &nbsp;
                 <Link href="/login">
                   <a className='split__small-text--bold'>Sign in</a>
                 </Link>
@@ -69,4 +60,4 @@ const SignUp = props => {
 }
 
 
-export default SignUp
+export default PasswordReset

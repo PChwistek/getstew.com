@@ -84,8 +84,8 @@ const Login = props => {
             <div className="split__form-item--extra-space">
               <div className="split__small-text">
                 New to stew? &nbsp;
-                <Link href="/sign-up">
-                  <a className='split__small-text--bold'>SIGN UP</a>
+                <Link href="/signup">
+                  <a className='split__small-text--bold'>Sign up</a>
                 </Link>
               </div>
             </div>
