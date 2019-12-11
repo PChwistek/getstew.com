@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Layout from '../components/Layout'
 import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
+import Link from 'next/link'
 import { login } from '../utils/auth'
 import SplitPanels, { Panel } from '../components/ContentLayouts/SplitPanels'
 import TextField from '../components/TextField'
@@ -59,18 +60,34 @@ const Login = props => {
           <img src={ '../static/stew-logo.png' } className={ 'split__image' }/>
         </Panel>
         <Panel left={ false }>
-          <div className={ 'content content__app split__login-form'}>
+          <img src={ '../static/stew-logo.png' } className={ 'split__image split__image--mobile' }/>
+          <div className={ 'content__app split__form'}>
             <h2> Sign In </h2>
-            <div className="split__login-form-item">
-              <TextField type={ 'text' } label={ 'USERNAME' } /> 
+            <div className="split__form-item">
+              <TextField type={ 'text' } label={ 'EMAIL' } /> 
             </div>
-            <div className="split__login-form-item">
+            <div className="split__form-item">
               <TextField type={ 'password' } label={ 'PASSWORD' } />
             </div>
-            <div className="split__login-form-item">
-              <Button>
+            <div className="split__form-item">
+              <Button onClick={ e => this.handleSubmit(e) }>
                 Sign In
               </Button>
+            </div>
+            <div className="split__form-item">
+              <div className="split__small-text">
+                <Link href="/password-reset">
+                  <a> Forgot password? </a>
+                </Link>
+              </div>
+            </div>
+            <div className="split__form-item--extra-space">
+              <div className="split__small-text">
+                New to stew? &nbsp;
+                <Link href="/sign-up">
+                  <a className='split__small-text--bold'>SIGN UP</a>
+                </Link>
+              </div>
             </div>
           </div>
         </Panel>

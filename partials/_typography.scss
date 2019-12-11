@@ -76,6 +76,7 @@ $font-size-tiny: 0.6em;
     h2 {
       font-size: $font-size-larger;
       font-family: $base-font-family;
+      color: $text-color;
       font-weight: 700;
       line-height: 60px;
       @include respond(phone) { // width < 1200?
@@ -95,5 +96,10 @@ $font-size-tiny: 0.6em;
         line-height: 28px;
       }
     }
+  }
+
+  .link {
+    color: $link-color;
+    cursor: pointer;
   }
 }
