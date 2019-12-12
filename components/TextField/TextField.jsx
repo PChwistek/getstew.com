@@ -15,7 +15,20 @@ class TextField extends Component {
 
   changeValue(event) {
     const value = event.target.value;
-    this.setState({ value, error: "" })
+    const { validate, setValue } = this.props
+
+    if(validate) {
+      const { isValid, error } = validate(value)
+      if(isValid) {
+        this.setState({ value, error })
+        setValue(value)
+      }
+
+    } else {
+      setValue(value)
+      this.setState({ value, error: "" })
+    }
+    
   }
 
   handleKeyPress(event) {
@@ -57,11 +70,13 @@ class TextField extends Component {
 TextField.propTypes = {
   locked: PropTypes.bool,
   active: PropTypes.bool,
-  predicted: PropTypes.arrayOf.string,
+  predicted: PropTypes.any,
   value: PropTypes.string,
   error: PropTypes.string,
   type: PropTypes.string,
-  label: PropTypes.string
+  label: PropTypes.string,
+  validate: PropTypes.func,
+  setValue: PropTypes.func.isRequired,
 }
   
 export default TextField

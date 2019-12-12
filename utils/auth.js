@@ -5,9 +5,64 @@ import nextCookie from 'next-cookies'
 import cookie from 'js-cookie'
 import fetch from 'isomorphic-unfetch'
 
-export const login = ({ access_token }) => {
-  cookie.set('access_token', access_token, { expires: 1 })
+export const login = async ({ email, password }) => {
   // Router.push('/account')
+  const url = 'http://localhost:3009/auth/login'
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: email, password })
+    })
+
+    if (response.status >= 200 && response.status < 300) {
+      const { access_token } = await response.json()
+      cookie.set('access_token', access_token, { expires: 1 })
+      Router.push('/account')
+    } else {
+      // https://github.com/developit/unfetch#caveats
+      let error = new Error(response.statusText)
+      error.response = response
+      throw error
+    }
+  } catch (error) {
+    const { response } = error
+    return response
+  }
+}
+
+export const signUp = async ({ email, password, newsletter }) => {
+  const url = 'http://localhost:3009/auth/register'
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    })
+
+    if (response.status >= 200 && response.status < 300) {
+      const { access_token } = await response.json()
+      console.log('access token', access_token)
+      cookie.set('access_token', access_token, { expires: 1 })
+      Router.push('/account')
+    } else {
+      // https://github.com/developit/unfetch#caveats
+      let error = new Error(response.statusText)
+      error.response = response
+      console.log(error)
+      throw error
+    }
+  } catch (error) {
+    const { response } = error
+    return response
+  }
+}
+
+export const logout = () => {
+  cookie.remove('access_token')
+  // to support logging out from all windows
+  window.localStorage.setItem('logout', Date.now())
+  Router.replace('/login')
 }
 
 export const auth = async ctx => {
@@ -30,13 +85,6 @@ export const auth = async ctx => {
     Router.push('/login')
   }
   return access_token
-}
-
-export const logout = () => {
-  cookie.remove('access_token')
-  // to support logging out from all windows
-  window.localStorage.setItem('logout', Date.now())
-  Router.replace('/')
 }
 
 export const checkTokenStatus = async (access_token) => {

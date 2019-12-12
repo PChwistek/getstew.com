@@ -3,18 +3,23 @@ import Layout from '../components/Layout'
 import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
 import Link from 'next/link'
-import { login } from '../utils/auth'
+import { signUp } from '../utils/auth'
+import { isValidEmail, isValidPassword } from '../utils/validations'
 import SplitPanels, { Panel } from '../components/ContentLayouts/SplitPanels'
 import TextField from '../components/TextField'
 import Button from '../components/Button'
 import Checkbox from '../components/Checkbox'
 import "../style.scss"
 
-const SignUp = props => {
-  // const [userData, setUserData] = useState({ username: '', error: '' })
+const SignUp = () => {
+  const [email, setEmail] = useState({ email: '' })
+  const [password, setPassword] = useState({ password: '' })
+  const [newsletter, setNewsletter] = useState({ newsletter: false})
+  // const [agreed, setUserData] = useState({ email: '', password: '', error: '' })
 
   async function handleSubmit (event) {
-    
+    event.preventDefault()
+    signUp({ email, password, newsletter })
   }
 
   return(
@@ -34,13 +39,13 @@ const SignUp = props => {
           <div className={ 'content__app split__form'}>
             <h2> Sign Up </h2>
             <div className="split__form-item">
-              <TextField type={ 'text' } label={ 'EMAIL' } /> 
+              <TextField type={ 'text' } label={ 'EMAIL' } validate={ isValidEmail } setValue={ setEmail } /> 
             </div>
             <div className="split__form-item">
-              <TextField type={ 'password' } label={ 'PASSWORD' } />
+              <TextField type={ 'password' } label={ 'PASSWORD' } validate={ isValidPassword } setValue={ setPassword } />
             </div>
             <div className="split__form-item">
-              <Checkbox label={ 'Subscribe to the stew newsletter' } />
+              <Checkbox label={ 'Subscribe to the stew newsletter' } checked={ newsletter } setValue={ setNewsletter } />
             </div>
             <div className="split__form-item">
               <div className="split__small-text">
@@ -49,7 +54,7 @@ const SignUp = props => {
               </div>
             </div>
             <div className="split__form-item">
-              <Button onClick={ e => this.handleSubmit(e) }>
+              <Button onClick={ e => handleSubmit(e) }>
                 Sign Up
               </Button>
             </div>

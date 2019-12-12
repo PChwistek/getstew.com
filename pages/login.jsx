@@ -1,50 +1,22 @@
 import React, { useState } from 'react'
 import Layout from '../components/Layout'
-import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
 import Link from 'next/link'
 import { login } from '../utils/auth'
+import { isValidEmail, isValidPassword } from '../utils/validations'
 import SplitPanels, { Panel } from '../components/ContentLayouts/SplitPanels'
 import TextField from '../components/TextField'
 import Button from '../components/Button'
 import "../style.scss"
 
-const Login = props => {
-  const [userData, setUserData] = useState({ username: '', error: '' })
+const Login = () => {
+  const [email, setEmail] = useState({ email: '' })
+  const [password, setPassword] = useState({ password: '' })
 
   async function handleSubmit (event) {
     event.preventDefault()
-    setUserData(Object.assign({}, userData, { error: '' }))
-
+    login({ email, password })
     // const username = userData.username
-    const username = userData.username
-    const password = userData.password
-    const url = 'http://localhost:3009/auth/login'
-
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      })
-      if (response.status >= 200 && response.status < 300) {
-        const { access_token } = await response.json()
-        await login({ access_token })
-      } else {
-        // https://github.com/developit/unfetch#caveats
-        let error = new Error(response.statusText)
-        error.response = response
-        throw error
-      }
-    } catch (error) {
-
-      const { response } = error
-      setUserData(
-        Object.assign({}, userData, {
-          error: response ? response.statusText : error.message
-        })
-      )
-    }
   }
 
   return(
@@ -64,19 +36,19 @@ const Login = props => {
           <div className={ 'content__app split__form'}>
             <h2> Sign In </h2>
             <div className="split__form-item">
-              <TextField type={ 'text' } label={ 'EMAIL' } /> 
+              <TextField type={ 'text' } label={ 'EMAIL' } setValue={ setEmail } setPassword={ setPassword } validate={ isValidEmail } /> 
             </div>
             <div className="split__form-item">
-              <TextField type={ 'password' } label={ 'PASSWORD' } />
+              <TextField type={ 'password' } label={ 'PASSWORD' } setValue={ setPassword } validate={ isValidPassword } />
             </div>
             <div className="split__form-item">
-              <Button onClick={ e => this.handleSubmit(e) }>
+              <Button onClick={ e => handleSubmit(e) }>
                 Sign In
               </Button>
             </div>
             <div className="split__form-item">
               <div className="split__small-text">
-                <Link href="/password-reset">
+                <Link href="/passwordreset">
                   <a> Forgot password? </a>
                 </Link>
               </div>
@@ -84,7 +56,7 @@ const Login = props => {
             <div className="split__form-item--extra-space">
               <div className="split__small-text">
                 New to stew? &nbsp;
-                <Link href="/signup">
+                <Link href="/sign-up">
                   <a className='split__small-text--bold'>Sign up</a>
                 </Link>
               </div>
