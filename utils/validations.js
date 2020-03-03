@@ -1,5 +1,4 @@
 export function isValidEmail(email) {
-  console.log(email)
   return { isValid: true, error: "" }
 }
 

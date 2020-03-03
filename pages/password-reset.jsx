@@ -1,21 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Layout from '../components/Layout'
-import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
 import Link from 'next/link'
-import { login } from '../utils/auth'
 import SplitPanels, { Panel } from '../components/ContentLayouts/SplitPanels'
 import TextField from '../components/TextField'
 import Button from '../components/Button'
-import Checkbox from '../components/Checkbox'
 import "../style.scss"
 
-const PasswordReset = props => {
+const PasswordReset = () => {
   // const [userData, setUserData] = useState({ username: '', error: '' })
-
-  async function handleSubmit (event) {
-    
-  }
 
   return(
     <Layout>
