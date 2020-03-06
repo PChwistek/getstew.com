@@ -12,7 +12,7 @@ export const login = async ({ email, password }) => {
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email: email.toLowerCase(), password })
     })
 
     if (response.status >= 200 && response.status < 300) {
@@ -37,7 +37,7 @@ export const signUp = async ({ email, password, newsletter }) => {
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email: email.toLowerCase(), password })
     })
 
     if (response.status >= 200 && response.status < 300) {
