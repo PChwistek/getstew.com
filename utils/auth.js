@@ -20,6 +20,7 @@ export const login = async ({ email, password }) => {
       error.response = response
       throw error
     }
+    return response
   } catch (error) {
     const { response } = error
     return response
@@ -56,23 +57,17 @@ export const logout = () => {
 
 export const auth = async ctx => {
   const { access_token } = nextCookie(ctx)
-  /*
-   * If `ctx.req` is available it means we are on the server.
-   * Additionally if there's no token it means the user is not logged in.
-   */
-  if (ctx.req) {
-    const okToken = await checkTokenStatus(access_token)
-    if(!okToken) {
-      ctx.res.writeHead(302, { Location: '/login' })
-      ctx.res.end()
-      ctx.res.send()
-    }
+
+  if (ctx.req && !access_token) {
+    ctx.res.writeHead(302, { Location: '/login' })
+    ctx.res.end()
+    return
   }
 
-  // We already checked for server. This should only happen on client.
   if (!access_token) {
     Router.push('/login')
   }
+
   return access_token
 }
 

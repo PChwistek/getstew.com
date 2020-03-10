@@ -29,12 +29,11 @@ export default function landingHeader(props) {
           {
             props.showLogout &&
               <div className="header header__items">
-                <Link href={ '/login' } onClick={ logout }>
-                  <div className="header header__item">
+                <Link href={ '/login' }>
+                  <div className="header header__item" onClick={ logout }>
                     <a> Logout </a>
                   </div>
                 </Link>
-               
               </div>
           }
         </div>

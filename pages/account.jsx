@@ -118,14 +118,15 @@ Account.getInitialProps = async ctx => {
   const apiUrl =  `${getServerHostname()}/auth/profile/` // getHost(ctx.req) + '/api/profile'
   try {
     const response = await axios.get(apiUrl, config)
-    console.log(response)
     return {
       access_token,
       allowed: !!response || false,
       username: response.data.username
     }
   } catch(error) {
-    redirectOnError(ctx)
+    if (error.response.status === 401) {
+      redirectOnError(ctx)
+    }
   }
 }
 
