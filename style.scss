@@ -32,7 +32,10 @@ $base-line-height: 1.5 !default;
 $spacing-unit:     30px !default;
 
 $text-color:       #4C5B5C !default;
+$text-color-lighter:       rgb(93, 111, 112) !default;
+$link-color: #067bc2;
 $brand-color:      #BCDB71 !default;
+$error-color: #E26D5A !default;
 $grey-color: rgba(242, 244, 243, 0.43);
 $white: #fdfdfd;
 
@@ -40,6 +43,22 @@ $modal-background-color: rgba(242, 244, 243, 0.95);
 $white-background: #fdfdfd !default;
 $grey-background: linear-gradient(to right,$grey-color 0%, $grey-color 100%);
 $modal-background: linear-gradient(to right,$modal-background-color 0%, $modal-background-color 100%);
+
+
+a {
+    text-decoration: none;
+    color: $link-color;
+    cursor: pointer;
+}
+
+a:visited {
+    color: $link-color;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 
 
 @mixin respond($breakpoint) {
@@ -52,7 +71,12 @@ $modal-background: linear-gradient(to right,$modal-background-color 0%, $modal-b
   
 }
 
-
+@mixin absCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 @import "partials/typography";
 @import "partials/header";
@@ -61,3 +85,6 @@ $modal-background: linear-gradient(to right,$modal-background-color 0%, $modal-b
 @import "partials/video";
 @import "partials/layouts";
 @import "partials/modal";
+@import "partials/textfield";
+@import "partials/checkbox";
+@import "partials/account";

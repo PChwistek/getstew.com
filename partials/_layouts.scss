@@ -21,6 +21,11 @@
     background: $grey-background;
   }
 
+  &__grey--lg {
+    height: 100vh;
+    background: $grey-background;
+  }
+
 }
 
 .banner {
@@ -242,4 +247,98 @@
     line-height: 16px;
     font-weight: 400;
   }
+}
+
+.centered-panel {
+  @include absCenter;
+
+  width: 400px;
+  height: 500px;
+  border: 2px solid $brand-color;
+  border-radius: 10px;
+
+  &--white {
+    background: #ffffff;
+  }
+}
+
+.split {
+  height: 100vh;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+
+  &__left {
+    width: 156px;
+    left: 0;
+    background: $grey-background;
+    text-align: center;
+    @include respond(phone) { // width < 1200?
+      display: none;
+    }
+  }
+
+  &__right {
+    left: 156px;
+    background: #fff;
+    width: 100%;
+    @include respond(phone) { // width < 1200?
+      left: 0px;
+    }
+  }
+
+  &__image {
+    width: 100px;
+    @include absCenter;
+
+    &--mobile {
+      display: none;
+      @include respond(phone) { // width < 1200?
+        display: block;
+        top: 15%;
+      }
+    }
+
+  }
+
+  &__form {
+    width: 300px;
+    left: 50px;
+    position: absolute;
+    top:30%;
+    @include respond(phone) { // width < 1200?
+      text-align: center;
+      left: 0px;
+      width: 300px;
+      margin: auto;
+      @include absCenter;
+    }
+  }
+
+  &__form-item {
+    padding-top: 16px;
+    &--extra-space {
+      padding-top: 24px;
+    }
+  }
+
+  &__small-text {
+    font-family: $base-font-family;
+    font-size: $font-size-smaller; 
+
+    &--bold {
+      font-weight: 600;
+    }
+  }
+
+  &__text {
+    font-family: $base-font-family;
+    font-size: $font-size-regular; 
+
+    &--bold {
+      font-weight: 600;
+    }
+  }
+
 }

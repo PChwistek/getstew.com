@@ -15,11 +15,13 @@
 
   &__logo {
     width: 100px;
+    cursor: pointer;
   }
 
   &__items {
     display: inline-block;
     align-self: center;
+    display: flex;
     margin-left: auto;
   }
   
@@ -28,7 +30,13 @@
     font-family: $base-font-family;
     font-weight: 600;
     font-size: $font-size-regular;
+    padding: 10px;
     cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+    color: $text-color;
   }
 
 }
