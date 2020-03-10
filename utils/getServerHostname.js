@@ -1,8 +1,7 @@
 /* eslint-disable */
-import getConfig from 'next/config'
 
 function getServerHostname () {
-  const { publicRuntimeConfig: { isProd } } = getConfig()
+  const isProd = process.env.environment
   if(!isProd) {
     return 'http://873053a3.ngrok.io'
   } else if (isProd) {

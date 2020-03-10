@@ -14,6 +14,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [newsletter, setNewsletter] = useState(false)
+  const [error, setError] = useState('')
   // const [agreed, setUserData] = useState({ email: '', password: '', error: '' })
 
   const emailField = createRef()
@@ -21,7 +22,15 @@ const SignUp = () => {
 
   async function handleSubmit (event) {
     event.preventDefault()
-    signUp({ email, password, newsletter })
+    const { isValid: validEmail } = isValidEmail(email)
+    const { isValid: validPass } = isValidPassword(password)
+
+    if(validEmail && validPass) {
+      const response = await signUp({ email, password, newsletter })
+      if(response && response.data.error) {
+        setError(response.data.message)
+      }
+    }
   }
 
   function handleKeyUp(e) {
@@ -66,6 +75,7 @@ const SignUp = () => {
           <img src={ '../static/stew-logo.png' } className={ 'split__image split__image--mobile' }/>
           <div className={ 'content__app split__form'}>
             <h2> Sign Up </h2>
+            <div className={ 'error-text'}> { error } </div>
             <div className="split__form-item">
               <TextField
                 id={ 'emailField' }
@@ -86,6 +96,7 @@ const SignUp = () => {
                 validate={ isValidPassword }
                 handleKeyUp= { handleKeyUp }
                 setValue={ setPassword }
+                value={ password }
                 innerRef={ passwordField }
               />
             </div>

@@ -103,3 +103,9 @@ $font-size-tiny: 0.6em;
     cursor: pointer;
   }
 }
+
+.error-text {
+  font-family: $base-font-family;
+  color: $error-color;
+  font-size: $font-size-regular;
+}

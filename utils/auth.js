@@ -30,17 +30,17 @@ export const signUp = async ({ email, password, newsletter }) => {
   const url = `${getServerHostname()}/auth/register`
   try {
     const response = await axios.post(url, { email: email.toLowerCase(), password })
-    if (response.status >= 200 && response.status < 300) {
-      const { access_token } = await response.json()
-      console.log('access token', access_token)
+    console.log('response', response)
+    if (response.data) {
+      const { access_token } = response.data
       cookie.set('access_token', access_token, { expires: 1 })
       Router.push('/account')
     } else {
       let error = new Error(response.statusText)
       error.response = response
-      console.log(error)
       throw error
     }
+    return response
   } catch (error) {
     const { response } = error
     return response

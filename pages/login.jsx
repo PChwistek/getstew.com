@@ -12,13 +12,22 @@ import "../style.scss"
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
 
   const emailField = createRef()
   const passwordField = createRef()
 
   async function handleSubmit (event) {
     event.preventDefault()
-    login({ email, password })
+    const { isValid: validEmail} = isValidEmail(email)
+    const { isValid: validPass } = isValidPassword(password)
+
+    if(validEmail && validPass) {
+      const response = await login({ email, password })
+      if(response.data.error) {
+        setError('No account matches these credentials')
+      }
+    }
   }
 
   function handleKeyUp(e) {
@@ -63,6 +72,7 @@ const Login = () => {
           <img src={ '../static/stew-logo.png' } className={ 'split__image split__image--mobile' }/>
           <div className={ 'content__app split__form'}>
             <h2> Sign In </h2>
+            <div className={ 'error-text'}> { error } </div>
             <div className="split__form-item">
               <TextField 
                 type={ 'text' }

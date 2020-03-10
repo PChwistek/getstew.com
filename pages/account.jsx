@@ -9,6 +9,7 @@ import Header from '../components/LandingHeader'
 import TextField from '../components/TextField'
 import { redirectOnError } from '../utils/auth'
 import getServerHostname from '../utils/getServerHostname'
+import { isValidDisplayName } from '../utils/validations'
 import Content from '../components/Content'
 import Button from '../components/Button'
 
@@ -23,18 +24,22 @@ const Account = props => {
   const [username, setUsername] = useState(props.username || '')
 
   async function handleSubmit() {
-    const { access_token } = props
-
-    const config = {
-      headers: { Authorization: `Bearer ${access_token}` }
-    }
-
-    const response = await axios.post(`${getServerHostname()}/account/profile`, { username: displayName }, config)
-
-    if(response.data) {
-      setUsername(displayName)
+    const { isValid } = isValidDisplayName(displayName)
+    if(isValid) {
+      const { access_token } = props
+    
+      const config = {
+        headers: { Authorization: `Bearer ${access_token}` }
+      }
+  
+      const response = await axios.post(`${getServerHostname()}/account/profile`, { username: displayName }, config)
+  
+      if(response.data) {
+        setUsername(displayName)
+      }
     }
   }
+
 
   function handleKeyUp(e) {
     e.which = e.which || e.keyCode
@@ -80,6 +85,7 @@ const Account = props => {
                         label={ 'Display name' } 
                         setValue={ setDisplayName } 
                         value={ displayName }
+                        validate={ isValidDisplayName }
                         handleKeyUp={ handleKeyUp }
                       /> 
                     </div>
