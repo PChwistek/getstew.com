@@ -1,16 +1,13 @@
-// This is not production ready, (except with providers that ensure a secure host, like Now)
-// For production consider the usage of environment variables and NODE_ENV
+/* eslint-disable */
+import getConfig from 'next/config'
 
-function getServerHostname (req) {
-  if (!req) return ''
-
-  // const { host } = req.headers
-
-  // if (host.startsWith('localhost')) {
-  //   return `http://${host}`
-  // }
-  // return `https://${host}`
-  return 'https://localhost:3009'
+function getServerHostname () {
+  const { publicRuntimeConfig: { isProd } } = getConfig()
+  if(!isProd) {
+    return 'http://873053a3.ngrok.io'
+  } else if (isProd) {
+    return 'stew-server-env.eba-qya3jp33.us-west-1.elasticbeanstalk.com'
+  }
 }
 
 export default getServerHostname

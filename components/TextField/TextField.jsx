@@ -14,13 +14,16 @@ class TextField extends Component {
   }
 
   changeValue(event) {
-    const value = event.target.value;
+    const value = event.target.value
     const { validate, setValue } = this.props
 
     if(validate) {
       const { isValid, error } = validate(value)
       if(isValid) {
         this.setState({ value, error })
+        setValue(value)
+      } else {
+        this.setState({ error })
         setValue(value)
       }
 
@@ -32,32 +35,46 @@ class TextField extends Component {
   }
 
   handleKeyPress(event) {
-    if (event.which === 13) {
-      this.setState({ value: this.props.predicted })
+    this.props.handleKeyUp(event)
+
+    const { onEnter, clearOnEnter, onEnterValidation } = this.props
+    if(onEnter || onEnterValidation || clearOnEnter) {
+      if (event.which === 13) {
+        const { isValid, error } = onEnterValidation(this.state.value)
+        if(isValid) {
+          if(onEnter) {
+            onEnter()
+          }
+          if(clearOnEnter) {
+            this.setState({ value: '' })
+          }
+        } else {
+          this.setState({ error })
+        }     
+      }
     }
   }
 
   render() {
-    const { active, value, error, label } = this.state
-    const { predicted, locked, type } = this.props
+    const { active, error, label } = this.state
+    const { locked, type, value, autoFocus, innerRef } = this.props
     const fieldClassName = `field ${(locked ? active : active || value) &&
       "active"} ${locked && !active && "locked"} && ${error && 'error'}`
 
     return (
       <div className={fieldClassName}>
-        {active &&
-          value &&
-          predicted &&
-          predicted.includes(value) && <p className="predicted">{predicted}</p>}
         <input
-          id={1}
+          id={ this.props.id }
           type={ type }
           value={value}
+          autoFocus={ autoFocus }
           placeholder={label}
           onChange={this.changeValue.bind(this)}
-          onKeyPress={this.handleKeyPress.bind(this)}
+          onKeyUp={ this.handleKeyPress.bind(this)}
           onFocus={() => !locked && this.setState({ active: true })}
           onBlur={() => !locked && this.setState({ active: false })}
+          ref={ innerRef }
+          autoComplete="off"       
         />
         <label htmlFor={1} className={error && "error"}>
           {error || label}
@@ -68,9 +85,14 @@ class TextField extends Component {
 }
 
 TextField.propTypes = {
+  clearOnEnter: PropTypes.bool,
+  id: PropTypes.string,
   locked: PropTypes.bool,
+  onEnter: PropTypes.func,
+  onEnterValidation: PropTypes.func,
   active: PropTypes.bool,
-  predicted: PropTypes.any,
+  handleKeyUp: PropTypes.func,
+  autoFocus: PropTypes.bool,
   value: PropTypes.string,
   error: PropTypes.string,
   type: PropTypes.string,

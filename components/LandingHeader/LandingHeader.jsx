@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-// import fetch from 'isomorphic-unfetch'
-// import { login } from '../../utils/auth'
+import { logout } from '../../utils/auth'
 
 export default function landingHeader(props) {
   return(
@@ -12,18 +11,32 @@ export default function landingHeader(props) {
           <Link href={ '/' }>
             <img src={ props.heroPhotoPath } className="header header__logo "/>
           </Link>
-          <div className="header header__items">
-            <Link href={ '/pricing' }>
-              <div className="header header__item">
-                    <a> Pricing </a>
+          {
+            !props.hideItems &&
+              <div className="header header__items">
+              <Link href={ '/pricing' }>
+                <div className="header header__item">
+                      <a> Pricing </a>
+                </div>
+              </Link>
+              <Link href={ '/account' }>
+                <div className="header header__item">
+                    <a> Account </a> 
+                </div>
+              </Link>
+            </div>
+          }
+          {
+            props.showLogout &&
+              <div className="header header__items">
+                <Link href={ '/login' } onClick={ logout }>
+                  <div className="header header__item">
+                    <a> Logout </a>
+                  </div>
+                </Link>
+               
               </div>
-            </Link>
-            <Link href={ '/account' }>
-              <div className="header header__item">
-                  <a> Account </a> 
-              </div>
-            </Link>
-          </div>
+          }
         </div>
       </div>
     </nav>
@@ -31,5 +44,7 @@ export default function landingHeader(props) {
 }
 
 landingHeader.propTypes = {
-  heroPhotoPath: PropTypes.string
+  heroPhotoPath: PropTypes.string,
+  showLogout: PropTypes.bool,
+  hideItems: PropTypes.bool
 }

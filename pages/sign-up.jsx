@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, createRef } from 'react'
 import Layout from '../components/Layout'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -11,14 +11,43 @@ import Checkbox from '../components/Checkbox'
 import "../style.scss"
 
 const SignUp = () => {
-  const [email, setEmail] = useState({ email: '' })
-  const [password, setPassword] = useState({ password: '' })
-  const [newsletter, setNewsletter] = useState({ newsletter: false})
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [newsletter, setNewsletter] = useState(false)
   // const [agreed, setUserData] = useState({ email: '', password: '', error: '' })
+
+  const emailField = createRef()
+  const passwordField = createRef()
 
   async function handleSubmit (event) {
     event.preventDefault()
     signUp({ email, password, newsletter })
+  }
+
+  function handleKeyUp(e) {
+    e.which = e.which || e.keyCode
+    if (e.which == 13) {
+      switch (e.target.id) {
+        case "emailField":
+          passwordField.current.focus()
+          return
+        case "passwordField":
+          handleSubmit(e)
+          return
+      }
+    } else if (e.which == 40) {
+      switch (e.target.id) {
+        case "emailField":
+          passwordField.current.focus()
+          return
+      }
+    } else if (e.which == 38) {
+      switch (e.target.id) {
+        case "passwordField":
+          emailField.current.focus()
+          return
+      }
+    }
   }
 
   return(
@@ -38,10 +67,27 @@ const SignUp = () => {
           <div className={ 'content__app split__form'}>
             <h2> Sign Up </h2>
             <div className="split__form-item">
-              <TextField type={ 'text' } label={ 'EMAIL' } validate={ isValidEmail } setValue={ setEmail } /> 
+              <TextField
+                id={ 'emailField' }
+                type={ 'text' } 
+                label={ 'EMAIL' } 
+                setValue={ setEmail }
+                value={ email } 
+                handleKeyUp= { handleKeyUp }
+                onEnterValidation={ isValidEmail }
+                innerRef={ emailField }
+              /> 
             </div>
             <div className="split__form-item">
-              <TextField type={ 'password' } label={ 'PASSWORD' } validate={ isValidPassword } setValue={ setPassword } />
+              <TextField
+                id={ 'passwordField' }
+                type={ 'password' } 
+                label={ 'PASSWORD' } 
+                validate={ isValidPassword }
+                handleKeyUp= { handleKeyUp }
+                setValue={ setPassword }
+                innerRef={ passwordField }
+              />
             </div>
             <div className="split__form-item">
               <Checkbox label={ 'Subscribe to the stew newsletter' } checked={ newsletter } setValue={ setNewsletter } />

@@ -1,26 +1,21 @@
 /* eslint-disable no-console */
 import { useEffect } from 'react'
 import Router from 'next/router'
+import axios from 'axios'
 import nextCookie from 'next-cookies'
 import cookie from 'js-cookie'
-import fetch from 'isomorphic-unfetch'
+import getServerHostname  from './getServerHostname'
 
 export const login = async ({ email, password }) => {
-  // Router.push('/account')
-  const url = 'http://localhost:3009/auth/login'
+  const url = `${getServerHostname()}/auth/login`
   try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email.toLowerCase(), password })
-    })
+    const response = await axios.post(url, { email: email.toLowerCase(), password })
 
     if (response.status >= 200 && response.status < 300) {
-      const { access_token } = await response.json()
+      const { access_token } = response.data
       cookie.set('access_token', access_token, { expires: 1 })
       Router.push('/account')
     } else {
-      // https://github.com/developit/unfetch#caveats
       let error = new Error(response.statusText)
       error.response = response
       throw error
@@ -32,21 +27,15 @@ export const login = async ({ email, password }) => {
 }
 
 export const signUp = async ({ email, password, newsletter }) => {
-  const url = 'http://localhost:3009/auth/register'
+  const url = `${getServerHostname()}/auth/register`
   try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email.toLowerCase(), password })
-    })
-
+    const response = await axios.post(url, { email: email.toLowerCase(), password })
     if (response.status >= 200 && response.status < 300) {
       const { access_token } = await response.json()
       console.log('access token', access_token)
       cookie.set('access_token', access_token, { expires: 1 })
       Router.push('/account')
     } else {
-      // https://github.com/developit/unfetch#caveats
       let error = new Error(response.statusText)
       error.response = response
       console.log(error)
@@ -88,49 +77,21 @@ export const auth = async ctx => {
 }
 
 export const checkTokenStatus = async (access_token) => {
-  console.log('checking')
-  const apiUrl =  'http://localhost:3009/auth/validate/' // getHost(ctx.req) + '/api/profile'
-  const bearer = 'Bearer ' + access_token;
-  const response = await fetch(apiUrl, {
-    withCredentials: true,
-    credentials: 'include',
-    headers: {
-        'Authorization': bearer
-    }
-  })
-  console.log('response', response.ok)
+  const apiUrl = `${getServerHostname()}/auth/validate`
+  const config = {
+    headers: { Authorization: `Bearer ${access_token}` }
+  }
+
+  const response = await axios.get(apiUrl, config)
   return response.ok
 }
 
-export const getAuthorizedContent = async (apiUrl, access_token, ctx) => {
-  const redirectOnError = () =>
-    typeof window !== 'undefined'
-      ? Router.replace('/login')
-      : () => { ctx.res.writeHead(302, { Location: '/login' }).end() }
-
-  const bearer = 'Bearer ' + access_token;
-  try {
-    const response = await fetch(apiUrl, {
-      withCredentials: true,
-      credentials: 'include',
-      headers: {
-          'Authorization': bearer,
-          'Content-Type': 'application/json'
-      }
-    })
-
-    if (response.ok) {
-      const js = await response.json()
-      return js
-    } else {
-      // https://github.com/developit/unfetch#caveats
-      return await redirectOnError()
-    }
-
-  } catch (error) {
-    // Implementation or Network error
-    return redirectOnError()
-  } 
+export const redirectOnError = (ctx) => {
+  if(typeof window !== 'undefined') {
+    Router.replace('/login')
+  } else {
+    ctx.res.writeHead(302, { Location: '/login' }).end()
+  }
 }
 
 export const withAuthSync = WrappedComponent => {
@@ -156,7 +117,6 @@ export const withAuthSync = WrappedComponent => {
 
   Wrapper.getInitialProps = async ctx => {
     const token = await auth(ctx)
-    console.log('from cookies', token)
     const componentProps =
       WrappedComponent.getInitialProps &&
       (await WrappedComponent.getInitialProps(ctx))

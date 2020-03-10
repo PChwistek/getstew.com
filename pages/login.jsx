@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, createRef } from 'react'
 import Layout from '../components/Layout'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -10,13 +10,41 @@ import Button from '../components/Button'
 import "../style.scss"
 
 const Login = () => {
-  const [email, setEmail] = useState({ email: '' })
-  const [password, setPassword] = useState({ password: '' })
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const emailField = createRef()
+  const passwordField = createRef()
 
   async function handleSubmit (event) {
     event.preventDefault()
     login({ email, password })
-    // const username = userData.username
+  }
+
+  function handleKeyUp(e) {
+    e.which = e.which || e.keyCode
+    if (e.which == 13) {
+      switch (e.target.id) {
+        case "emailField":
+          passwordField.current.focus()
+          return
+        case "passwordField":
+          handleSubmit(e)
+          return
+      }
+    } else if (e.which == 40) {
+      switch (e.target.id) {
+        case "emailField":
+          passwordField.current.focus()
+          return
+      }
+    } else if (e.which == 38) {
+      switch (e.target.id) {
+        case "passwordField":
+          emailField.current.focus()
+          return
+      }
+    }
   }
 
   return(
@@ -36,10 +64,29 @@ const Login = () => {
           <div className={ 'content__app split__form'}>
             <h2> Sign In </h2>
             <div className="split__form-item">
-              <TextField type={ 'text' } label={ 'EMAIL' } setValue={ setEmail } setPassword={ setPassword } validate={ isValidEmail } /> 
+              <TextField 
+                type={ 'text' }
+                id={ 'emailField' }
+                label={ 'EMAIL' } 
+                setValue={ setEmail }
+                value={ email }
+                handleKeyUp={ handleKeyUp }
+                setPassword={ setPassword }
+                onEnterValidation={ isValidEmail }
+                innerRef={ emailField }
+              /> 
             </div>
             <div className="split__form-item">
-              <TextField type={ 'password' } label={ 'PASSWORD' } setValue={ setPassword } validate={ isValidPassword } />
+              <TextField
+                id={ 'passwordField' }
+                type={ 'password' } 
+                label={ 'PASSWORD' }
+                handleKeyUp={ handleKeyUp }
+                setValue={ setPassword }
+                value={ password }
+                validate={ isValidPassword } 
+                innerRef={ passwordField }
+              />
             </div>
             <div className="split__form-item">
               <Button onClick={ e => handleSubmit(e) }>
