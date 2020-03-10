@@ -57,10 +57,11 @@ export const logout = () => {
 
 export const auth = async ctx => {
   const { access_token } = nextCookie(ctx)
+  const { res } = ctx
 
-  if (ctx.res && !access_token) {
-    ctx.res.writeHead(302, { Location: '/login' })
-    ctx.res.end()
+  if (res && !access_token) {
+    res.writeHead(302, { Location: '/login' })
+    res.end()
     return
   }
 
