@@ -126,7 +126,6 @@ export function Account() {
     const isClient = typeof document !== 'undefined'
     isClient && Router.replace('/login') 
   }
-  }
   return (
     <div>
       { data && <AccountPage username={ data.username } allowed={ !!data } config={ config } /> }
