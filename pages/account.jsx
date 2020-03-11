@@ -1,24 +1,22 @@
 /* eslint-disable no-console */
-import React, { useState }  from 'react'
+import React, { useState, useEffect }  from 'react'
+import Router from 'next/router'
 import Head from 'next/head'
-import nextCookie from 'next-cookies'
 import PropTypes from 'prop-types'
 import Layout from '../components/Layout'
 import Hero from '../components/Hero'
 import Header from '../components/LandingHeader'
 import TextField from '../components/TextField'
-import { redirectOnError } from '../utils/auth'
+import Button from '../components/Button'
 import getServerHostname from '../utils/getServerHostname'
 import { isValidDisplayName } from '../utils/validations'
 import Content from '../components/Content'
-import Button from '../components/Button'
-
 import axios from 'axios'
+import { getJWT } from '../utils/auth'
 
-import { withAuthSync } from '../utils/auth'
 import "../style.scss"
 
-const Account = props => {
+const AccountPage = props => {
   const { allowed } = props
   const [displayName, setDisplayName] = useState('')
   const [username, setUsername] = useState(props.username || '')
@@ -26,12 +24,7 @@ const Account = props => {
   async function handleSubmit() {
     const { isValid } = isValidDisplayName(displayName)
     if(isValid) {
-      const { access_token } = props
-    
-      const config = {
-        headers: { Authorization: `Bearer ${access_token}` }
-      }
-  
+      const { config } = props
       const response = await axios.post(`${getServerHostname()}/account/profile`, { username: displayName }, config)
   
       if(response.data) {
@@ -40,14 +33,12 @@ const Account = props => {
     }
   }
 
-
   function handleKeyUp(e) {
     e.which = e.which || e.keyCode
     if (e.which == 13) {
         handleSubmit()
     }
   }
-
 
   return(
     <Layout>
@@ -102,38 +93,43 @@ const Account = props => {
         </div>
       }
     </Layout>
-  )
-  
+  ) 
 }
 
-Account.getInitialProps = async ctx => {
-  const { access_token } = nextCookie(ctx)
+export function Account() {
+  const token = getJWT()
   const config = {
-    headers: { Authorization: `Bearer ${access_token}` }
+    headers: { Authorization: `Bearer ${token}` }
   }
-  if(!access_token) {
-    redirectOnError(ctx)
-  }
-  
-  const apiUrl =  `${getServerHostname()}/auth/profile/` // getHost(ctx.req) + '/api/profile'
-  try {
-    const response = await axios.get(apiUrl, config)
-    return {
-      access_token,
-      allowed: !!response || false,
-      username: response.data.username
+  const [data, setData] = useState({ hits: [] })
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get(`${getServerHostname()}/auth/profile`, config)
+        setData(result.data)
+        console.log('result', result)
+      } catch(error) {
+        setError(error)
+      }
     }
-  } catch(error) {
-    if (error.response.status === 401) {
-      redirectOnError(ctx)
-    }
+    fetchData()
+  }, [])
+
+  if(error) {
+    Router.replace('/login')
   }
+  return (
+    <div>
+      { data && <AccountPage username={ data.username } allowed={ !!data } config={ config } /> }
+    </div>
+  )
 }
 
-Account.propTypes = {
-  access_token: PropTypes.string,
+AccountPage.propTypes = {
   allowed: PropTypes.bool,
   username: PropTypes.string
 }
 
-export default withAuthSync(Account)
+export default Account
