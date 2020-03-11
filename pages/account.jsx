@@ -99,7 +99,8 @@ const AccountPage = props => {
 export function Account() {
   const token = getJWT()
   if(!token) {
-    Router.replace('/login')
+    const isClient = typeof document !== 'undefined'
+    isClient && Router.replace('/login') 
   }
   const config = {
     headers: { Authorization: `Bearer ${token}` }
@@ -122,7 +123,9 @@ export function Account() {
   }, [])
 
   if(error) {
-    Router.replace('/login')
+    const isClient = typeof document !== 'undefined'
+    isClient && Router.replace('/login') 
+  }
   }
   return (
     <div>
