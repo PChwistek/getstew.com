@@ -98,9 +98,13 @@ const AccountPage = props => {
 
 export function Account() {
   const token = getJWT()
+  if(!token) {
+    Router.replace('/login')
+  }
   const config = {
     headers: { Authorization: `Bearer ${token}` }
   }
+  
   const [data, setData] = useState({ hits: [] })
   const [error, setError] = useState('')
 
