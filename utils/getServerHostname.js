@@ -5,7 +5,7 @@ function getServerHostname () {
   if(!isProd) {
     return 'http://f5bed178.ngrok.io'
   } else if (isProd) {
-    return 'https:/api.getstew.com'
+    return 'https://api.getstew.com'
   }
 }
 
