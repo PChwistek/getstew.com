@@ -29,7 +29,6 @@ export const login = async ({ email, password }) => {
   const url = `${getServerHostname()}/auth/login`
   try {
     const response = await axios.post(url, { email: email.toLowerCase(), password })
-    console.log('login response', response)
     if (response.status >= 200 && response.status < 400) {
       const { access_token } = response.data
       setJWT(access_token)

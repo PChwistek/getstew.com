@@ -115,10 +115,10 @@ const SignUp = () => {
               </Button>
             </div>
             <div className="split__form-item--extra-space">
-              <div className="split__small-text">
+              <div className="split__text">
                 Already have an account? &nbsp;
                 <Link href="/login">
-                  <a className='split__small-text--bold'>Sign in</a>
+                  <a className='split__text--bold'>Sign in</a>
                 </Link>
               </div>
             </div>

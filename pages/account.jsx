@@ -106,7 +106,7 @@ export function Account() {
     headers: { Authorization: `Bearer ${token}` }
   }
   
-  const [data, setData] = useState({ hits: [] })
+  const [data, setData] = useState(null)
   const [error, setError] = useState('')
 
   useEffect(() => {
@@ -114,7 +114,6 @@ export function Account() {
       try {
         const result = await axios.get(`${getServerHostname()}/auth/profile`, config)
         setData(result.data)
-        console.log('result', result)
       } catch(error) {
         setError(error)
       }

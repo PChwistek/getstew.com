@@ -3,7 +3,7 @@
 function getServerHostname () {
   const isProd = process.env.environment
   if(!isProd) {
-    return 'http://f5bed178.ngrok.io'
+    return 'http://localhost:3000'
   } else if (isProd) {
     return 'https://api.getstew.com'
   }
