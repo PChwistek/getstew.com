@@ -60,16 +60,16 @@ const Login = () => {
     <Layout>
       <Head>
         <title>stew | Login </title>
-        <link rel="icon" href={ '../static/favicon.png' } type="image/png" />
+        <link rel="icon" href={ '/favicon.png' } type="image/png" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content="stew login" />
       </Head>
       <SplitPanels>
         <Panel left={ true }>
-          <img src={ '../static/stew-logo.png' } className={ 'split__image' }/>
+          <img src={ '/stew-logo.png' } className={ 'split__image' }/>
         </Panel>
         <Panel left={ false }>
-          <img src={ '../static/stew-logo.png' } className={ 'split__image split__image--mobile' }/>
+          <img src={ '/stew-logo.png' } className={ 'split__image split__image--mobile' }/>
           <div className={ 'content__app split__form'}>
             <h2> Sign In </h2>
             <div className={ 'error-text'}> { error } </div>

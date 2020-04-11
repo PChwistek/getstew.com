@@ -62,12 +62,12 @@ class Index extends React.Component {
       <Layout>
         <Head>
           <title>stew: collaborative tab management </title>
-          <link rel="icon" href={ '../static/favicon.png' } type="image/png" />
+          <link rel="icon" href={ '/favicon.png' } type="image/png" />
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <meta name="description" content="stew is the smart tab manager built for collaboration" />
         </Head>
         <MailModal show={ showModal } closeModal={ this.toggleModal } />
-        <Header heroPhotoPath={ '../static/stew-logo.png' } hasToken={ this.state.hasToken } />
+        <Header heroPhotoPath={ '/stew-logo.png' } hasToken={ this.state.hasToken } />
         <Hero type={ "grey" }>
           <Intro 
             onButtonClick={ this.onButtonClick } 
@@ -83,24 +83,24 @@ class Index extends React.Component {
         <Banner 
           title="Browsers used to be just for browsing." 
           body="stew makes sure your browser works for work."
-          image="../static/browsing-2.png"
+          image="/browsing-2.png"
         />
         <Hero>
           <TextWithImage
             title="Save time when setting up."
             body="stew helps you find custom or community-made tab setups to get your work done better and faster."
-            image={ "../static/chest.png" }
+            image={ "/chest.png" }
           />
           <TextWithImageTop 
             title="It's great for teams too"
             body="private repositories enable your team to do more, together"
-            imagePath="../static/team.png"
+            imagePath="/team.png"
           />
         </Hero>
         <Banner 
           title="Sharing is caring." 
           body="Great things come from collaboration: Wikipedia, Open Source Software, and now, better browser workflows."
-          image="../static/share.png"
+          image="/share.png"
         />
         <Hero>
           <Cta onButtonClick={ this.onButtonClick } browser={ browser } title="Discover the best workflow recipes!" body="It’s like your grandma’s cookbook, but for tabs" />

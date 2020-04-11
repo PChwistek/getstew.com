@@ -6,7 +6,7 @@ export default function footer() {
     <Content>
     <div className="footer">
       <div>
-        <img src="../../static/favicon.png" className="footer footer__image"/>
+        <img src="/favicon.png" className="footer footer__image"/>
       </div>
       <div>
         2019 © stew, inc.
