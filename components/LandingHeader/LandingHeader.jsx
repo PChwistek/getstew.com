@@ -19,7 +19,7 @@ export default function landingHeader(props) {
                       <a> Pricing </a>
                 </div>
               </Link>
-              <Link href={ props.hasToken ? '/account' : '/login' }>
+              <Link href={'/account' }>
                 <div className="header header__item">
                     <a> Account </a> 
                 </div>
@@ -45,6 +45,5 @@ export default function landingHeader(props) {
 landingHeader.propTypes = {
   heroPhotoPath: PropTypes.string,
   showLogout: PropTypes.bool,
-  hasToken: PropTypes.bool,
   hideItems: PropTypes.bool
 }

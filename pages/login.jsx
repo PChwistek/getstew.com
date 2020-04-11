@@ -1,4 +1,5 @@
 import React, { useState, createRef } from 'react'
+import axios from 'axios'
 import Layout from '../components/Layout'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -7,6 +8,7 @@ import { isValidEmail, isValidPassword } from '../utils/validations'
 import SplitPanels, { Panel } from '../components/ContentLayouts/SplitPanels'
 import TextField from '../components/TextField'
 import Button from '../components/Button'
+import getServerHostname from '../utils/getServerHostname'
 import "../style.scss"
 
 const Login = () => {
@@ -23,11 +25,17 @@ const Login = () => {
     const { isValid: validPass } = isValidPassword(password)
 
     if(validEmail && validPass) {
-      const response = await login({ email, password })
-      if(response.data.error) {
-        setError('No account matches these credentials')
+      const url = `${getServerHostname()}/auth/login`
+      try {
+        const response = await axios.post(url, { email: email.toLowerCase(), password })
+        if (response.status >= 200 && response.status < 400) {
+          const { access_token } = response.data
+          await login({ token: access_token })
+        } 
+      } catch(err) {
+        setError(err.status === 401 || 'No account with these credentials exists.')        
       }
-    }
+    } 
   }
 
   function handleKeyUp(e) {

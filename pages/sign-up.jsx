@@ -1,13 +1,17 @@
 import React, { useState, createRef } from 'react'
+import Router from 'next/router'
+import axios from 'axios'
 import Layout from '../components/Layout'
 import Head from 'next/head'
 import Link from 'next/link'
-import { signUp } from '../utils/auth'
+import { login } from '../utils/auth'
 import { isValidEmail, isValidPassword } from '../utils/validations'
 import SplitPanels, { Panel } from '../components/ContentLayouts/SplitPanels'
 import TextField from '../components/TextField'
 import Button from '../components/Button'
 import Checkbox from '../components/Checkbox'
+import getServerHostname from '../utils/getServerHostname'
+
 import "../style.scss"
 
 const SignUp = () => {
@@ -26,10 +30,25 @@ const SignUp = () => {
     const { isValid: validPass } = isValidPassword(password)
 
     if(validEmail && validPass) {
-      const response = await signUp({ email, password, newsletter })
-      if(response && response.data.error) {
+      const url = `${getServerHostname()}/auth/register`
+      try {
+        const response = await axios.post(url, { email: email.toLowerCase(), password })
+        if (response.data) {
+          const { access_token } = response.data
+          login({token: access_token })
+          Router.push('/account')
+        } else {
+          let error = new Error(response.statusText)
+          error.response = response
+          throw error
+        }
+        return response
+      } catch (error) {
+        const { response } = error
         setError(response.data.message)
+        return response
       }
+
     }
   }
 

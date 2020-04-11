@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
-import React, { useState, useEffect }  from 'react'
+import React, { useState }  from 'react'
 import Router from 'next/router'
+import axios from 'axios'
+import nextCookie from 'next-cookies'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
 import Layout from '../components/Layout'
@@ -11,8 +13,7 @@ import Button from '../components/Button'
 import getServerHostname from '../utils/getServerHostname'
 import { isValidDisplayName } from '../utils/validations'
 import Content from '../components/Content'
-import axios from 'axios'
-import { getJWT } from '../utils/auth'
+import { withAuthSync } from '../utils/auth'
 
 import "../style.scss"
 
@@ -25,6 +26,7 @@ const AccountPage = props => {
     const { isValid } = isValidDisplayName(displayName)
     if(isValid) {
       const { config } = props
+      console.log('config', config)
       const response = await axios.post(`${getServerHostname()}/account/profile`, { username: displayName }, config)
   
       if(response.data) {
@@ -96,40 +98,35 @@ const AccountPage = props => {
   ) 
 }
 
-export function Account() {
-  const token = getJWT()
-  if(!token) {
-    const isClient = typeof document !== 'undefined'
-    isClient && Router.replace('/login') 
-  }
-  const config = {
-    headers: { Authorization: `Bearer ${token}` }
-  }
-  
-  const [data, setData] = useState(null)
-  const [error, setError] = useState('')
+AccountPage.getInitialProps = async ctx => {
+  const { token } = nextCookie(ctx)
+  const redirectOnError = () =>
+    typeof window !== 'undefined'
+      ? Router.push('/login')
+      : ctx.res.writeHead(302, { Location: '/login' }).end()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await axios.get(`${getServerHostname()}/auth/profile`, config)
-        setData(result.data)
-      } catch(error) {
-        setError(error)
-      }
+  try {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
     }
-    fetchData()
-  }, [])
+    
+    const response = await axios.get(`${getServerHostname()}/auth/profile`, config)
+    console.log('response', response)
+    if (response.statusText >= 200 ** response.statusText < 400) {
+      return {
+        config,
+        allowed: true,
+        username: response.data.username
+      }
+    } else {
+      // https://github.com/developit/unfetch#caveats
+      return await redirectOnError()
+    }
 
-  if(error) {
-    const isClient = typeof document !== 'undefined'
-    isClient && Router.replace('/login') 
+  } catch (error) {
+    // Implementation or Network error
+    return redirectOnError()
   }
-  return (
-    <div>
-      { data && <AccountPage username={ data.username } allowed={ !!data } config={ config } /> }
-    </div>
-  )
 }
 
 AccountPage.propTypes = {
@@ -138,4 +135,4 @@ AccountPage.propTypes = {
   username: PropTypes.string
 }
 
-export default Account
+export default withAuthSync(AccountPage)
