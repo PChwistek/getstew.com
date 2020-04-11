@@ -9,11 +9,13 @@ const isProd = process.env.environment
 export function setJWT(token) {
   if(isProd) {
     cookie.set('token', token, {
+      strict: 'true',
       expires: 1,
       domain: '.getstew.com'
     })
   } else {
     cookie.set('token', token, {
+      strict: 'true',
       expires: 1,
     })
   }

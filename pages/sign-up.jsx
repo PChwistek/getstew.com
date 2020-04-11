@@ -35,7 +35,7 @@ const SignUp = () => {
         const response = await axios.post(url, { email: email.toLowerCase(), password })
         if (response.data) {
           const { access_token } = response.data
-          login({token: access_token })
+          login({ token: access_token })
           Router.push('/account')
         } else {
           let error = new Error(response.statusText)
@@ -90,7 +90,7 @@ const SignUp = () => {
         <Panel left={ true }>
           <img src={ '/stew-logo.png' } className={ 'split__image' }/>
         </Panel>
-        <Panel left={ false }>
+        <Panel>
           <img src={ '/stew-logo.png' } className={ 'split__image split__image--mobile' }/>
           <div className={ 'content__app split__form'}>
             <h2> Sign Up </h2>

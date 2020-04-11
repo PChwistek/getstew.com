@@ -26,7 +26,6 @@ const AccountPage = props => {
     const { isValid } = isValidDisplayName(displayName)
     if(isValid) {
       const { config } = props
-      console.log('config', config)
       const response = await axios.post(`${getServerHostname()}/account/profile`, { username: displayName }, config)
   
       if(response.data) {

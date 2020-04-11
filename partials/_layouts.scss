@@ -263,13 +263,13 @@
 }
 
 .split {
-  height: 100vh;
-  position: absolute;
-  z-index: 1;
-  top: 0;
+  display: flex;
   overflow-x: hidden;
-
+  height: 100vh;
+  flex-direction: row;
+  
   &__left {
+    position: relative;
     width: 156px;
     left: 0;
     background: $grey-background;
@@ -280,7 +280,7 @@
   }
 
   &__right {
-    left: 156px;
+    position: relative;
     background: #fff;
     width: 100%;
     @include respond(phone) { // width < 1200?
