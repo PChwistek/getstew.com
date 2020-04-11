@@ -12,11 +12,11 @@ class Pricing extends React.Component {
       <Layout>
         <Head>
           <title>stew | Pricing </title>
-          <link rel="icon" href={ '../static/favicon.png' } type="image/png" />
+          <link rel="icon" href={ '/favicon.png' } type="image/png" />
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <meta name="description" content="stew pricing" />
         </Head>
-        <Header heroPhotoPath={ '../static/stew-logo.png' } />
+        <Header heroPhotoPath={ '/stew-logo.png' } />
         <Hero type="grey-lg">
             Pricing
         </Hero>
