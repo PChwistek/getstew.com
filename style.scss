@@ -34,8 +34,8 @@ $spacing-unit:     30px !default;
 $text-color:       #4C5B5C !default;
 $text-color-lighter:       rgb(93, 111, 112) !default;
 // $link-color: #88498F;
-$link-color: #067bc2;
-$brand-color: #7AC74F !default; //good one
+$link-color: #33689e;
+$brand-color: #55c090 !default; //good one
 // $brand-color: #88498F !default; //good one
 
 // $brand-color:      #00C65E !default;
@@ -93,3 +93,4 @@ a:hover {
 @import "partials/checkbox";
 @import "partials/account";
 @import "partials/sessionview";
+@import "partials/loginprompt";

@@ -1,69 +1,11 @@
-import React, { useState, createRef } from 'react'
-import axios from 'axios'
+import React from 'react'
 import Layout from '../components/Layout'
 import Head from 'next/head'
-import Link from 'next/link'
-import { login } from '../utils/auth'
-import { isValidEmail, isValidPassword } from '../utils/validations'
 import SplitPanels, { Panel } from '../components/ContentLayouts/SplitPanels'
-import TextField from '../components/TextField'
-import Button from '../components/Button'
-import getServerHostname from '../utils/getServerHostname'
+import LoginForm from '../components/Form/LoginForm'
 import "../style.scss"
 
 const Login = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-
-  const emailField = createRef()
-  const passwordField = createRef()
-
-  async function handleSubmit (event) {
-    event.preventDefault()
-    const { isValid: validEmail} = isValidEmail(email)
-    const { isValid: validPass } = isValidPassword(password)
-
-    if(validEmail && validPass) {
-      const url = `${getServerHostname()}/auth/login`
-      try {
-        const response = await axios.post(url, { email: email.toLowerCase(), password })
-        if (response.status >= 200 && response.status < 400) {
-          const { access_token } = response.data
-          await login({ token: access_token })
-        } 
-      } catch(err) {
-        setError(err.status === 401 || 'No account with these credentials exists.')        
-      }
-    } 
-  }
-
-  function handleKeyUp(e) {
-    e.which = e.which || e.keyCode
-    if (e.which == 13) {
-      switch (e.target.id) {
-        case "emailField":
-          passwordField.current.focus()
-          return
-        case "passwordField":
-          handleSubmit(e)
-          return
-      }
-    } else if (e.which == 40) {
-      switch (e.target.id) {
-        case "emailField":
-          passwordField.current.focus()
-          return
-      }
-    } else if (e.which == 38) {
-      switch (e.target.id) {
-        case "passwordField":
-          emailField.current.focus()
-          return
-      }
-    }
-  }
-
   return(
     <Layout>
       <Head>
@@ -77,62 +19,11 @@ const Login = () => {
           <img src={ '/stew-logo.png' } className={ 'split__image' }/>
         </Panel>
         <Panel left={ false }>
-          <img src={ '/stew-logo.png' } className={ 'split__image split__image--mobile' }/>
-          <div className={ 'content__app split__form'}>
-            <h2> Sign In </h2>
-            <div className={ 'error-text'}> { error } </div>
-            <div className="split__form-item">
-              <TextField 
-                type={ 'text' }
-                id={ 'emailField' }
-                label={ 'EMAIL' } 
-                setValue={ setEmail }
-                value={ email }
-                handleKeyUp={ handleKeyUp }
-                setPassword={ setPassword }
-                onEnterValidation={ isValidEmail }
-                innerRef={ emailField }
-              /> 
-            </div>
-            <div className="split__form-item">
-              <TextField
-                id={ 'passwordField' }
-                type={ 'password' } 
-                label={ 'PASSWORD' }
-                handleKeyUp={ handleKeyUp }
-                setValue={ setPassword }
-                value={ password }
-                validate={ isValidPassword } 
-                innerRef={ passwordField }
-              />
-            </div>
-            <div className="split__form-item">
-              <Button onClick={ e => handleSubmit(e) }>
-                Sign In
-              </Button>
-            </div>
-            <div className="split__form-item">
-              <div className="split__small-text">
-                <Link href="/passwordreset">
-                  <a> Forgot password? </a>
-                </Link>
-              </div>
-            </div>
-            <div className="split__form-item--extra-space">
-              <div className="split__text">
-                New to stew? &nbsp;
-                <Link href="/sign-up">
-                  <a className='split__text--bold'>Sign up</a>
-                </Link>
-              </div>
-            </div>
-          </div>
+          <LoginForm />
         </Panel>
       </SplitPanels>
     </Layout> 
   )
 }
-
-
 
 export default Login

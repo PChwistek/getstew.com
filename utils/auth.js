@@ -26,6 +26,11 @@ export const login = ({ token }) => {
   Router.push('/account')
 }
 
+export const loginNoRedirect = ({ token }) => {
+  setJWT(token)
+  Router.reload()
+}
+
 
 export const auth = ctx => {
   const { token } = nextCookie(ctx)
@@ -72,6 +77,50 @@ export const withAuthSync = WrappedComponent => {
 
   Wrapper.getInitialProps = async ctx => {
     const token = auth(ctx)
+
+    const componentProps =
+      WrappedComponent.getInitialProps &&
+      (await WrappedComponent.getInitialProps(ctx))
+
+    return { ...componentProps, token }
+  }
+
+  return Wrapper
+}
+
+
+export const softAuth = ctx => {
+  const { token } = nextCookie(ctx)
+
+  if (!token) {
+   return false
+  }
+
+  return token
+}
+
+export const withSoftAuthSync = WrappedComponent => {
+  const Wrapper = props => {
+    const syncLogout = event => {
+      if (event.key === 'logout') {
+        Router.push('/login')
+      }
+    }
+
+    useEffect(() => {
+      window.addEventListener('storage', syncLogout)
+
+      return () => {
+        window.removeEventListener('storage', syncLogout)
+        window.localStorage.removeItem('logout')
+      }
+    }, [])
+
+    return <WrappedComponent {...props} />
+  }
+
+  Wrapper.getInitialProps = async ctx => {
+    const token = softAuth(ctx)
 
     const componentProps =
       WrappedComponent.getInitialProps &&

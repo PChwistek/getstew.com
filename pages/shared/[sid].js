@@ -1,5 +1,7 @@
 import React from 'react'
 import axios from 'axios'
+import nextCookie from 'next-cookies'
+import PropTypes from 'prop-types'
 import Layout from '../../components/Layout'
 import Content from '../../components/Content'
 import Head from 'next/head'
@@ -8,11 +10,13 @@ import getServerHostname from '../../utils/getServerHostname'
 import Header from '../../components/LandingHeader'
 import Button from '../../components/Button'
 import { getDaysFrom } from '../../utils/getDaysFromDate'
+import { withSoftAuthSync } from '../../utils/auth'
+import LoginPrompt from '../../components/LoginPrompt/LoginPrompt'
 import "../../style.scss"
-
 
 const Shared = (props) => {
   const { name, author, dateModified, config } = props.recipe
+  const { allowed } = props
   return (
       <Layout>
         <Head>
@@ -27,43 +31,47 @@ const Shared = (props) => {
         <Hero type={ "grey-lg" }>
           <div className="content content__intro content__intro--lg">
             <Content>
-              <div className={ 'content__shared'}>
-                <div className={ 'content__shared__half content__shared__half--left'}>
-                  <h1> { name } </h1>
-                  <p> Last updated { getDaysFrom(dateModified) } by { author } </p>
-                  <div style={ { paddingTop: '20px' } }>
-                    <Button primary onClick={ () => {} }>
-                      Add to your library
-                    </Button>
+            {
+              allowed 
+                ? <div className={ 'content__shared'}>
+                  <div className={ 'content__shared__half content__shared__half--left'}>
+                    <h1> { name } </h1>
+                    <p> Last updated { getDaysFrom(dateModified) } by { author } </p>
+                    <div style={ { paddingTop: '20px' } }>
+                      <Button primary onClick={ () => {} }>
+                        Add to your library
+                      </Button>
+                    </div>
                   </div>
-                </div>
-                <div className={ 'content__shared__half content__shared__half--right'}>
-                  <div>
-                    { config.map((win, winIndex) => (
-                      <div key={ winIndex }>
-                        <div className='window-row'>     
-                          <div className='window-title'>Window { winIndex + 1 } </div>
-                            <img src={ '/window-sketch.png' } className='window-icon' />
-                          </div>
-                        {
-                          (win && win.tabs.length > 0) && win.tabs.map( (tab, tabIndex) => (
-                            <div className='tab__row' key={ 'row' + tabIndex }>
-                                <div className='tab__body'>
-                                  <img src={ tab.favIconUrl || '/chrome.png' } className='tab__fav' />
-                                    <p className='tab__title'>
-                                      <a href={ tab.url } className={ 'tab__title' } target="blank">
-                                        { tab.title }          
-                                      </a>
-                                    </p>
-                                </div>
+                  <div className={ 'content__shared__half content__shared__half--right'}>
+                    <div>
+                      { config.map((win, winIndex) => (
+                        <div key={ winIndex }>
+                          <div className='window-row'>     
+                            <div className='window-title'>Window { winIndex + 1 } </div>
+                              <img src={ '/window-sketch.png' } className='window-icon' />
                             </div>
-                          ))
-                        }
-                      </div>
-                    ))}
+                          {
+                            (win && win.tabs.length > 0) && win.tabs.map( (tab, tabIndex) => (
+                              <div className='tab__row' key={ 'row' + tabIndex }>
+                                  <div className='tab__body'>
+                                    <img src={ tab.favIconUrl || '/chrome.png' } className='tab__fav' />
+                                      <p className='tab__title'>
+                                        <a href={ tab.url } className={ 'tab__title' } target="blank">
+                                          { tab.title }          
+                                        </a>
+                                      </p>
+                                  </div>
+                              </div>
+                            ))
+                          }
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
+                : <LoginPrompt />
+            }
             </Content>
           </div>
         </Hero>
@@ -71,24 +79,55 @@ const Shared = (props) => {
     )
 }
 
-Shared.getInitialProps = async ({ query }) => {
+Shared.getInitialProps = async ctx => {
+  const { query } = ctx
+  const { token } = nextCookie(ctx)
 
   try {
-    // const config = {
-    //   headers: { Authorization: `Bearer ${token}` }
-    // }
 
-    const response = await axios.get(`${getServerHostname()}/recipe/share/${query.sid}`)
-    if (response.statusText >= 200 ** response.statusText < 400) {
-      return {
-        sid: query.sid,
-        recipe: response.data[0]
+    if(token) {
+      const axiosConfig = {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+
+      const validateToken = await axios.get(`${getServerHostname()}/auth/validate`, axiosConfig)
+      if(validateToken.data) {
+        const response = await axios.get(`${getServerHostname()}/recipe/share/${query.sid}`)
+        if (response.statusText >= 200 ** response.statusText < 400) {
+          return {
+            allowed: true,
+            sid: query.sid,
+            recipe: response.data[0]
+          }
+        }
+      }
+    } 
+
+    return {
+      allowed: false,
+      sid: '',
+      recipe: {
+        name: '',
+        author: '',
+        config: [],
+        dateModified: new Date()
       }
     }
+    
   } catch(error) {
     console.log(error)
   }
 }
+
+Shared.propTypes = {
+  recipe: PropTypes.shape({
+    name: PropTypes.string, 
+    author: PropTypes.string,
+    dateModified: PropTypes.string, 
+    config: PropTypes.array,
+  }),
+  allowed: PropTypes.bool
+}
  
 
-export default Shared
+export default withSoftAuthSync(Shared)
