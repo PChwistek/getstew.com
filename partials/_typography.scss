@@ -59,10 +59,18 @@ $font-size-tiny: 0.6em;
     width: 800px;
     margin: auto;
 
+    @include respond(phone) { // width < 1200?
+      flex-direction: column;
+    }
+
     &__half {
       flex-grow: 1;
       width: 100%;
 
+      @include respond(phone) { // width < 1200?
+        padding-bottom: 50px;
+      }
+  
       &--left {
         flex-grow: 1;
         text-align: left;
@@ -80,8 +88,6 @@ $font-size-tiny: 0.6em;
         text-align: left;
       }
     }
-
-
   }
 
   h2 {
