@@ -6,12 +6,11 @@ import nextCookie from 'next-cookies'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
 import Layout from '../components/Layout'
-import Hero from '../components/Hero'
-import Header from '../components/LandingHeader'
 import TextField from '../components/TextField'
 import Button from '../components/Button'
 import getServerHostname from '../utils/getServerHostname'
 import { isValidDisplayName } from '../utils/validations'
+import AuthedAppWrapper from '../components/AuthedAppWrapper'
 import Content from '../components/Content'
 import { withAuthSync } from '../utils/auth'
 
@@ -49,10 +48,8 @@ const AccountPage = props => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content="my stew account" />
       </Head>
-      <Header heroPhotoPath={ '/stew-logo.png' } hideItems={ true } showLogout={ true } />
       { allowed && 
-        <div>
-          <Hero type="grey">
+        <AuthedAppWrapper>
             <Content>
             { username.length > 2
                 ? <div style={ { textAlign: 'center', paddingTop: '20%' }}>
@@ -90,8 +87,7 @@ const AccountPage = props => {
                 </div>
             }
             </Content>
-          </Hero>
-        </div>
+        </AuthedAppWrapper>
       }
     </Layout>
   ) 

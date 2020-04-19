@@ -8,9 +8,12 @@ export default function landingHeader(props) {
     <nav>
       <div className="header header__container">
         <div className="header header__body">
-          <Link href={ '/' }>
-            <img src={ props.heroPhotoPath } className="header header__logo "/>
-          </Link>
+          {
+          !props.hideItems &&
+            <Link href={ '/' }>
+              <img src={ props.heroPhotoPath } className="header header__logo "/>
+            </Link>
+          }
           {
             !props.hideItems &&
               <div className="header header__items">

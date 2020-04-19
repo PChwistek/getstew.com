@@ -3,15 +3,13 @@ import axios from 'axios'
 import nextCookie from 'next-cookies'
 import PropTypes from 'prop-types'
 import Layout from '../../components/Layout'
-import Content from '../../components/Content'
 import Head from 'next/head'
-import Hero from '../../components/Hero'
 import getServerHostname from '../../utils/getServerHostname'
-import Header from '../../components/LandingHeader'
 import Button from '../../components/Button'
 import { getDaysFrom } from '../../utils/getDaysFromDate'
 import { withSoftAuthSync } from '../../utils/auth'
 import LoginPrompt from '../../components/LoginPrompt/LoginPrompt'
+import AuthedAppWrapper from '../../components/AuthedAppWrapper'
 import "../../style.scss"
 
 const Shared = (props) => {
@@ -42,63 +40,57 @@ const Shared = (props) => {
           <meta property="og:title" content="Someone shared a stew recipe!" />
           <meta property="og:image" content="/stew-logo.png" />
         </Head>
-         { allowed 
-          ? <Header heroPhotoPath={ '/stew-logo.png' } showLogout hideItems /> 
-          : <Header heroPhotoPath={ '/stew-logo.png' } />
-        }
-        <Hero type={ "grey-lg" }>
-          <div className="content content__intro content__intro--lg">
-            <Content>
-            {
-              allowed 
-                ? <div className={ 'content__shared'}>
-                  <div className={ 'content__shared__half content__shared__half--left'}>
-                    <h1> { name } </h1>
-                    <p> Last updated { getDaysFrom(dateModified) } by { author } </p>
-                    <div style={ { paddingTop: '20px' } }>
-                    {
-                      isInLibrary
-                        ?  <Button disabled onClick={ () => {} }>
-                          <img className='button__icon' src='/correct.png' /> In your library
-                        </Button>
-                        : <Button primary onClick={ addToLibrary }>
-                          Add to your library
-                        </Button>
-                    }
+        {
+            allowed 
+              ? <AuthedAppWrapper logoSrc={ '../stew-logo.png' }>
+                <div className="content content__intro content__intro--lg">
+                  <div className={ 'content__shared'}>
+                    <div className={ 'content__shared__half content__shared__half--left'}>
+                      <h1> { name } </h1>
+                      <p> Last updated { getDaysFrom(dateModified) } by { author } </p>
+                      <div style={ { paddingTop: '20px' } }>
+                      {
+                        isInLibrary
+                          ?  <Button disabled onClick={ () => {} }>
+                            <img className='button__icon' src='/correct.png' /> In your library
+                          </Button>
+                          : <Button primary onClick={ addToLibrary }>
+                            Add to your library
+                          </Button>
+                      }
+                      </div>
                     </div>
-                  </div>
-                  <div className={ 'content__shared__half content__shared__half--right'}>
-                    <div>
-                      { config.map((win, winIndex) => (
-                        <div key={ winIndex }>
-                          <div className='window-row'>     
-                            <div className='window-title'>Window { winIndex + 1 } </div>
-                              <img src={ '/window-sketch.png' } className='window-icon' />
-                            </div>
-                          {
-                            (win && win.tabs.length > 0) && win.tabs.map( (tab, tabIndex) => (
-                              <div className='tab__row' key={ 'row' + tabIndex }>
-                                  <div className='tab__body'>
-                                    <img src={ tab.favIconUrl || '/chrome.png' } className='tab__fav' />
-                                      <p className='tab__title'>
-                                        <a href={ tab.url } className={ 'tab__title' } target="blank">
-                                          { tab.title }          
-                                        </a>
-                                      </p>
-                                  </div>
+                    <div className={ 'content__shared__half content__shared__half--right'}>
+                      <div>
+                        { config.map((win, winIndex) => (
+                          <div key={ winIndex }>
+                            <div className='window-row'>     
+                              <div className='window-title'>Window { winIndex + 1 } </div>
+                                <img src={ '/window-sketch.png' } className='window-icon' />
                               </div>
-                            ))
-                          }
-                        </div>
-                      ))}
+                            {
+                              (win && win.tabs.length > 0) && win.tabs.map( (tab, tabIndex) => (
+                                <div className='tab__row' key={ 'row' + tabIndex }>
+                                    <div className='tab__body'>
+                                      <img src={ tab.favIconUrl || '/chrome.png' } className='tab__fav' />
+                                        <p className='tab__title'>
+                                          <a href={ tab.url } className={ 'tab__title' } target="blank">
+                                            { tab.title }          
+                                          </a>
+                                        </p>
+                                    </div>
+                                </div>
+                              ))
+                            }
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
-                : <LoginPrompt />
-            }
-            </Content>
-          </div>
-        </Hero>
+              </AuthedAppWrapper>
+              : <LoginPrompt />
+          }
       </Layout>
     )
 }

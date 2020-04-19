@@ -1,0 +1,53 @@
+.authed-app-wrapper {
+  display: flex;
+
+  &__nav {
+    padding: 50px;
+    display: flex;
+    min-width: 200px;
+    color: $white;
+    min-height: 100vh;
+    background: $text-color;  
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+
+    &__items {
+      position: relative;
+      top: -100px;
+    }
+
+    &__item {
+      font-family: $base-font-family;
+      align-self: center;
+      font-family: $base-font-family;
+      font-size: $font-size-large;
+      padding: 10px;
+      cursor: pointer;
+      color: $white !important;
+      text-align: left;
+    }
+
+    &__logo {
+      align-self: center;
+      position: absolute;
+      top: 30px;
+    }
+
+    &__support {
+      font-size: $font-size-smaller !important;
+      align-self: left;
+      position: fixed;
+      bottom: 50px;
+    }
+
+    a {
+      color: $white !important;
+    }
+
+  }
+
+  &__content {
+    flex-grow: 1;
+  }
+}
