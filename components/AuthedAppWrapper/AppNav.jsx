@@ -11,7 +11,7 @@ const AuthedAppWrapper = props => {
         </div>
         <div className="authed-app-wrapper__nav__items">
           <div>
-            <Link href={ '/account' }>
+            <Link href={ '/dashboard' }>
               <div className="authed-app-wrapper__nav__item">
                 <a> Dashboard </a>
               </div>

@@ -23,7 +23,7 @@ export function setJWT(token) {
 
 export const login = ({ token }) => {
   setJWT(token)
-  Router.push('/account')
+  Router.push('/dashboard')
 }
 
 export const loginNoRedirect = ({ token }) => {

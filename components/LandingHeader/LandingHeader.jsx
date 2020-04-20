@@ -22,7 +22,7 @@ export default function landingHeader(props) {
                       <a> Pricing </a>
                 </div>
               </Link>
-              <Link href={'/account' }>
+              <Link href={'/dashboard' }>
                 <div className="header header__item">
                     <a> Account </a> 
                 </div>
