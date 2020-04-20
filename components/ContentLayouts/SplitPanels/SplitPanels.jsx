@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 const SplitPanels = props => {
   return (
-    <div>
+    <div className='split'>
       { props.children }
     </div>
   )
@@ -10,7 +10,7 @@ const SplitPanels = props => {
 
 export const Panel = props => {
   return (
-    <div className={ props.left ? 'split split__left' : 'split split__right'}>
+    <div className={ props.left ? 'split__left' : 'split__right'}>
       { props.children }
     </div>
   )

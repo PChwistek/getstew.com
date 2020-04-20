@@ -263,13 +263,13 @@
 }
 
 .split {
-  height: 100vh;
-  position: absolute;
-  z-index: 1;
-  top: 0;
+  display: flex;
   overflow-x: hidden;
-
+  height: 100vh;
+  flex-direction: row;
+  
   &__left {
+    position: relative;
     width: 156px;
     left: 0;
     background: $grey-background;
@@ -280,7 +280,7 @@
   }
 
   &__right {
-    left: 156px;
+    position: relative;
     background: #fff;
     width: 100%;
     @include respond(phone) { // width < 1200?
@@ -316,10 +316,32 @@
     }
   }
 
+  &__form--responsive {
+    width: 300px;
+    @include respond(phone) { // width < 1200?
+      text-align: center;
+      left: 0px;
+      width: 300px;
+      margin: auto;
+      @include absCenter;
+    }
+  }
+
   &__form-item {
     padding-top: 16px;
     &--extra-space {
       padding-top: 24px;
+    }
+
+    &--left-align {
+      text-align: left !important;
+    }
+
+    &--checkbox {
+      font-family: $base-font-family;
+      font-size: $font-size-smaller;       
+      text-align: left !important;
+      font-size: $font-size-regular;
     }
   }
 
@@ -331,6 +353,7 @@
       font-weight: 600;
     }
   }
+  
 
   &__text {
     font-family: $base-font-family;

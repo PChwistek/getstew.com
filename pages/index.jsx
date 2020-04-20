@@ -14,7 +14,6 @@ import Footer from '../components/Footer'
 import MailModal from '../components/Modal/MailModal'
 import { findBrowserType } from '../utils/device_check'
 import { logEvent } from '../utils/analytics'
-import { getJWT } from '../utils/auth'
 import "../style.scss"
 
 
@@ -25,7 +24,6 @@ class Index extends React.Component {
     this.state = {
       showModal: false,
       browser: 'Chrome',
-      hasToken: false,
     }
   }
 
@@ -48,12 +46,6 @@ class Index extends React.Component {
     this.setState({
       browser: detectedBrowser
     })
-    const token = getJWT()
-    if(token) {
-      this.setState({
-        hasToken: true
-      })
-    }
   }
 
   render() {
@@ -67,7 +59,7 @@ class Index extends React.Component {
           <meta name="description" content="stew is the smart tab manager built for collaboration" />
         </Head>
         <MailModal show={ showModal } closeModal={ this.toggleModal } />
-        <Header heroPhotoPath={ '/stew-logo.png' } hasToken={ this.state.hasToken } />
+        <Header heroPhotoPath={ '/stew-logo.png' } />
         <Hero type={ "grey" }>
           <Intro 
             onButtonClick={ this.onButtonClick } 

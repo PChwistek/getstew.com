@@ -4,7 +4,7 @@ const Checkbox = props => {
   
   return (
     <label className="checkbox-container">              
-      <div className="split__small-text">
+      <div className="split__text">
         { props.label }        
       </div>
       <input type="checkbox" checked={ props.checked } onChange={ () => props.setValue(!props.checked) } />

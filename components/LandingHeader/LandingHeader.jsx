@@ -8,9 +8,12 @@ export default function landingHeader(props) {
     <nav>
       <div className="header header__container">
         <div className="header header__body">
-          <Link href={ '/' }>
-            <img src={ props.heroPhotoPath } className="header header__logo "/>
-          </Link>
+          {
+          !props.hideItems &&
+            <Link href={ '/' }>
+              <img src={ props.heroPhotoPath } className="header header__logo "/>
+            </Link>
+          }
           {
             !props.hideItems &&
               <div className="header header__items">
@@ -19,7 +22,7 @@ export default function landingHeader(props) {
                       <a> Pricing </a>
                 </div>
               </Link>
-              <Link href={ props.hasToken ? '/account' : '/login' }>
+              <Link href={'/dashboard' }>
                 <div className="header header__item">
                     <a> Account </a> 
                 </div>
@@ -45,6 +48,5 @@ export default function landingHeader(props) {
 landingHeader.propTypes = {
   heroPhotoPath: PropTypes.string,
   showLogout: PropTypes.bool,
-  hasToken: PropTypes.bool,
   hideItems: PropTypes.bool
 }

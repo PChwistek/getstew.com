@@ -1,0 +1,36 @@
+.login-prompt {
+  height: 500px;
+  width: 600px;
+  margin: auto;
+  background: $white;
+  border: 1px solid $text-color;
+  padding: 30px;
+  border-radius: 5px;
+
+  &__body {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__toggle {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+
+    &__selection {
+      padding: 15px;
+      font-family: $base-font-family;
+      font-size: $font-size-regular;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      font-weight: 600;
+      cursor: pointer;
+      color: $text-color;
+
+      &--selected {
+        text-decoration: underline;
+        color: $brand-color;
+      }
+    }
+  }
+}

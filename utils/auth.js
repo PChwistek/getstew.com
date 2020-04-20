@@ -1,83 +1,133 @@
-/* eslint-disable no-console */
+/* eslint-disable  */
+import { useEffect } from 'react'
 import Router from 'next/router'
-import axios from 'axios'
+import nextCookie from 'next-cookies'
 import cookie from 'js-cookie'
-import getServerHostname  from './getServerHostname'
 
 const isProd = process.env.environment
 
-export function setJWT(jwt) {
+export function setJWT(token) {
   if(isProd) {
-    cookie.set('access_token', jwt, {
-      sameSite: 'strict',
+    cookie.set('token', token, {
+      strict: 'true',
       expires: 1,
       domain: '.getstew.com'
     })
   } else {
-    cookie.set('access_token', jwt, {
-      sameSite: 'strict',
+    cookie.set('token', token, {
+      strict: 'true',
       expires: 1,
     })
   }
 }
 
-export function getJWT() {
-  return cookie.get('access_token')
+export const login = ({ token }) => {
+  setJWT(token)
+  Router.push('/dashboard')
 }
 
-export const login = async ({ email, password }) => {
-  const url = `${getServerHostname()}/auth/login`
-  try {
-    const response = await axios.post(url, { email: email.toLowerCase(), password })
-    if (response.status >= 200 && response.status < 400) {
-      const { access_token } = response.data
-      setJWT(access_token)
-      Router.push('/account')
-    } else {
-      let error = new Error(response.statusText)
-      error.response = response
-      throw error
-    }
-    return response
-  } catch (error) {
-    const { response } = error
-    return response
-  }
+export const loginNoRedirect = ({ token }) => {
+  setJWT(token)
+  Router.reload()
 }
 
-export const signUp = async ({ email, password, newsletter }) => {
-  const url = `${getServerHostname()}/auth/register`
-  try {
-    const response = await axios.post(url, { email: email.toLowerCase(), password })
-    if (response.data) {
-      const { access_token } = response.data
-      setJWT(access_token)
-      Router.push('/account')
+
+export const auth = ctx => {
+  const { token } = nextCookie(ctx)
+
+  if (!token) {
+    if (typeof window === 'undefined') {
+      ctx.res.writeHead(302, { Location: '/login' })
+      ctx.res.end()
     } else {
-      let error = new Error(response.statusText)
-      error.response = response
-      throw error
+      Router.push('/login')
     }
-    return response
-  } catch (error) {
-    const { response } = error
-    return response
   }
+
+  return token
 }
 
 export const logout = () => {
-  cookie.remove('access_token')
+  cookie.remove('token')
   // to support logging out from all windows
   window.localStorage.setItem('logout', Date.now())
-  Router.replace('/login')
+  Router.push('/login')
 }
 
-export const checkTokenStatus = async (access_token) => {
-  const apiUrl = `${getServerHostname()}/auth/validate`
-  const config = {
-    headers: { Authorization: `Bearer ${access_token}` }
+export const withAuthSync = WrappedComponent => {
+  const Wrapper = props => {
+    const syncLogout = event => {
+      if (event.key === 'logout') {
+        console.log('logged out from storage!')
+        Router.push('/login')
+      }
+    }
+
+    useEffect(() => {
+      window.addEventListener('storage', syncLogout)
+
+      return () => {
+        window.removeEventListener('storage', syncLogout)
+        window.localStorage.removeItem('logout')
+      }
+    }, [])
+
+    return <WrappedComponent {...props} />
   }
 
-  const response = await axios.get(apiUrl, config)
-  return response.ok
+  Wrapper.getInitialProps = async ctx => {
+    const token = auth(ctx)
+
+    const componentProps =
+      WrappedComponent.getInitialProps &&
+      (await WrappedComponent.getInitialProps(ctx))
+
+    return { ...componentProps, token }
+  }
+
+  return Wrapper
+}
+
+
+export const softAuth = ctx => {
+  const { token } = nextCookie(ctx)
+
+  if (!token) {
+   return false
+  }
+
+  return token
+}
+
+export const withSoftAuthSync = WrappedComponent => {
+  const Wrapper = props => {
+    const syncLogout = event => {
+      if (event.key === 'logout') {
+        Router.push('/login')
+      }
+    }
+
+    useEffect(() => {
+      window.addEventListener('storage', syncLogout)
+
+      return () => {
+        window.removeEventListener('storage', syncLogout)
+        window.localStorage.removeItem('logout')
+      }
+    }, [])
+
+    return <WrappedComponent {...props} />
+  }
+
+  Wrapper.getInitialProps = async ctx => {
+    const token = softAuth(ctx)
+
+    const componentProps =
+      WrappedComponent.getInitialProps &&
+      (await WrappedComponent.getInitialProps(ctx))
+
+    return { ...componentProps, token }
+  }
+
+  return Wrapper
 }
