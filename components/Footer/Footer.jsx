@@ -11,9 +11,6 @@ export default function footer() {
       <div>
         2019 © stew, inc.
       </div>
-      <div>
-        All icons made by Freepik
-      </div>
     </div>
   </Content>
   )
