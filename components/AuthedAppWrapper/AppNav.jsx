@@ -7,7 +7,7 @@ const AuthedAppWrapper = props => {
     <div className={ 'authed-app-wrapper' }>
       <div className={ 'authed-app-wrapper__nav'}>
         <div className='authed-app-wrapper__nav__logo'>
-          <img src={ props.logoSrc || './stew-logo.png' } className="header header__logo "/>
+          <img src={ props.logoSrc || './stew-logo-white.png' } className="header header__logo "/>
         </div>
         <div className="authed-app-wrapper__nav__items">
           <div>
