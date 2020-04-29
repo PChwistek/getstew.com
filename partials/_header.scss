@@ -15,7 +15,8 @@
   }
 
   &__logo {
-    height: 100px;
+    padding: 20px;
+    height: 60px;
     cursor: pointer;
   }
 
@@ -46,7 +47,7 @@
   padding-top: 16px;
   color: $text-color;
   text-align: center;
-  font-size: $font-size-tiny;
+  font-size: $font-size-regular;
   font-family: $oxygen;
   padding-bottom: 10px;
 

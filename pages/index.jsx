@@ -59,7 +59,7 @@ class Index extends React.Component {
           <meta name="description" content="stew is the smart tab manager built for collaboration" />
         </Head>
         <MailModal show={ showModal } closeModal={ this.toggleModal } />
-        <Header heroPhotoPath={ '/stew-logo-2.png' } />
+        <Header heroPhotoPath={ '/stew-title.png' } />
         <Hero type={ "grey" }>
           <Intro 
             onButtonClick={ this.onButtonClick } 

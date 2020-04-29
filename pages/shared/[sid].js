@@ -96,7 +96,7 @@ const Shared = (props) => {
 }
 
 Shared.getInitialProps = async ctx => {
-  const { query } = ctx
+  const { res, query } = ctx
   const { token } = nextCookie(ctx)
 
   try {
@@ -109,7 +109,19 @@ Shared.getInitialProps = async ctx => {
 
       if(response.data) {
         const response = await axios.get(`${getServerHostname()}/recipe/share/${query.sid}`, axiosConfig)
-        if (response.statusText >= 200 ** response.statusText < 400) {
+        if(response.data.response.statusCode === 403) {
+          if (res) {
+            res.writeHead(403, { Location: '/403' })
+            res.end()
+            return
+          }
+        } else if (response.data.response.statusCode === 404) {
+          if (res) {
+            res.writeHead(404, { Location: '/404' })
+            res.end()
+            return
+          }
+        } else if (response.statusText >= 200 ** response.statusText < 400) {
           return {
             allowed: true,
             sid: query.sid,
