@@ -1,0 +1,11 @@
+.not-found {
+
+  &__body {
+    padding-top: 60px;
+  }
+  &__illustration {
+    padding-top: 60px;
+    @include absCenter();
+    width: 500px;
+  }
+}

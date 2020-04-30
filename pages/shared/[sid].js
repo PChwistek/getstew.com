@@ -99,39 +99,29 @@ Shared.getInitialProps = async ctx => {
   const { res, query } = ctx
   const { token } = nextCookie(ctx)
 
-  try {
-
     if(token) {
       const axiosConfig = {
         headers: { Authorization: `Bearer ${token}` }
       }
       const response = await axios.get(`${getServerHostname()}/recipe/share/${query.sid}`, axiosConfig)
-
-      if(response.data) {
-        const response = await axios.get(`${getServerHostname()}/recipe/share/${query.sid}`, axiosConfig)
-        if(response.data.response.statusCode === 403) {
-          if (res) {
-            res.writeHead(403, { Location: '/403' })
-            res.end()
-            return
-          }
-        } else if (response.data.response.statusCode === 404) {
-          if (res) {
-            res.writeHead(404, { Location: '/404' })
-            res.end()
-            return
-          }
-        } else if (response.statusText >= 200 ** response.statusText < 400) {
-          return {
-            allowed: true,
-            sid: query.sid,
-            recipe: response.data.recipe[0],
-            inLibrary: response.data.alreadyInLibrary,
-            axiosConfig,
-          }
+      if (response.data.recipe) {
+        return {
+          allowed: true,
+          sid: query.sid,
+          recipe: response.data.recipe[0],
+          inLibrary: response.data.alreadyInLibrary,
+          axiosConfig,
         }
+      } else if (response.data.response.statusCode === 403) {
+        res.statusCode = 403
+        res.end('Forbidden')
+        return
+      } else if (response.data.response.statusCode === 404) {
+        res.statusCode = 404
+        res.end('Not found')
+        return
       }
-    } 
+    }
 
     return {
       allowed: false,
@@ -143,12 +133,9 @@ Shared.getInitialProps = async ctx => {
         dateModified: new Date()
       },
       inLibrary: false,
-      axiosConfig: ''
+      axiosConfig: { headers: { }}
     }
     
-  } catch(error) {
-    // console.log(error)
-  }
 }
 
 Shared.propTypes = {
