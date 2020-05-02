@@ -57,7 +57,7 @@ const AlertModal = props => {
             </div>
           </Fragment>
         : <div>
-          <h2 style={{ 'textAlign': 'center' }}> You're all set! </h2>
+          <h2 style={{ 'textAlign': 'center' }}> { 'You\'re all set!' } </h2>
           <div style={{ 'textAlign': 'center' }}>
             <p> Check out our <a> FAQ.</a> </p>
           </div>

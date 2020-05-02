@@ -125,7 +125,8 @@ Shared.getInitialProps = async ctx => {
         res.end('Not found')
         return
       } else {
-        res.statusCode = response.data.response.statusCode 
+        res.statusCode = 404
+        res.json({ error: response})
         res.end('the error')
         return
       }
