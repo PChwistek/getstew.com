@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import Router from 'next/router'
 import nextCookie from 'next-cookies'
 import PropTypes from 'prop-types'
 import Header from '../../components/LandingHeader'
@@ -8,7 +9,7 @@ import Head from 'next/head'
 import getServerHostname from '../../utils/getServerHostname'
 import Button from '../../components/Button'
 import { getDaysFrom } from '../../utils/getDaysFromDate'
-import { withAuthSync } from '../../utils/auth'
+import { withSoftAuthSync } from '../../utils/auth'
 import LoginPrompt from '../../components/LoginPrompt/LoginPrompt'
 import AuthedAppWrapper from '../../components/AuthedAppWrapper'
 import "../../style.scss"
@@ -16,7 +17,7 @@ import "../../style.scss"
 const Shared = (props) => {
   const { name, author, dateModified, config } = props.recipe
   const { allowed, inLibrary, axiosConfig, sid } = props
-
+  console.log('token', props.token)
   const [isInLibrary, setIsInLibrary] = useState(inLibrary || false)
   
   async function addToLibrary() {
@@ -102,32 +103,37 @@ const Shared = (props) => {
 Shared.getInitialProps = async ctx => {
   const { token } = nextCookie(ctx)
   const { res, query } = ctx
+
+  const redirectOnError = () =>
+  typeof window !== 'undefined'
+    ? Router.push('/login')
+    : ctx.res.writeHead(302, { Location: '/login' }).end()
+
     if(token) {
-      const axiosConfig = {
-        headers: { Authorization: `Bearer ${token}` }
-      }
-      const response = await axios.get(`${getServerHostname()}/recipe/share/${query.sid}`, axiosConfig)
-      if (response.data.recipe) {
-        return {
-          allowed: true,
-          sid: query.sid,
-          recipe: response.data.recipe[0],
-          inLibrary: response.data.alreadyInLibrary,
-          axiosConfig,
+      try {
+        const axiosConfig = {
+          headers: { Authorization: `Bearer ${token}` }
         }
-      } else if (response.data.response.statusCode === 403) {
-        res.statusCode = 403
-        res.end('Forbidden')
-        return
-      } else if (response.data.response.statusCode === 404) {
-        res.statusCode = 404
-        res.end('Not found')
-        return
-      } else {
-        res.statusCode = 404
-        res.json({ error: response})
-        res.end('the error')
-        return
+        const response = await axios.get(`${getServerHostname()}/recipe/share/${query.sid}`, axiosConfig)
+        if (response.data.recipe) {
+          return {
+            allowed: true,
+            sid: query.sid,
+            recipe: response.data.recipe[0],
+            inLibrary: response.data.alreadyInLibrary,
+            axiosConfig,
+          }
+        } else if (response.data.response.statusCode === 403) {
+          res.statusCode = 403
+          res.end('Forbidden')
+          return
+        } else if (response.data.response.statusCode === 404) {
+          res.statusCode = 404
+          res.end('Not found')
+          return
+        }
+      } catch(error) {
+        return redirectOnError()
       }
     }
 
@@ -142,6 +148,7 @@ Shared.getInitialProps = async ctx => {
       },
       inLibrary: false,
       axiosConfig: { headers: { }},
+      token,
     }
     
 }
@@ -160,4 +167,4 @@ Shared.propTypes = {
 }
  
 
-export default withAuthSync(Shared)
+export default withSoftAuthSync(Shared)
