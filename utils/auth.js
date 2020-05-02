@@ -58,7 +58,11 @@ export const softAuth = ctx => {
 }
 
 export const logout = () => {
-  cookie.remove('token')
+  if(isProd) {
+    cookie.remove('token', { path: '', domain: '.getstew.com' })
+  } else {
+    cookie.remove('token', { path: '' })
+  }
   // to support logging out from all windows
   window.localStorage.setItem('logout', Date.now())
   Router.push('/login')
