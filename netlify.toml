@@ -7,4 +7,3 @@
   from = "/*"
   to = "/not-found"
   status = 404
-  force = true
