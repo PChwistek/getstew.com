@@ -32,7 +32,7 @@ const Teams = props => {
                   <h2> Introducing... teams! </h2>
                 </div>
                 <div> 
-                  <img src='./new-team.png' className='teams__explosion' />
+                  <img src='/new-team.png' className='teams__explosion' />
                 </div> 
                 <div className='teams__button'>
                   <Button primary onClick={ () => {} }>

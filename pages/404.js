@@ -20,7 +20,7 @@ export default function Custom404() {
             slogan="404 - Page Not Found "
           />         
           <div>
-            <img src='./error.png' className='not-found__illustration'/>
+            <img src='/error.png' className='not-found__illustration'/>
           </div>
         </div>
       </Content>
