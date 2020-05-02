@@ -8,7 +8,7 @@ import Head from 'next/head'
 import getServerHostname from '../../utils/getServerHostname'
 import Button from '../../components/Button'
 import { getDaysFrom } from '../../utils/getDaysFromDate'
-import { withSoftAuthSync } from '../../utils/auth'
+import { withAuthSync } from '../../utils/auth'
 import LoginPrompt from '../../components/LoginPrompt/LoginPrompt'
 import AuthedAppWrapper from '../../components/AuthedAppWrapper'
 import "../../style.scss"
@@ -160,4 +160,4 @@ Shared.propTypes = {
 }
  
 
-export default withSoftAuthSync(Shared)
+export default withAuthSync(Shared)
