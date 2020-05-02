@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import nextCookie from 'next-cookies'
 import PropTypes from 'prop-types'
+import Header from '../../components/LandingHeader'
 import Layout from '../../components/Layout'
 import Head from 'next/head'
 import getServerHostname from '../../utils/getServerHostname'
@@ -89,7 +90,10 @@ const Shared = (props) => {
                   </div>
                 </div>
               </AuthedAppWrapper>
-              : <LoginPrompt />
+              : <div>
+              <Header heroPhotoPath={ '../stew-title.png' }/>
+              <LoginPrompt />
+              </div>
           }
       </Layout>
     )
@@ -119,6 +123,10 @@ Shared.getInitialProps = async ctx => {
       } else if (response.data.response.statusCode === 404) {
         res.statusCode = 404
         res.end('Not found')
+        return
+      } else {
+        res.statusCode = response.data.response.statusCode 
+        res.end('the error')
         return
       }
     }
