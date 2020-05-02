@@ -9,7 +9,7 @@ import Head from 'next/head'
 import getServerHostname from '../../utils/getServerHostname'
 import Button from '../../components/Button'
 import { getDaysFrom } from '../../utils/getDaysFromDate'
-import { withAuthSync } from '../../utils/auth'
+import { withSoftAuthSync } from '../../utils/auth'
 import LoginPrompt from '../../components/LoginPrompt/LoginPrompt'
 import AuthedAppWrapper from '../../components/AuthedAppWrapper'
 import "../../style.scss"
@@ -114,7 +114,6 @@ Shared.getInitialProps = async ctx => {
         const axiosConfig = {
           headers: { Authorization: `Bearer ${token}` }
         }
-        
         const response = await axios.get(`${getServerHostname()}/recipe/share/${query.sid}`, axiosConfig)
         if (response.data.recipe) {
           return {
@@ -168,4 +167,4 @@ Shared.propTypes = {
 }
  
 
-export default withAuthSync(Shared)
+export default withSoftAuthSync(Shared)
