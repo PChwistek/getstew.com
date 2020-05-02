@@ -17,6 +17,8 @@ const Shared = (props) => {
   const { name, author, dateModified, config } = props.recipe
   const { allowed, inLibrary, axiosConfig, sid } = props
 
+  console.log(props.error)
+
   const [isInLibrary, setIsInLibrary] = useState(inLibrary || false)
   
   async function addToLibrary() {
@@ -102,12 +104,13 @@ const Shared = (props) => {
 Shared.getInitialProps = async ctx => {
   const { res, query } = ctx
   const { token } = nextCookie(ctx)
-
+  let error = ''
     if(token) {
       const axiosConfig = {
         headers: { Authorization: `Bearer ${token}` }
       }
       const response = await axios.get(`${getServerHostname()}/recipe/share/${query.sid}`, axiosConfig)
+      error = response
       if (response.data.recipe) {
         return {
           allowed: true,
@@ -129,6 +132,7 @@ Shared.getInitialProps = async ctx => {
         res.end('the error')
         return
       }
+
     }
 
     return {
@@ -141,7 +145,8 @@ Shared.getInitialProps = async ctx => {
         dateModified: new Date()
       },
       inLibrary: false,
-      axiosConfig: { headers: { }}
+      axiosConfig: { headers: { }},
+      error
     }
     
 }
