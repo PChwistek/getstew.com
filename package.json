@@ -6,9 +6,7 @@
   "scripts": {
     "dev": "next -p 3009",
     "build": "next build",
-    "postbuild": "next-on-netlify",
-    "start": "next start",
-    "export": "yarn run build && next export"
+    "start": "next start"
   },
   "dependencies": {
     "@zeit/next-sass": "^1.0.1",
