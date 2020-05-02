@@ -17,8 +17,6 @@ const Shared = (props) => {
   const { name, author, dateModified, config } = props.recipe
   const { allowed, inLibrary, axiosConfig, sid } = props
 
-  console.log('the error', props.error)
-
   const [isInLibrary, setIsInLibrary] = useState(inLibrary || false)
   
   async function addToLibrary() {
@@ -45,7 +43,7 @@ const Shared = (props) => {
         </Head>
         {
             allowed 
-              ? <AuthedAppWrapper logoSrc={ '../stew-logo.png' }>
+              ? <AuthedAppWrapper logoSrc={ '../stew-logo-white.png' }>
                 <div className="content content__intro content__intro--lg">
                   <div className={ 'content__shared'}>
                     <div className={ 'content__shared__half content__shared__half--left'}>
@@ -102,15 +100,13 @@ const Shared = (props) => {
 }
 
 Shared.getInitialProps = async ctx => {
-  const { res, query } = ctx
   const { token } = nextCookie(ctx)
-  let error = ''
+  const { res, query } = ctx
     if(token) {
       const axiosConfig = {
         headers: { Authorization: `Bearer ${token}` }
       }
       const response = await axios.get(`${getServerHostname()}/recipe/share/${query.sid}`, axiosConfig)
-      error = response
       if (response.data.recipe) {
         return {
           allowed: true,
@@ -133,7 +129,6 @@ Shared.getInitialProps = async ctx => {
         res.end('the error')
         return
       }
-
     }
 
     return {
@@ -147,7 +142,6 @@ Shared.getInitialProps = async ctx => {
       },
       inLibrary: false,
       axiosConfig: { headers: { }},
-      error
     }
     
 }

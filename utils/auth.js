@@ -47,6 +47,16 @@ export const auth = ctx => {
   return token
 }
 
+export const softAuth = ctx => {
+  const { token } = nextCookie(ctx)
+
+  if (!token) {
+   return false
+  }
+
+  return token
+}
+
 export const logout = () => {
   cookie.remove('token')
   // to support logging out from all windows
@@ -88,16 +98,6 @@ export const withAuthSync = WrappedComponent => {
   return Wrapper
 }
 
-
-export const softAuth = ctx => {
-  const { token } = nextCookie(ctx)
-
-  if (!token) {
-   return false
-  }
-
-  return token
-}
 
 export const withSoftAuthSync = WrappedComponent => {
   const Wrapper = props => {
