@@ -17,7 +17,7 @@ const Shared = (props) => {
   const { name, author, dateModified, config } = props.recipe
   const { allowed, inLibrary, axiosConfig, sid } = props
 
-  console.log(props.error)
+  console.log('the error', props.error)
 
   const [isInLibrary, setIsInLibrary] = useState(inLibrary || false)
   
