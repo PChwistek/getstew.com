@@ -11,7 +11,6 @@ export function setJWT(token) {
     cookie.set('token', token, {
       strict: 'true',
       expires: 1,
-      domain: '.getstew.com'
     })
   } else {
     cookie.set('token', token, {

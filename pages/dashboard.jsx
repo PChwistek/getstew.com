@@ -59,7 +59,6 @@ AccountPage.getInitialProps = async ctx => {
     }
     
     const response = await axios.get(`${getServerHostname()}/auth/profile`, config)
-    console.log('response', response)
     if (response.statusText >= 200 ** response.statusText < 400) {
       return {
         config,
