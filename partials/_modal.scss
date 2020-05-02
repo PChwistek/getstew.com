@@ -2,6 +2,7 @@
 .modal {
   position: fixed;
   height: 100vh;
+  top: 0px;
   width: 100%;
   z-index: 100;
   background: $modal-background;
@@ -13,7 +14,7 @@
     width: 600px;
     background: $white;
     margin: auto;
-    top: 20%;
+    top: 10%;
     padding: 30px;
     border-radius: 15px;
     @include respond(phone) { // width < 1200?
@@ -22,6 +23,10 @@
       padding: 5%;
       margin-left: 2.5%;
       margin-right: 2.5%;
+    }
+
+    &--alert {
+      height: 600px;
     }
   }
 

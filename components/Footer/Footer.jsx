@@ -6,13 +6,10 @@ export default function footer() {
     <Content>
     <div className="footer">
       <div>
-        <img src="/favicon.png" className="footer footer__image"/>
+        <img src="/stew-title.png" className="footer footer__image"/>
       </div>
       <div>
-        2019 © stew, inc.
-      </div>
-      <div>
-        All icons made by Freepik
+        2019 © Stew, LLC.
       </div>
     </div>
   </Content>

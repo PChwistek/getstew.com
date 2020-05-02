@@ -59,7 +59,7 @@ class Index extends React.Component {
           <meta name="description" content="stew is the smart tab manager built for collaboration" />
         </Head>
         <MailModal show={ showModal } closeModal={ this.toggleModal } />
-        <Header heroPhotoPath={ '/stew-logo.png' } />
+        <Header heroPhotoPath={ '/stew-title.png' } />
         <Hero type={ "grey" }>
           <Intro 
             onButtonClick={ this.onButtonClick } 
@@ -81,7 +81,7 @@ class Index extends React.Component {
           <TextWithImage
             title="Save time when setting up."
             body="stew helps you find custom or community-made tab setups to get your work done better and faster."
-            image={ "/chest.png" }
+            image={ "/time-is-money.png" }
           />
           <TextWithImageTop 
             title="It's great for teams too"

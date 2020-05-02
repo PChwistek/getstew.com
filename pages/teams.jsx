@@ -9,6 +9,7 @@ import getServerHostname from '../utils/getServerHostname'
 import AuthedAppWrapper from '../components/AuthedAppWrapper'
 import Content from '../components/Content'
 import { withAuthSync } from '../utils/auth'
+import Button from '../components/Button'
 
 import "../style.scss"
 
@@ -26,7 +27,19 @@ const Teams = props => {
       { allowed && 
         <AuthedAppWrapper>
             <Content>
-              <h1> Some content on teams </h1>
+              <div className='teams__intro'>
+                <div className='teams__title'> 
+                  <h2> Introducing... teams! </h2>
+                </div>
+                <div> 
+                  <img src='./new-team.png' className='teams__explosion' />
+                </div> 
+                <div className='teams__button'>
+                  <Button primary onClick={ () => {} }>
+                    Get Started
+                  </Button>
+                </div>
+              </div>
             </Content>
         </AuthedAppWrapper>
       }
