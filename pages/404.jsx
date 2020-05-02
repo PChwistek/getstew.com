@@ -12,7 +12,6 @@ export default function Custom404() {
         <title>stew | 404 </title>
         <link rel="icon" href={ '/favicon.png' } type="image/png" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        { window.location.href = window.location.origin + "/_error" } 
       </Head>
       <Header heroPhotoPath={ '/stew-title.png' } />
       <Content>
