@@ -1,0 +1,62 @@
+Arguments: 
+  /Users/phil/.nvm/versions/node/v11.3.0/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js install
+
+PATH: 
+  /Users/phil/.gem/bin:/Users/phil/.gem/ruby/2.6.0/bin:/Users/phil/.nvm/versions/node/v11.3.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  11.3.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/phil/Documents/stew/repos/getstew.com/package.json: Unexpected token } in JSON at position 767
+      at JSON.parse (<anonymous>)
+      at /usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:310:30)
+      at /usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "hermitly-io",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+      "dev": "next -p 3009",
+      "build": "next build",
+      "postbuild": "next-on-netlify",
+      "start": "next start",
+      "export": "yarn run build && next export"
+    },
+    "dependencies": {
+      "@zeit/next-sass": "^1.0.1",
+      "axios": "^0.19.2",
+      "date-and-time": "^0.13.1",
+      "js-cookie": "^2.2.1",
+      "next": "^9.3.0",
+      "next-cookies": "^2.0.3",
+      "next-on-netlify": "^1.0.1",
+      "node-sass": "^4.12.0",
+      "react": "^16.8.6",
+      "react-dom": "^16.8.6",
+      "react-ga": "^2.5.7",
+      "react-mailchimp-subscribe": "^2.1.0"
+    },
+    "devDependencies": {
+      "babel-eslint": "^10.0.1",
+      "eslint": "^5.16.0",
+      "eslint-plugin-react": "^7.13.0",
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
