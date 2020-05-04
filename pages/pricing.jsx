@@ -33,15 +33,15 @@ class Pricing extends React.Component {
           <div className='pricing__box-row'>
               <PricingBox 
                 title='Starter'
-                price='$15.00'
-                extra='$3.00'
+                price='$15'
+                extra='$3'
                 freeUsers='5'
                 buttonText='Upgrade Now'
               />
               <PricingBox 
                 title='Growing'
-                price='$30.00'
-                extra='$4.00'
+                price='$30'
+                extra='$4'
                 buttonText='Upgrade Now'
                 freeUsers={ 10 }
               />
