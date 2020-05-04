@@ -21,13 +21,19 @@ export default function footer() {
               Product
             </div>
             <div className='footer__company-info'>
-              <Link className='footer___company-info--link' href='/pricing'> Pricing </Link>
+              <Link href='/pricing'> 
+                <a> Pricing </a>
+              </Link>
             </div>
             <div className='footer__company-info'>
-              <Link className='footer___company-info--link' href='/faq'> FAQ </Link>
+              <Link href='/faq'> 
+                <a> FAQ </a>  
+              </Link>
             </div>
             <div className='footer__company-info'>
-              <Link className='footer___company-info--link' href='/support'> Support </Link>
+              <Link href='/support'> 
+                <a> Support </a>
+              </Link>
             </div>
           </div>
           <div className='footer__row-item'>
@@ -35,16 +41,24 @@ export default function footer() {
               Company
             </div>
             <div className='footer__company-info'>
-              <Link className='footer___company-info--link' href='/privacy-policy'> Privacy Policy </Link>
+              <Link href='/privacy-policy'> 
+                <a> Privacy Policy  </a>
+              </Link>
             </div>
             <div className='footer__company-info'>
-              <Link className='footer___company-info--link' href='/terms-of-use'> Terms of Use </Link>
+              <Link href='/terms-of-use'>
+                <a> Terms of Use  </a>
+              </Link>
             </div>
             <div className='footer__company-info'>
-              <Link className='footer___company-info--link' href='/blog'> Blog </Link>
+              <Link href='/blog'>
+                <a> Blog </a> 
+              </Link>
             </div>
             <div className='footer__company-info'>
-              <Link className='footer___company-info--link' href='/contact'> Contact </Link>
+              <Link  href='/contact'> 
+                <a> Contact </a> 
+              </Link>
             </div>
           </div>
         </div>

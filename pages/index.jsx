@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import TextLoop from 'react-text-loop'
 import Layout from '../components/Layout'
 import Header from '../components/LandingHeader'
 import Hero from '../components/Hero'
@@ -90,10 +91,16 @@ class Index extends React.Component {
           />
         </Hero>
         <Banner 
-          title="Sharing is caring." 
-          body="Great things come from collaboration: Wikipedia, Open Source Software, and now, better browser workflows."
           image="/share.png"
-        />
+        >
+        <TextLoop>
+          <h2> Students use Stew to manage GSuite </h2>
+          <h2> Developers use Stew to share documentation </h2>
+          <h2> Managers use Stew to share wikis </h2>
+          <h2> Accountants use Stew to manage spreadsheets </h2>
+          <h2> Analysts use Stew to share research </h2>
+        </TextLoop>
+        </Banner>
         <Hero>
           <Cta onButtonClick={ this.onButtonClick } browser={ browser } title="Discover the best workflow recipes!" body="It’s like your grandma’s cookbook, but for tabs" />
         </Hero>
