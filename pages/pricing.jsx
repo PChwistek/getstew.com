@@ -76,13 +76,13 @@ class Pricing extends React.Component {
               <tr>
                 <td>User Limit</td>
                 <td>100</td>
-                <td>300</td>
+                <td>500</td>
                 <td> Custom </td>
               </tr>
               <tr>
                 <td>Repositories</td>
-                <td>15</td>
-                <td>50</td>
+                <td>20</td>
+                <td> Unlimited </td>
                 <td> Custom </td>
               </tr>
               <tr>
@@ -93,7 +93,7 @@ class Pricing extends React.Component {
               </tr>
               <tr>
                 <td>Contract</td>
-                <td> Monthly </td>
+                <td> Monthly or Annually </td>
                 <td> Monthly or Annually </td>
                 <td> Annually </td>
               </tr>
