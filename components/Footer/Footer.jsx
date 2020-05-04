@@ -21,6 +21,11 @@ export default function footer() {
               Product
             </div>
             <div className='footer__company-info'>
+              <Link href='/about-teams'> 
+                <a> Teams </a>
+              </Link>
+            </div>
+            <div className='footer__company-info'>
               <Link href='/pricing'> 
                 <a> Pricing </a>
               </Link>

@@ -94,11 +94,11 @@ class Index extends React.Component {
           image="/share.png"
         >
         <TextLoop>
-          <h2> Students use Stew to manage GSuite </h2>
-          <h2> Developers use Stew to share documentation </h2>
-          <h2> Managers use Stew to share wikis </h2>
-          <h2> Accountants use Stew to manage spreadsheets </h2>
-          <h2> Analysts use Stew to share research </h2>
+          <div className="banner__item"> <h2> Students use Stew to manage GSuite </h2> </div>
+          <div className="banner__item">  <h2> Developers use Stew to share documentation </h2> </div>
+          <div className="banner__item">  <h2> Managers use Stew to share wikis </h2> </div>
+          <div className="banner__item">  <h2> Accountants use Stew to manage spreadsheets </h2> </div>
+          <div className="banner__item">  <h2> Analysts use Stew to share research </h2> </div>
         </TextLoop>
         </Banner>
         <Hero>
