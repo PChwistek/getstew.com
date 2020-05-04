@@ -1,5 +1,5 @@
 import Content from '../Content'
-
+import Link from 'next/link'
 
 export default function footer() {
   return (
@@ -20,31 +20,31 @@ export default function footer() {
             <div className='footer__row-item__title'>
               Product
             </div>
-            <div className='footer__company-info--link'>
-              Pricing
+            <div className='footer__company-info'>
+              <Link className='footer___company-info--link' href='/pricing'> Pricing </Link>
             </div>
-            <div className='footer__company-info--link'>
-              FAQ
+            <div className='footer__company-info'>
+              <Link className='footer___company-info--link' href='/faq'> FAQ </Link>
             </div>
-            <div className='footer__company-info--link'>
-              Support
+            <div className='footer__company-info'>
+              <Link className='footer___company-info--link' href='/support'> Support </Link>
             </div>
           </div>
           <div className='footer__row-item'>
             <div className='footer__row-item__title'>
               Company
             </div>
-            <div className='footer__company-info--link'>
-              Privacy Policy
+            <div className='footer__company-info'>
+              <Link className='footer___company-info--link' href='/privacy-policy'> Privacy Policy </Link>
             </div>
-            <div className='footer__company-info--link'>
-              Terms of Use
+            <div className='footer__company-info'>
+              <Link className='footer___company-info--link' href='/terms-of-use'> Terms of Use </Link>
             </div>
-            <div className='footer__company-info--link'>
-              Blog
+            <div className='footer__company-info'>
+              <Link className='footer___company-info--link' href='/blog'> Blog </Link>
             </div>
-            <div className='footer__company-info--link'>
-              Contact
+            <div className='footer__company-info'>
+              <Link className='footer___company-info--link' href='/contact'> Contact </Link>
             </div>
           </div>
         </div>
