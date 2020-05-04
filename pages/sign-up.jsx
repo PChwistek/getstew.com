@@ -1,5 +1,6 @@
 import React from 'react'
 import Layout from '../components/Layout'
+import Link from 'next/link'
 import Head from 'next/head'
 import RegistrationForm from '../components/Form/RegistrationForm'
 import SplitPanels, { Panel } from '../components/ContentLayouts/SplitPanels'
@@ -18,7 +19,9 @@ const SignUp = () => {
       </Head>
       <SplitPanels>
         <Panel left={ true }>
+        <Link href={ '/' }>
           <img src={ '/stew-logo.png' } className={ 'split__image' }/>
+        </Link>
         </Panel>
         <Panel>
           <RegistrationForm />

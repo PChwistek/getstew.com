@@ -291,6 +291,7 @@
   &__image {
     width: 75px;
     @include absCenter;
+    cursor: pointer;
 
     &--mobile {
       display: none;

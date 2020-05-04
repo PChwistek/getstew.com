@@ -1,6 +1,7 @@
 import React from 'react'
 import Layout from '../components/Layout'
 import Head from 'next/head'
+import Link from 'next/link'
 import SplitPanels, { Panel } from '../components/ContentLayouts/SplitPanels'
 import LoginForm from '../components/Form/LoginForm'
 import "../style.scss"
@@ -16,7 +17,9 @@ const Login = () => {
       </Head>
       <SplitPanels>
         <Panel left={ true }>
-          <img src={ '/stew-logo.png' } className={ 'split__image' }/>
+          <Link href={ '/' }>
+            <img src={ '/stew-logo.png' } className={ 'split__image' }/>
+          </Link>
         </Panel>
         <Panel left={ false }>
           <LoginForm />
