@@ -34,14 +34,14 @@ class Pricing extends React.Component {
               <PricingBox 
                 title='Starter'
                 price='$15'
-                extra='$3'
+                extra='$2'
                 freeUsers='5'
                 buttonText='Upgrade Now'
               />
               <PricingBox 
                 title='Growing'
                 price='$30'
-                extra='$4'
+                extra='$3'
                 buttonText='Upgrade Now'
                 freeUsers={ 10 }
               />
