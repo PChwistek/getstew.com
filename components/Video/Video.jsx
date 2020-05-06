@@ -5,18 +5,20 @@ import Content from '../Content'
 export default class Video extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       loading: true,
     }
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        loading: false
-      })
-    }, 500)
+    this.setState({
+      loading: true
+    })
+  }
+
+  handleLoad = () => {
+    this.setState({ loading: false })
   }
 
   render() {
@@ -25,16 +27,26 @@ export default class Video extends React.Component {
     return (
       <Content>
         <div className="video video__container">
-            {
-              loading 
-                ? <div className="loader">
-                  <img src={ "/loading.gif" } className="spinner"/>
-                </div>
-                : <video autoPlay muted loop playsInline className={"video video__vid"}>
-                    <source src={ videoUrl } type="video/mp4" />
-                    Your browser is not supported!
-                  </video>
-            }
+          {
+            loading 
+              && <div className="loader">
+                <img src={ "/loading.gif" } className="spinner"/>
+              </div>
+          }
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            playsInline 
+            className={"video video__vid"}
+            onLoadedData={ this.handleLoad }
+            >
+            <source 
+              src={ videoUrl } 
+              type="video/mp4"
+            />
+            Your browser is not supported!
+          </video>
         </div>
       </Content>
     )
