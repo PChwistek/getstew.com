@@ -70,7 +70,7 @@ const LoginForm = (props) => {
     <Fragment>
       <img src={ '/stew-logo.png' } className={ 'split__image split__image--mobile' }/>
       <div className={ props.responsive ? 'content__app split__form--responsive' :'content__app split__form'}>
-        { !props.hideTitle && <h2> Sign In </h2> }
+        { !props.hideTitle && <h2> Sign In </h2>}
         <div className={ 'error-text'}> { error } </div>
         <div className="split__form-item">
           <TextField 
