@@ -82,16 +82,16 @@ class Index extends React.Component {
           <TextWithImage
             title="Save time when setting up."
             body="stew helps you find custom or community-made tab setups to get your work done better and faster."
-            image={ "/time-is-money.png" }
+            image={ "/blast-off.png" }
           />
           <TextWithImageTop 
             title="It's great for teams too"
             body="private repositories enable your team to do more, together"
-            imagePath="/team.png"
+            imagePath="/new-team.png"
           />
         </Hero>
         <Banner 
-          image="/share.png"
+          image="/sboy_cannons2.png"
         >
         <TextLoop>
           <div className="banner__item"> <h2> Students use Stew to manage GSuite </h2> </div>
