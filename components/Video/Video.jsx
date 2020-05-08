@@ -11,12 +11,6 @@ export default class Video extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.setState({
-      loading: true
-    })
-  }
-
   handleLoad = () => {
     this.setState({ loading: false })
   }
