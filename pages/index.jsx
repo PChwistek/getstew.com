@@ -90,17 +90,35 @@ class Index extends React.Component {
             imagePath="/new-team.png"
           />
         </Hero>
-        <Banner 
-          image="/sboy_cannons2.png"
-        >
-        <TextLoop>
-          <div className="banner__item"> <h2> Students use Stew to manage GSuite </h2> </div>
-          <div className="banner__item">  <h2> Developers use Stew to share documentation </h2> </div>
-          <div className="banner__item">  <h2> Managers use Stew to share wikis </h2> </div>
-          <div className="banner__item">  <h2> Accountants use Stew to manage spreadsheets </h2> </div>
-          <div className="banner__item">  <h2> Analysts use Stew to share research </h2> </div>
-        </TextLoop>
-        </Banner>
+        { this.state.browser !== 'Firefox'
+        ?
+          <Banner 
+            image="/sboy_cannons2.png"
+          >
+              <TextLoop noWrap={ false }>
+                <div className="banner__item banner--center">
+                  <h2> Students use Stew to manage GSuite </h2>
+                </div>
+                <div className="banner__item banner--center">
+                  <h2> Developers use Stew to share documentation </h2> 
+                </div>
+                <div className="banner__item banner--center">
+                  <h2> Managers use Stew to share wikis </h2> 
+                </div>
+                <div className="banner__item banner--center">
+                  <h2> Accountants use Stew to manage spreadsheets </h2>
+                </div>
+                <div className="banner__item banner--center">
+                  <h2> Analysts use Stew to share research </h2> 
+                </div>
+              </TextLoop>
+          </Banner>
+          : <Banner
+            title="Sharing is caring." 
+            body="Great things come from sharing: Wikipedia, Open Source Software, and now, better browser workflows."
+            image="/sboy_cannons2.png"
+           />
+        }
         <Hero>
           <Cta onButtonClick={ this.onButtonClick } browser={ browser } title="Discover the best workflow recipes!" body="It’s like your grandma’s cookbook, but for tabs" />
         </Hero>

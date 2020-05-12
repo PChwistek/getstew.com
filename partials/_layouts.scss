@@ -68,6 +68,9 @@
   &__item {
     flex-grow: 1;
     flex-basis: 1;
+    @include respond(phone) { // width < 1200?
+      font-size: $font-size-regular;
+    }
   }
 
   &--center {
