@@ -24,7 +24,7 @@ export default class Video extends React.Component {
           {
             loading 
               && <div className="loader">
-                <img src={ "/loading.gif" } className="spinner"/>
+                <img src={ "/loading-2.gif" } className="spinner"/>
               </div>
           }
           <video 

@@ -99,6 +99,7 @@ TextField.propTypes = {
   label: PropTypes.string,
   validate: PropTypes.func,
   setValue: PropTypes.func.isRequired,
+  innerRef: PropTypes.any,
 }
   
 export default TextField
