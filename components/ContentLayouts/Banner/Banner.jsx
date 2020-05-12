@@ -24,8 +24,8 @@ const Banner = props => {
 }
 
 Banner.propTypes = {
-  title: PropTypes.string.isRequired,
-  body: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  body: PropTypes.string,
   image: PropTypes.string.isRequired,
   children: PropTypes.node,
 }

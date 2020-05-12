@@ -25,6 +25,7 @@ class Index extends React.Component {
     this.state = {
       showModal: false,
       browser: 'Chrome',
+      isMobile: false,
     }
   }
 
@@ -42,10 +43,18 @@ class Index extends React.Component {
     logEvent('add to', 'click')
   }
 
+  resize = () => {
+    this.setState({ isMobile: window.innerWidth <= 900})
+    console.log('isMobile', this.state.isMobile)
+  }
+
   componentDidMount() {
     const detectedBrowser = findBrowserType()
+    window.addEventListener("resize", this.resize)
+    console.log('isMobile', this.state.isMobile)
     this.setState({
-      browser: detectedBrowser
+      browser: detectedBrowser,
+      isMobile: window.innerWidth <= 900,
     })
   }
 
@@ -90,12 +99,12 @@ class Index extends React.Component {
             imagePath="/new-team.png"
           />
         </Hero>
-        { this.state.browser !== 'Firefox'
+        { this.state.browser !== 'Firefox' && !this.state.isMobile
         ?
           <Banner 
             image="/sboy_cannons2.png"
           >
-              <TextLoop noWrap={ false }>
+              <TextLoop>
                 <div className="banner__item banner--center">
                   <h2> Students use Stew to manage GSuite </h2>
                 </div>
@@ -114,9 +123,9 @@ class Index extends React.Component {
               </TextLoop>
           </Banner>
           : <Banner
-            title="Sharing is caring." 
-            body="Great things come from sharing: Wikipedia, Open Source Software, and now, better browser workflows."
-            image="/sboy_cannons2.png"
+              title="Sharing is caring." 
+              body="Great things come from sharing: Wikipedia, Open Source Software, and now, better browser workflows."
+              image="/sboy_cannons2.png"
            />
         }
         <Hero>
