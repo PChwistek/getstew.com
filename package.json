@@ -20,6 +20,7 @@
     "react-dom": "^16.8.6",
     "react-ga": "^2.5.7",
     "react-mailchimp-subscribe": "^2.1.0",
+    "react-numeric-input": "^2.2.3",
     "react-text-loop": "^2.3.0"
   },
   "devDependencies": {

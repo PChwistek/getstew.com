@@ -19,4 +19,31 @@
     padding-top: 30px;
   }
 
+  &__seats {
+    display: flex;
+    height: 300px; 
+    justify-content: center;
+    align-items: center;
+
+    &__field {
+      display: flex;
+      min-width: 100px;
+      text-align: center;
+      justify-content: center;
+    }
+
+    &__modifier {
+      margin: 10px;
+    }
+
+    &__seat-adjust {
+      width: 32px;
+    }
+  }
+
+}
+
+.react-numeric-input {
+  font-family: $base-font-family;
+  font-size: $font-size-regular;
 }
