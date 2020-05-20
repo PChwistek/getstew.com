@@ -77,7 +77,7 @@ AccountPage.getInitialProps = async ctx => {
 }
 
 AccountPage.propTypes = {
-  config: PropTypes.any,
+  config: PropTypes.shape({ headers: PropTypes.object }),
   allowed: PropTypes.bool,
   username: PropTypes.string
 }

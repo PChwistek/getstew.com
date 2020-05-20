@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import { useState, Fragment } from 'react'
+import { loadStripe } from '@stripe/stripe-js'
 import Router from 'next/router'
 import axios from 'axios'
 import nextCookie from 'next-cookies'
@@ -21,6 +22,7 @@ const Teams = props => {
   const [step, setStep] = useState(0)
   const [plan, setPlan] = useState('')
   const [numSeats, setNumSeats] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
 
   function handleStarterSelected() {
     setPlan('starter')
@@ -32,6 +34,24 @@ const Teams = props => {
     setPlan('growth')
     setStep(2)
     setNumSeats(10)
+  }
+
+  async function goToPayment() {
+    setStep(3)
+    setIsLoading(true)
+    const createSession = await axios.post(`${getServerHostname()}/org/purchase`,{
+      plan,
+      numberOfSeats: numSeats,
+    } , props.config)
+    console.log('createSession', createSession.data)
+    const stripe = await loadStripe('pk_test_TsrMd4ytxrhdgj37e7QJsU3300aHtA7Zxr')
+    const { error } = await stripe.redirectToCheckout({
+      sessionId: createSession.data
+    })
+
+    if (error) {
+      console.log('error', error)
+    }
   }
 
   function handleSeatChange(isDecrement) {
@@ -123,7 +143,7 @@ const Teams = props => {
                   <div className='teams__button'>
                   <Button
                     primary
-                    onClick={ () => setStep(3) }
+                    onClick={ goToPayment }
                   >
                   Continue
                   </Button>
@@ -138,6 +158,22 @@ const Teams = props => {
                 </div>
               </div>
             </Fragment>
+          }
+          {
+            step == 3 &&
+              <div className='teams__intro'>
+              <div className='teams__title'> 
+                  <h2> Loading Checkout... </h2>
+                </div>
+                <div className='teams__seats'>
+                  {
+                    isLoading 
+                      && <div className="loader">
+                        <img src={ "/loading-2.gif" } className="spinner"/>
+                      </div>
+                  }
+                </div>
+              </div>
           }
           </Content>
         </AuthedAppWrapper>
@@ -162,6 +198,7 @@ Teams.getInitialProps = async ctx => {
     if (response.statusText >= 200 ** response.statusText < 400) {
       return {
         allowed: true,
+        config,
       }
     } else {
       // https://github.com/developit/unfetch#caveats
@@ -175,7 +212,8 @@ Teams.getInitialProps = async ctx => {
 }
 
 Teams.propTypes = {
-  allowed: PropTypes.bool
+  allowed: PropTypes.bool,
+  config: PropTypes.shape({ headers: PropTypes.object }),
 }
 
 export default withAuthSync(Teams)
