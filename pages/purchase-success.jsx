@@ -9,37 +9,43 @@ import getServerHostname from '../utils/getServerHostname'
 import AuthedAppWrapper from '../components/AuthedAppWrapper'
 import Content from '../components/Content'
 import { withAuthSync } from '../utils/auth'
-import Checkout from '../components/Checkout'
-import "../style.scss"
-import OrgsDashboard from '../components/OrgsDashboard'
+import Button from '../components/Button'
 
-const Teams = props => {
-  const { allowed, config, orgData } = props
-  console.log('orgs', orgData)
+import "../style.scss"
+
+const PurchaseSuccess = props => {
+  const { allowed } = props
+
   return(
     <Layout>
       <Head>
-        <title>stew | Teams </title>
+        <title>stew | Purchase Success </title>
         <link rel="icon" href={ 'favicon.png' } type="image/png" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta name="description" content="my stew teams" />
+        <meta name="description" content="stew Support" />
       </Head>
       { allowed && 
         <AuthedAppWrapper>
-          <Content>
-            {
-              orgData.hasOrg 
-              ? <OrgsDashboard orgData={ orgData } config={ config } />
-              : <Checkout config={ config } />
-            }
-          </Content>
+            <Content>
+            <div className='teams__intro'>
+              <div className='teams__title'>
+                <img src='/sboy_cannons2.png' className='teams__cannons' />
+                <h2> You&apos;re all set. </h2>
+              </div>
+              <div className='teams__button'>
+                <Button primary onClick={ () => Router.push('/teams') }>
+                  Set up your team.
+                </Button>
+              </div>
+            </div>
+            </Content>
         </AuthedAppWrapper>
       }
     </Layout>
   ) 
 }
 
-Teams.getInitialProps = async ctx => {
+PurchaseSuccess.getInitialProps = async ctx => {
   const { token } = nextCookie(ctx)
   const redirectOnError = () =>
     typeof window !== 'undefined'
@@ -51,12 +57,10 @@ Teams.getInitialProps = async ctx => {
       headers: { Authorization: `Bearer ${token}` }
     }
     
-    const response = await axios.get(`${getServerHostname()}/org/dashboard`, config)
+    const response = await axios.get(`${getServerHostname()}/auth/validate`, config)
     if (response.statusText >= 200 ** response.statusText < 400) {
       return {
         allowed: true,
-        orgData: response.data,
-        config,
       }
     } else {
       // https://github.com/developit/unfetch#caveats
@@ -69,9 +73,8 @@ Teams.getInitialProps = async ctx => {
   }
 }
 
-Teams.propTypes = {
-  allowed: PropTypes.bool,
-  config: PropTypes.shape({ headers: PropTypes.object }),
+PurchaseSuccess.propTypes = {
+  allowed: PropTypes.bool
 }
 
-export default withAuthSync(Teams)
+export default withAuthSync(PurchaseSuccess)
