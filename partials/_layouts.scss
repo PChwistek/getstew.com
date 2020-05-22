@@ -329,6 +329,12 @@
       margin: auto;
       @include absCenter;
     }
+
+    &__message {
+      margin-top: 30%;
+      width: 60%;
+      padding-left: 30px;
+    }
   }
 
   &__form--responsive {

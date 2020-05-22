@@ -103,8 +103,8 @@ const LoginForm = (props) => {
           </Button>
         </div>
         <div className="split__form-item">
-          <div className="split__small-text">
-            <Link href="/passwordreset">
+          <div className="split__text">
+            <Link href="/password-reset">
               <a> Forgot password? </a>
             </Link>
           </div>
