@@ -29,6 +29,7 @@ const PasswordReset = () => {
         return
       } catch (error) {
         const { response } = error
+        setSuccess(true)
         return response
       }
     } 
@@ -49,7 +50,7 @@ const PasswordReset = () => {
   return(
     <Layout>
       <Head>
-        <title>stew | Sign Up </title>
+        <title>stew | Password Change </title>
         <link rel="icon" href={ '/favicon.png' } type="image/png" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content="stew login" />

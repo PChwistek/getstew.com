@@ -1,4 +1,5 @@
 import { useState, createRef, Fragment } from 'react'
+import Router from 'next/router'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 import TextField from '../../TextField'
@@ -11,6 +12,7 @@ const PasswordResetForm = (props) => {
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState(null)
   const passwordField = createRef()
   const passwordFieldConfirm = createRef()
 
@@ -29,7 +31,9 @@ const PasswordResetForm = (props) => {
       try {
         const response = await axios.post(url, { password, }, props.axiosConfig)
         if (response.data == true) {
-          // some action, push to login? 
+          setSuccess(true)
+        } else if (response.data == false) {
+          setError('This request timed out. Please start another password change request')
         } else {
           let error = new Error(response.statusText)
           error.response = response
@@ -77,38 +81,54 @@ const PasswordResetForm = (props) => {
     <Fragment>
       <img src={ '/stew-logo.png' } className={ 'split__image split__image--mobile' }/>
       <div className={ props.responsive ? 'content__app split__form--responsive' :'content__app split__form' }>
-      { !props.hideTitle && <h2> New Password </h2> }
-        <div className={ 'error-text'}> { error } </div>
-        <div className="split__form-item">
-          <TextField
-            id={ 'passwordField' }
-            type={ 'password' } 
-            label={ 'PASSWORD' } 
-            setValue={ setPassword }
-            value={ password } 
-            handleKeyUp= { handleKeyUp }
-            onEnterValidation={ isValidPassword }
-            innerRef={ passwordField }
-          /> 
-        </div>
-        <div className="split__form-item">
-          <TextField
-            id={ 'passwordFieldConfirm' }
-            type={ 'password' } 
-            label={ 'PASSWORD CONFIRM' } 
-            validate={ isValidPassword }
-            handleKeyUp= { handleKeyUp }
-            setValue={ setPasswordConfirm }
-            value={ passwordConfirm }
-            innerRef={ passwordFieldConfirm }
-          />
-        </div>
-        <div className="split__form-item">
-          <Button onClick={ handleSubmit }>
-            Reset Password
-          </Button>
-        </div>
-        </div>
+      {
+        !success 
+          ? <Fragment>
+            { !props.hideTitle && <h2> New Password </h2> }
+            <div className={ 'error-text'}> { error } </div>
+            <div className="split__form-item">
+              <TextField
+                id={ 'passwordField' }
+                type={ 'password' } 
+                label={ 'PASSWORD' } 
+                setValue={ setPassword }
+                value={ password } 
+                handleKeyUp= { handleKeyUp }
+                onEnterValidation={ isValidPassword }
+                innerRef={ passwordField }
+              /> 
+            </div>
+            <div className="split__form-item">
+              <TextField
+                id={ 'passwordFieldConfirm' }
+                type={ 'password' } 
+                label={ 'PASSWORD CONFIRM' } 
+                validate={ isValidPassword }
+                handleKeyUp= { handleKeyUp }
+                setValue={ setPasswordConfirm }
+                value={ passwordConfirm }
+                innerRef={ passwordFieldConfirm }
+              />
+            </div>
+            <div className="split__form-item">
+              <Button onClick={ handleSubmit }>
+                Reset Password
+              </Button>
+            </div>
+          </Fragment>
+          : <Fragment>
+            <div>
+                <img src='/sboy_thumbs.png' style={{ width: '100px' }} />
+                <h2> Success! </h2>
+                <div style={{ 'marginTop': '30px' }}>
+                  <Button onClick={ () => Router.push('/login') }>
+                    Go to login
+                  </Button>
+                </div>
+              </div>
+          </Fragment>
+      }
+      </div>
     </Fragment>
   )
 }
