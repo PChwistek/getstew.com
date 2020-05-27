@@ -3,14 +3,15 @@ import PropTypes from 'prop-types'
 const Content = props => {
 
   return (
-    <div className={ "content" }>
+    <div className={ props.isDashboard ? 'content content__dashboard': "content"  }>
       { props.children }
     </div>
   )
 }
 
 Content.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  isDashboard: PropTypes.bool,
 }
 
 

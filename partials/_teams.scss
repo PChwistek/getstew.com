@@ -1,7 +1,7 @@
 .teams {
 
   &__title {
-    padding-top: 10%;
+    padding-top: 10px;
   }
 
   &__intro {
@@ -46,4 +46,66 @@
 .react-numeric-input {
   font-family: $base-font-family;
   font-size: $font-size-regular;
+}
+
+.teams-dash {
+
+  &__item {
+    background: $grey-background;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 30px;
+
+    &:first-child {
+      margin-left: 30px;
+    }
+
+    &:last-child {
+      margin-right: 30px;
+    }
+
+  }
+
+  &__members {
+    width: 100%;
+
+    &__item {
+      display: flex;
+      align-items: center;    
+    }
+  }
+
+  &__layout {
+    display: flex;
+    flex-direction: row;
+
+    div {
+      min-width: 50%;
+      flex-basis: 1;
+    }
+
+    h3 {
+      font-size: $font-size-large;
+      font-family: $base-font-family;
+      color: $text-color;
+      font-weight: 700;
+      line-height: 60px;    
+    }
+  }
+
+  &__edit {
+    padding-left: .5em;
+    margin-bottom: -.15em;
+    width: 1em;
+    cursor: pointer;
+  }
+
+  &__user {
+    width: 2.5em;
+    margin-right: 1em;
+  }
+
+  &__change-container {
+    margin-top: 20px;
+  }
 }

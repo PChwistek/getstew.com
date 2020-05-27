@@ -26,7 +26,7 @@ const Teams = props => {
       </Head>
       { allowed && 
         <AuthedAppWrapper>
-          <Content>
+          <Content isDashboard>
             {
               orgData.hasOrg 
               ? <OrgsDashboard orgData={ orgData } config={ config } />
@@ -72,6 +72,9 @@ Teams.getInitialProps = async ctx => {
 Teams.propTypes = {
   allowed: PropTypes.bool,
   config: PropTypes.shape({ headers: PropTypes.object }),
+  orgData: PropTypes.shape({
+    hasOrg: PropTypes.bool,
+  })
 }
 
 export default withAuthSync(Teams)
