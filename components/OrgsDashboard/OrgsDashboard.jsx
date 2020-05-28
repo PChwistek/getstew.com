@@ -11,16 +11,28 @@ const OrgsDashboard = (props) => {
 
   const [memberEmail, setMemberEmail] = useState('')
   const [toInviteEmails, setToInviteEmails] = useState([])
+  const [editingMembers, setEditingMembers] = useState(false)
+  const [editingRepos, setEditingRepos] = useState(false)
 
   function addEmailToInvite() {
     const temp = toInviteEmails
     temp.push(memberEmail)
     setToInviteEmails(temp)
   }
+  
+  function removeFromInvite(theEmail) {
+    const temp = toInviteEmails.filter(email => email !== theEmail)
+    setToInviteEmails(temp)
+  }
 
   function handleOnEnterValidation(entered) {
-    if(toInviteEmails.length >= props.orgData.numberOfSeats) {
-      return { isValid: false, error: 'Hit seat limit' }
+
+    const { isValid, error } = isValidEmail(entered)
+    
+    if (!isValid) return { isValid: false, error }
+
+    if(toInviteEmails.length >= props.orgData.numberOfSeats - 1) {
+      return { isValid: false, error: 'Reached seat limit' }
     }
     
     if(toInviteEmails.find(tag => entered == tag)) {
@@ -39,7 +51,7 @@ const OrgsDashboard = (props) => {
   const { orgData: { members, isAdmin, numberOfSeats} } = props
   return (
     <div className='teams-dash__layout'>
-      <div>
+      <div className='teams-dash__layout__body'>
         <div>
           <h2> Your Organization 
             <span> 
@@ -56,46 +68,51 @@ const OrgsDashboard = (props) => {
           <div className='teams-dash__members'>
             <h3> 
               Members ({ `${members.length}/${numberOfSeats}` }) 
-              <span> 
+              <span onClick={ () => setEditingMembers(true) }> 
                 <img src='/edit.png' className='teams-dash__edit' />
               </span>
               </h3>
           </div>
-          <div className='teams-dash__invite-members'>
-            <div className='teams-dash__invite-members__input'>
-              <Textfield
-                type={ 'text' }
-                setValue={ setMemberEmail }
-                value={ memberEmail }
-                clearOnEnter={ true }
-                validate={ isValidEmail }
-                handleKeyUp={() => {}}
-                onEnter={ addEmailToInvite }
-                onEnterValidation={ handleOnEnterValidation }
-                label='MEMBER EMAIL'
-              />
-            </div>
-            <div className='teams-dash__invite-members__container'>
-            {
-              toInviteEmails && 
-                toInviteEmails.map(email => {
-                return (
-                  <div key={ email } className={ 'tag' }>
-                    { email }
-                    <div className={ 'tag__remove' } onClick={ () => {} }>
-                      <img src={ './remove-white.png' } />
-                    </div>
-                  </div>
-                )
-              })
-            }
-            </div>
-            <div style={{ 'marginTop': '15px' }}>
-              <Button primary>
-                Invite
-              </Button>
-            </div>
-          </div>
+          {
+            editingMembers && 
+              <Fragment>
+                <div className='teams-dash__invite-members'>
+                <div className='teams-dash__invite-members__input'>
+                  <Textfield
+                    type={ 'text' }
+                    setValue={ setMemberEmail }
+                    value={ memberEmail }
+                    clearOnEnter={ true }
+                    validate={ isValidEmail }
+                    handleKeyUp={() => {}}
+                    onEnter={ addEmailToInvite }
+                    onEnterValidation={ handleOnEnterValidation }
+                    label='MEMBER EMAIL'
+                  />
+                </div>
+                <div className='teams-dash__invite-members__container'>
+                {
+                  toInviteEmails && 
+                    toInviteEmails.map(email => {
+                    return (
+                      <div key={ email } className={ 'tag' }>
+                        { email }
+                        <div className={ 'tag__remove' } onClick={ () => removeFromInvite(email) }>
+                          <img src={ './remove-white.png' } />
+                        </div>
+                      </div>
+                    )
+                  })
+                }
+                </div>
+                <div style={{ 'marginTop': '15px' }}>
+                  <Button primary>
+                    Invite
+                  </Button>
+                </div>
+              </div>
+            </Fragment>
+          }
           {
             members.map(member => (
               <div key={ member } className='teams-dash__members__item'>
@@ -106,12 +123,13 @@ const OrgsDashboard = (props) => {
                   <span> <u> Resend </u></span>
                 </Fragment>
                 }
+                { editingMembers && <img src='./remove-red.png' className='teams-dash__remove' /> }
               </div>
             ))
           }
         </div>
       </div>
-      <div>
+      <div className='teams-dash__layout__body'>
         <div className='teams-dash__item'>
           <h3> 
             Repositories 
