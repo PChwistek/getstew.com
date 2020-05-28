@@ -2,6 +2,7 @@
 
   &__title {
     padding-top: 10px;
+
   }
 
   &__intro {
@@ -52,6 +53,7 @@
 
   &__item {
     background: $grey-background;
+    font-family: $base-font-family;
     padding: 15px;
     border-radius: 10px;
     margin-top: 30px;
@@ -62,6 +64,26 @@
 
     &:last-child {
       margin-right: 30px;
+    }
+  }
+
+  &__invite-members {
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    &__input {
+      max-width: 300px;
+    }
+
+    &__container {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      border-radius: 5px;
+      max-height: 220px;
+      width: auto;
+      overflow-y: scroll;
     }
 
   }
@@ -107,5 +129,27 @@
 
   &__change-container {
     margin-top: 20px;
+  }
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  background: $brand-color;
+  font-family: $base-font-family;
+  font-size: $font-size-regular;
+  color: $white;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+
+  &__remove {
+    margin-top: 2px;
+    padding-left: 5px;
+    display: inline;
+    cursor: pointer;
+    img {
+      width: 16px;
+    }
   }
 }

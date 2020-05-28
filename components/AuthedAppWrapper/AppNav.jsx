@@ -56,7 +56,7 @@ const AuthedAppWrapper = props => {
 
 AuthedAppWrapper.propTypes = {
  children: PropTypes.node,
- logoSrc: String,
+ logoSrc: PropTypes.string,
 }
 
 export default AuthedAppWrapper

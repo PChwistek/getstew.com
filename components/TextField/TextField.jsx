@@ -35,9 +35,8 @@ class TextField extends Component {
   }
 
   handleKeyPress(event) {
-    this.props.handleKeyUp(event)
-
-    const { onEnter, clearOnEnter, onEnterValidation } = this.props
+    if (this.props.handleKeyUp) this.props.handleKeyUp(event)
+    const { onEnter, clearOnEnter, onEnterValidation, setValue } = this.props
     if(onEnter || onEnterValidation || clearOnEnter) {
       if (event.which === 13) {
         const { isValid, error } = onEnterValidation(this.state.value)
@@ -47,6 +46,7 @@ class TextField extends Component {
           }
           if(clearOnEnter) {
             this.setState({ value: '' })
+            if (setValue) setValue('')
           }
         } else {
           this.setState({ error })
