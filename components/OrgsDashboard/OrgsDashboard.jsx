@@ -12,7 +12,7 @@ const OrgsDashboard = (props) => {
   const [memberEmail, setMemberEmail] = useState('')
   const [toInviteEmails, setToInviteEmails] = useState([])
   const [editingMembers, setEditingMembers] = useState(false)
-  const [editingRepos, setEditingRepos] = useState(false)
+  // const [editingRepos, setEditingRepos] = useState(false)
 
   function addEmailToInvite() {
     const temp = toInviteEmails
@@ -145,6 +145,7 @@ const OrgsDashboard = (props) => {
 
 OrgsDashboard.propTypes = {
   orgData: PropTypes.shape({
+    _id: PropTypes.string,
     isAdmin: PropTypes.bool,
     numberOfSeats: PropTypes.number,
     members: PropTypes.array,
