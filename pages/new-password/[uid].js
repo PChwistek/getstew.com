@@ -56,7 +56,7 @@ NewPassword.getInitialProps = async ctx => {
       const axiosConfig = {
         headers: { Authorization: `Bearer ${query.uid}` }
       }
-      const response = await axios.get(`${getServerHostname()}/auth/validate/`, axiosConfig)
+      const response = await axios.get(`${getServerHostname()}/auth/validate-link`, axiosConfig)
 
       if (response.data == true) {
         return {
