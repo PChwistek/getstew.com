@@ -93,3 +93,16 @@
     display: none;
   }
 }
+
+
+.confirm-modal {
+  &__buttons {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__button {
+    width: 100px;
+    margin: 10px;
+  }
+}

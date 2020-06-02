@@ -122,6 +122,32 @@
     cursor: pointer;
   }
 
+  &__title {
+    display: flex;
+    font-size: $font-size-larger;
+    font-family: $base-font-family;
+    color: $text-color;
+    font-weight: 700;
+    line-height: 60px;
+    @include respond(phone) { // width < 1200?
+      font-size: $font-size-larger;
+      line-height: 42px;
+      padding-bottom: 10px;
+    }
+  }
+
+  &__toggle {
+    margin-left: auto;
+  }
+
+  &__done {
+    padding-left: .5em;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: $font-size-smaller;
+    font-weight: 300;
+  }
+
   &__user {
     width: 2.5em;
     margin-right: 1em;

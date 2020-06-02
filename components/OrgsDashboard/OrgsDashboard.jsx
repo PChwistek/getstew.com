@@ -6,18 +6,32 @@ import getServerHostname from '../../utils/getServerHostname'
 import Button from '../Button'
 import Textfield from '../TextField'
 import { isValidEmail } from '../../utils/validations'
+import Router from 'next/router'
 
 const OrgsDashboard = (props) => {
 
   const [memberEmail, setMemberEmail] = useState('')
   const [toInviteEmails, setToInviteEmails] = useState([])
   const [editingMembers, setEditingMembers] = useState(false)
-  // const [editingRepos, setEditingRepos] = useState(false)
+  const [editingRepos, setEditingRepos] = useState(false)
 
   function addEmailToInvite() {
     const temp = toInviteEmails
     temp.push(memberEmail)
     setToInviteEmails(temp)
+  }
+
+  async function handleInvites() {
+    try {
+      const response = await axios.post(`${getServerHostname()}/org/add-member`, { orgId: props._id, newMembers: toInviteEmails }, props.config)
+      if (response.data === true) Router.reload()
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+  function resendInvite(theMemberEmail) {
+    // some stuff
   }
   
   function removeFromInvite(theEmail) {
@@ -31,11 +45,11 @@ const OrgsDashboard = (props) => {
     
     if (!isValid) return { isValid: false, error }
 
-    if(toInviteEmails.length >= props.orgData.numberOfSeats - 1) {
+    if(toInviteEmails.length >= props.numberOfSeats - 1) {
       return { isValid: false, error: 'Reached seat limit' }
     }
     
-    if(toInviteEmails.find(tag => entered == tag)) {
+    if(toInviteEmails.find(aEmail => entered === aEmail) || props.members.find(aMember => aMember.email === entered)) {
       return { isValid: false, error: 'Email already listed' }
     } 
     
@@ -43,12 +57,12 @@ const OrgsDashboard = (props) => {
   }
 
   async function handleToPortal() {
-    const response = await axios.get(`${getServerHostname()}/org/manage-billing/${props.orgData._id}`, props.config)
+    const response = await axios.get(`${getServerHostname()}/org/manage-billing/${props._id}`, props.config)
     window.open(response.data.url,'_blank')
   }
 
 
-  const { orgData: { members, isAdmin, numberOfSeats} } = props
+  const { members, isAdmin, numberOfSeats} = props
   return (
     <div className='teams-dash__layout'>
       <div className='teams-dash__layout__body'>
@@ -66,12 +80,18 @@ const OrgsDashboard = (props) => {
         </div>
         <div className='teams-dash__item'>
           <div className='teams-dash__members'>
-            <h3> 
+            <div className='teams-dash__title'> 
               Members ({ `${members.length}/${numberOfSeats}` }) 
-              <span onClick={ () => setEditingMembers(true) }> 
-                <img src='/edit.png' className='teams-dash__edit' />
-              </span>
-              </h3>
+              {
+                !editingMembers 
+                  ? <div className='teams-dash__toggle' onClick={ () => setEditingMembers(true) }> 
+                      <img src='/edit.png' className='teams-dash__edit' />
+                   </div>
+                  : <div className='teams-dash__toggle'>
+                    <div className='teams-dash__done' onClick={ () => setEditingMembers(false) }>Done</div> 
+                  </div>
+              }
+              </div>
           </div>
           {
             editingMembers && 
@@ -106,7 +126,7 @@ const OrgsDashboard = (props) => {
                 }
                 </div>
                 <div style={{ 'marginTop': '15px' }}>
-                  <Button primary>
+                  <Button primary onClick={ handleInvites }>
                     Invite
                   </Button>
                 </div>
@@ -120,10 +140,16 @@ const OrgsDashboard = (props) => {
                 { member.email } 
                 { member.status === 'invited' && <Fragment>
                   <span className='tag'> Awaiting Response </span>
-                  <span> <u> Resend </u></span>
+                  <span style={{ 'marginLeft': '5px', 'cursor': 'pointer' }}> <u> Resend </u></span>
                 </Fragment>
                 }
-                { editingMembers && <img src='./remove-red.png' className='teams-dash__remove' /> }
+                { editingMembers && 
+                  <img 
+                    src='./remove-red.png' 
+                    className='teams-dash__remove'
+                    onClick={ () => props.onRemoveClick(true, member.email) }
+                  /> 
+                }
               </div>
             ))
           }
@@ -131,12 +157,18 @@ const OrgsDashboard = (props) => {
       </div>
       <div className='teams-dash__layout__body'>
         <div className='teams-dash__item'>
-          <h3> 
+          <div className='teams-dash__title'> 
             Repositories 
-            <span> 
-              <img src='/edit.png' className='teams-dash__edit' />
-            </span>
-          </h3>
+            {
+            !editingRepos 
+              ? <div className='teams-dash__toggle' onClick={ () => setEditingRepos(true) }> 
+                  <img src='/edit.png' className='teams-dash__edit' />
+                </div>
+              : <div className='teams-dash__toggle'>
+                <div className='teams-dash__done' onClick={ () => setEditingRepos(false) }>Done</div> 
+              </div>
+            }
+          </div>
         </div>
       </div>
     </div>
@@ -144,15 +176,14 @@ const OrgsDashboard = (props) => {
 }
 
 OrgsDashboard.propTypes = {
-  orgData: PropTypes.shape({
-    _id: PropTypes.string,
-    isAdmin: PropTypes.bool,
-    numberOfSeats: PropTypes.number,
-    members: PropTypes.array,
-  }),
+  _id: PropTypes.string,
+  isAdmin: PropTypes.bool,
+  numberOfSeats: PropTypes.number,
+  members: PropTypes.arrayOf(PropTypes.string),
   config: PropTypes.shape({ 
     headers: PropTypes.object,  
   }),
+  onRemoveClick: PropTypes.func,
 }
 
 export default OrgsDashboard
