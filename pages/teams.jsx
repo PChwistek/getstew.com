@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Router from 'next/router'
 import axios from 'axios'
 import nextCookie from 'next-cookies'
@@ -14,6 +14,7 @@ import Checkout from '../components/Checkout'
 import "../style.scss"
 import OrgsDashboard from '../components/OrgsDashboard'
 import ConfirmModal from '../components/Modal/ConfirmModal'
+import TimedAlert from '../components/Modal/TimedAlert'
 
 const defaultModalState = { active: false, email: '', error: '' }
 
@@ -22,9 +23,14 @@ const Teams = props => {
 
   const [showConfirmMemberRemove, setShowConfirmMemberRemove] = useState(defaultModalState)
   const [members, setMembers] = useState(props.orgData.members)
+  const [showResendAlert, setResendAlert] = useState({ show: false, error: '' })
+
+  function triggerResendAlert(error) {
+    setResendAlert({ show: true, error })
+    setTimeout(() => setResendAlert({show: false, error: '' }), 3000)
+  }
 
   async function removeMember() {
-    console.log('to remove', showConfirmMemberRemove.email)
     try {
       const response = await axios.post(`${getServerHostname()}/org/remove-member`, {
         orgId: props.orgData._id,
@@ -64,6 +70,9 @@ const Teams = props => {
         title='Are you sure?'
         error= { showConfirmMemberRemove.error }
       />
+      <TimedAlert show={ showResendAlert.show } error={ showResendAlert.error }>
+        <h3> { showResendAlert.error ? `${showResendAlert.error}` : 'Invite re-sent.' } </h3>
+      </TimedAlert>
       { allowed && 
         <AuthedAppWrapper>
           <Content isDashboard>
@@ -75,7 +84,8 @@ const Teams = props => {
                   isAdmin={ props.orgData.hasOrg }
                   numberOfSeats= { props.orgData.numberOfSeats }
                   config={ config } 
-                  onRemoveClick={ (active, email) => setShowConfirmMemberRemove({ active, email }) } 
+                  onRemoveClick={ (active, email) => setShowConfirmMemberRemove({ active, email }) }
+                  afterEmailResend= { triggerResendAlert }
                 />
               : <Checkout config={ config } />
             }

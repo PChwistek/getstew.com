@@ -27,11 +27,17 @@ const OrgsDashboard = (props) => {
       if (response.data === true) Router.reload()
     } catch(error) {
       console.log(error)
+      
     }
   }
 
-  function resendInvite(theMemberEmail) {
-    // some stuff
+  async function resendInvite(theMemberEmail) {
+    try {
+      await axios.post(`${getServerHostname()}/org/resend-group-invite`, { orgId: props._id, email: theMemberEmail }, props.config)
+      props.afterEmailResend(null)
+    } catch (error) {
+      props.afterEmailResend(error.response.data.message)
+    }
   }
   
   function removeFromInvite(theEmail) {
@@ -140,7 +146,7 @@ const OrgsDashboard = (props) => {
                 { member.email } 
                 { member.status === 'invited' && <Fragment>
                   <span className='tag'> Awaiting Response </span>
-                  <span style={{ 'marginLeft': '5px', 'cursor': 'pointer' }}> <u> Resend </u></span>
+                  <span onClick={ () => resendInvite(member.email) } style={{ 'marginLeft': '5px', 'cursor': 'pointer' }}> <u> Resend </u></span>
                 </Fragment>
                 }
                 { editingMembers && 
@@ -184,6 +190,7 @@ OrgsDashboard.propTypes = {
     headers: PropTypes.object,  
   }),
   onRemoveClick: PropTypes.func,
+  afterEmailResend: PropTypes.func,
 }
 
 export default OrgsDashboard

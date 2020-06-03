@@ -30,7 +30,7 @@ const RegistrationForm = (props) => {
       try {
         const response = await axios.post(url, { email: email.toLowerCase(), password })
         if (response.data) {
-          const { access_token } = response.data
+          const { data: { access_token } } = response
           if(!props.noRedirect) {
             await login({ token: access_token })
           } else{

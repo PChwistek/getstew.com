@@ -106,3 +106,45 @@
     margin: 10px;
   }
 }
+
+.alert {
+  z-index: 20;
+  position: fixed;
+  margin: auto;
+  color: $white;
+  background: $brand-color;
+  height: 100px;
+  width: 400px;
+  display: flex;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+
+  @include topCenter();
+
+  h3 {
+    font-size: $font-size-large;
+    font-family: $base-font-family;
+    font-weight: 700;
+    line-height: 60px;
+    @include respond(phone) { // width < 1200?
+      font-size: $font-size-regular;
+      line-height: 42px;
+    }
+  }
+
+  &__icon {
+    width: 50px;
+    margin: 5px;
+  }
+
+  &--error {
+    width: auto;
+    background: $error-color;
+  }
+
+  &--hide {
+    display: none;
+  }
+}
