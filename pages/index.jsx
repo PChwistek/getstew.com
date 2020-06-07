@@ -45,13 +45,11 @@ class Index extends React.Component {
 
   resize = () => {
     this.setState({ isMobile: window.innerWidth <= 900})
-    console.log('isMobile', this.state.isMobile)
   }
 
   componentDidMount() {
     const detectedBrowser = findBrowserType()
     window.addEventListener("resize", this.resize)
-    console.log('isMobile', this.state.isMobile)
     this.setState({
       browser: detectedBrowser,
       isMobile: window.innerWidth <= 900,
