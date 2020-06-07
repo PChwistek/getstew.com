@@ -26,7 +26,7 @@ class Pricing extends React.Component {
         <Content>
           <div className='pricing__body'>
             <Intro 
-              slogan="Stew for the whole team"
+              slogan="Stew for the whole team (coming soon)"
             />         
           </div>
         </Content>
