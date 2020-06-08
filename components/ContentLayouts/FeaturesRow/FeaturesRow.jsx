@@ -16,7 +16,7 @@ const FeaturesRow = () => {
     },
     {
       title: "Search",
-      body: "Find and save a browser worflow that suits your needs. Powered by natural language processing."
+      body: "Find and save a browser workflow that suits your needs. Powered by natural language processing."
     }  
   ]
 

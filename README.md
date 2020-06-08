@@ -1,3 +1,3 @@
-# hermitly-io
+# getstew.com
 
-This site is built with nextJS. Right now it's a landing page that may take payments/account creation in the future.
+This site is built with nextJS. It's meant to be the webapp.

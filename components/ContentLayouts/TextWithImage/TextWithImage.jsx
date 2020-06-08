@@ -15,12 +15,15 @@ const TextWithImage = props => {
             { props.title }
           </h2>
           <div>
-            <p>
-              { props.body }
-            </p>
-              <div>
-                <img src={ props.auxImage } className="text-image__aux-image" />
-              </div>
+            {
+              props.children ||      
+                <p>
+                  { props.body }
+                </p>
+            }
+            <div>
+              <img src={ props.auxImage } className="text-image__aux-image" />
+            </div>
           </div>
         </div>
       </div>
@@ -33,7 +36,8 @@ TextWithImage.propTypes = {
   image: PropTypes.string,
   title: PropTypes.string,
   body: PropTypes.string,
-  auxImage: PropTypes.string
+  auxImage: PropTypes.string,
+  children: PropTypes.node,
 }
 
 export default TextWithImage

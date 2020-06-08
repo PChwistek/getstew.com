@@ -14,7 +14,7 @@ export default function CTA(props) {
           { props.body }
         </p>
         <div className="cta__button-wrapper">
-          <Button onClick={ props.onButtonClick }>
+          <Button primary onClick={ props.onButtonClick }>
             Add to { props.browser } (it&apos;s free)
           </Button>
         </div>

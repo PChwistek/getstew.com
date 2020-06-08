@@ -2,6 +2,7 @@
 .modal {
   position: fixed;
   height: 100vh;
+  top: 0px;
   width: 100%;
   z-index: 100;
   background: $modal-background;
@@ -13,7 +14,7 @@
     width: 600px;
     background: $white;
     margin: auto;
-    top: 20%;
+    top: 10%;
     padding: 30px;
     border-radius: 15px;
     @include respond(phone) { // width < 1200?
@@ -22,6 +23,10 @@
       padding: 5%;
       margin-left: 2.5%;
       margin-right: 2.5%;
+    }
+
+    &--alert {
+      height: 600px;
     }
   }
 
@@ -52,7 +57,7 @@
     width: 50%;
     padding: 10px;
     margin-right: 20px;
-    border: 1px solid $brand-color;
+    border: 1px solid $text-color;
     outline-width: 0;
 
     @include respond(phone) { // width < 1200?
@@ -82,6 +87,61 @@
       font-size: $font-size-regular;
       line-height: 28px;
     }
+  }
+
+  &--hide {
+    display: none;
+  }
+}
+
+
+.confirm-modal {
+  &__buttons {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__button {
+    width: 100px;
+    margin: 10px;
+  }
+}
+
+.alert {
+  z-index: 20;
+  position: fixed;
+  margin: auto;
+  color: $white;
+  background: $brand-color;
+  height: 100px;
+  width: 400px;
+  display: flex;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+
+  @include topCenter();
+
+  h3 {
+    font-size: $font-size-large;
+    font-family: $base-font-family;
+    font-weight: 700;
+    line-height: 60px;
+    @include respond(phone) { // width < 1200?
+      font-size: $font-size-regular;
+      line-height: 42px;
+    }
+  }
+
+  &__icon {
+    width: 50px;
+    margin: 5px;
+  }
+
+  &--error {
+    width: auto;
+    background: $error-color;
   }
 
   &--hide {

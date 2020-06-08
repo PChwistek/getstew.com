@@ -1,8 +1,8 @@
 import React from 'react'
 import Head from 'next/head'
-
+import TextLoop from 'react-text-loop'
 import Layout from '../components/Layout'
-import Header from '../components/Header'
+import Header from '../components/LandingHeader'
 import Hero from '../components/Hero'
 import Intro from '../components/Intro'
 import Video from '../components/Video'
@@ -12,10 +12,11 @@ import TextWithImage from '../components/ContentLayouts/TextWithImage'
 import TextWithImageTop from '../components/ContentLayouts/TextWithImageTop'
 import Cta from '../components/CallToAction'
 import Footer from '../components/Footer'
-import Modal from '../components/Modal'
-import "../style.scss"
+import MailModal from '../components/Modal/MailModal'
 import { findBrowserType } from '../utils/device_check'
 import { logEvent } from '../utils/analytics'
+import "../style.scss"
+
 
 class Index extends React.Component {
 
@@ -23,7 +24,8 @@ class Index extends React.Component {
     super(props);
     this.state = {
       showModal: false,
-      browser: 'Chrome'
+      browser: 'Chrome',
+      isMobile: false,
     }
   }
 
@@ -41,10 +43,16 @@ class Index extends React.Component {
     logEvent('add to', 'click')
   }
 
+  resize = () => {
+    this.setState({ isMobile: window.innerWidth <= 900})
+  }
+
   componentDidMount() {
     const detectedBrowser = findBrowserType()
+    window.addEventListener("resize", this.resize)
     this.setState({
-      browser: detectedBrowser
+      browser: detectedBrowser,
+      isMobile: window.innerWidth <= 900,
     })
   }
 
@@ -54,12 +62,12 @@ class Index extends React.Component {
       <Layout>
         <Head>
           <title>stew: collaborative tab management </title>
-          <link rel="icon" href={ '../static/favicon.png' } type="image/png" />
+          <link rel="icon" href={ '/favicon.png' } type="image/png" />
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <meta name="description" content="stew is the smart tab manager built for collaboration" />
         </Head>
-        <Modal show={ showModal } closeModal={ this.toggleModal } />
-        <Header onLoginClick={ this.onButtonClick } heroPhotoPath={ '../static/stew-logo.png' } />
+        <MailModal show={ showModal } closeModal={ this.toggleModal } />
+        <Header heroPhotoPath={ '/stew-title.png' } />
         <Hero type={ "grey" }>
           <Intro 
             onButtonClick={ this.onButtonClick } 
@@ -75,25 +83,49 @@ class Index extends React.Component {
         <Banner 
           title="Browsers used to be just for browsing." 
           body="stew makes sure your browser works for work."
-          image="../static/browsing-2.png"
+          image="/browsing-2.png"
         />
         <Hero>
           <TextWithImage
             title="Save time when setting up."
             body="stew helps you find custom or community-made tab setups to get your work done better and faster."
-            image={ "../static/chest.png" }
+            image={ "/blast-off.png" }
           />
           <TextWithImageTop 
             title="It's great for teams too"
             body="private repositories enable your team to do more, together"
-            imagePath="../static/team.png"
+            imagePath="/new-team.png"
           />
         </Hero>
-        <Banner 
-          title="Sharing is caring." 
-          body="Great things come from collaboration: Wikipedia, Open Source Software, and now, better browser workflows."
-          image="../static/share.png"
-        />
+        { this.state.browser !== 'Firefox' && !this.state.isMobile
+        ?
+          <Banner 
+            image="/sboy_cannons2.png"
+          >
+              <TextLoop>
+                <div className="banner__item banner--center">
+                  <h2> Students use Stew to manage GSuite </h2>
+                </div>
+                <div className="banner__item banner--center">
+                  <h2> Developers use Stew to share documentation </h2> 
+                </div>
+                <div className="banner__item banner--center">
+                  <h2> Managers use Stew to share wikis </h2> 
+                </div>
+                <div className="banner__item banner--center">
+                  <h2> Accountants use Stew to manage spreadsheets </h2>
+                </div>
+                <div className="banner__item banner--center">
+                  <h2> Analysts use Stew to share research </h2> 
+                </div>
+              </TextLoop>
+          </Banner>
+          : <Banner
+              title="Sharing is caring." 
+              body="Great things come from sharing: Wikipedia, Open Source Software, and now, better browser workflows."
+              image="/sboy_cannons2.png"
+           />
+        }
         <Hero>
           <Cta onButtonClick={ this.onButtonClick } browser={ browser } title="Discover the best workflow recipes!" body="It’s like your grandma’s cookbook, but for tabs" />
         </Hero>

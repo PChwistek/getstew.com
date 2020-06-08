@@ -1,0 +1,108 @@
+.pricing {
+
+  &__body {
+    padding-top: 60px;
+  }
+
+  &__box-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    padding-bottom: 50px;
+  }
+
+  &__comparison {
+    padding: 50px 0px  100px 0px;
+
+    table {
+      width: 100%;
+      color: $text-color;
+      font-family: $base-font-family;
+      font-size: $font-size-large;
+    }
+
+    tr:nth-child(even) {
+      background: $modal-background !important;
+    }
+    
+    th {
+      padding: 20px;
+      text-align: center;
+      font-size: $font-size-large;
+      color: $text-color;
+      width: 250px;
+    }
+
+    th:first-child {
+      padding: 20px;
+      text-align: left;
+      background-color: transparent;
+      font-size: $font-size-large;
+      color: transparent;
+    }
+
+    td:first-child {
+      text-align: left;
+    }
+
+    td {
+      text-align: center;
+      padding: 20px;
+    }
+  }
+
+  &__box-container {
+    text-align: center;
+    height: 350px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    background: $white;
+    border: 2px solid $brand-color;
+    border-radius: 5px;
+    position: relative;
+    margin: 10px;
+
+
+    h3 {
+      font-family: $base-font-family;
+      font-size: $font-size-regular;
+      color: $white;
+      text-transform: uppercase;
+      font-variant: small-caps;
+    }
+
+    &__pricing {
+      font-family: $base-font-family;
+      padding-top: 40px;
+    }
+
+    &__extra {
+      position: relative;
+      font-family: $base-font-family;
+      padding-top: 30px;
+    }
+
+    &__price {
+      font-family: $base-font-family;
+      font-size: $font-size-big;
+
+      &--custom {
+        padding-top: 60px;
+      }
+    }
+
+    &__title-container {
+      background: $brand-color;
+      padding: 15px;
+    }
+
+    &__button {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+    }
+
+  }
+
+}

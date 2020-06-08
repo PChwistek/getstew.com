@@ -6,3 +6,8 @@ yarn.lock
 components/.DS_store
 build
 out
+
+functions/nextRouter
+public/_next
+public/_redirects
+functions/

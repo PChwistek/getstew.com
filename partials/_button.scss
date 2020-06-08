@@ -13,10 +13,77 @@
       font-family: $base-font-family;
       font-size: $font-size-regular;
       border-radius: 50px;
-      }
+    }
 
-      &:focus {
+    &--smaller {
+      background-color: $brand-color;
+      border: none;
+      color: white;
+      padding: 10px 28px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-family: $base-font-family;
+      font-size: $font-size-regular;
+      border-radius: 5px;
+    }
+
+    &--secondary {
+      background-color: transparent;
+      color: $brand-color;
+      padding: 10px 28px;
+      text-align: center;
+      text-decoration: none;
+      border: 1px solid $brand-color;
+      display: inline-block;
+      font-family: $base-font-family;
+      font-size: $font-size-regular;
+      border-radius: 5px;
+    }
+
+    &--plusOrMinus {
+      background-color: transparent;
+      color: $brand-color;
+      text-align: center;
+      border: none;
+      padding: 0px 5px 0px 5px;
+      text-decoration: none;
+      display: inline-block;
+      font-family: $base-font-family;
+      font-size: $font-size-large;
+    }
+
+
+    &--disabled {
+      background-color: transparent;
+      border: 1px solid $brand-color;
+      color: $brand-color;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-family: $base-font-family;
+      font-size: $font-size-regular;
+      border-radius: 5px;
+    }
+
+    &:focus {
         outline: 0;
-      }
+    }
+
+    &:hover {
+      margin-top: -2px;
+      margin-bottom: 2px;
+      transition: all .1s ease-in-out;
+    }
+
+    &__icon {
+      width: 1.2em;
+      margin-left: -10px;
+      margin-top: -10px;
+      margin-right: 10px;
+      margin-bottom: -2px;
+    }
+
 
 }

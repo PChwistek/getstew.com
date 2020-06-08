@@ -5,8 +5,7 @@ $font-size-larger: 2.25em;
 $font-size-large: 1.5em;
 $font-size-regular: 1em;
 $font-size-smaller: 0.667em;
-$font-size-tiny: 0.444em;
-
+$font-size-tiny: 0.6em;
 
 .content {
   color: $text-color;
@@ -14,6 +13,11 @@ $font-size-tiny: 0.444em;
   &__intro {
     padding-top: 50px;
     text-align: center;
+
+    &--lg {
+      padding-top: 125px;
+      text-align: center;
+    }
 
     h1 {
       font-size: $font-size-big;
@@ -49,6 +53,43 @@ $font-size-tiny: 0.444em;
     }
   }
 
+  &__shared {
+    margin-top: 50px;
+    display: flex;
+    width: 800px;
+    margin: auto;
+
+    @include respond(phone) { // width < 1200?
+      flex-direction: column;
+    }
+
+    &__half {
+      flex-grow: 1;
+      width: 100%;
+
+      @include respond(phone) { // width < 1200?
+        padding-bottom: 50px;
+      }
+  
+      &--left {
+        flex-grow: 1;
+        text-align: left;
+
+        p {
+          font-size: $font-size-regular !important;
+          line-height: 20px !important;
+          padding-bottom: 20px;
+        }
+      }
+
+      &--right {
+        flex-grow: 0;
+        width: 700px;
+        text-align: left;
+      }
+    }
+  }
+
   h2 {
     font-size: $font-size-larger;
     font-family: $base-font-family;
@@ -71,4 +112,41 @@ $font-size-tiny: 0.444em;
       line-height: 28px;
     }
   }
+
+  &__app {
+    h2 {
+      font-size: $font-size-larger;
+      font-family: $base-font-family;
+      color: $text-color;
+      font-weight: 700;
+      line-height: 60px;
+      @include respond(phone) { // width < 1200?
+        font-size: $font-size-larger;
+        line-height: 42px;
+        padding-bottom: 10px;
+      }
+    }
+
+    p {
+      font-size: $font-size-regular;
+      font-family: $oxygen;
+      line-height: 45px;
+      font-weight: 300;
+      @include respond(phone) { // width < 1200?
+        font-size: $font-size-regular;
+        line-height: 28px;
+      }
+    }
+  }
+
+  .link {
+    color: $link-color;
+    cursor: pointer;
+  }
+}
+
+.error-text {
+  font-family: $base-font-family;
+  color: $error-color;
+  font-size: $font-size-regular;
 }

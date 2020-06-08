@@ -10,6 +10,8 @@ const Hero = props => {
         return "hero hero__grey--main"
       case "grey-mini":
         return "hero hero__grey--mini"
+      case "grey-lg":
+        return "hero hero__grey--lg"
     }
 
     return "hero hero__white"
