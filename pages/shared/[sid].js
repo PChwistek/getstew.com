@@ -17,7 +17,6 @@ import "../../style.scss"
 const Shared = (props) => {
   const { name, author, dateModified, config } = props.recipe
   const { allowed, inLibrary, axiosConfig, sid } = props
-  console.log('token', props.token)
   const [isInLibrary, setIsInLibrary] = useState(inLibrary || false)
   
   async function addToLibrary() {

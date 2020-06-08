@@ -26,7 +26,13 @@ const Support = props => {
       { allowed && 
         <AuthedAppWrapper>
             <Content>
-              <h1> Some content on support </h1>
+            <div style={{ marginTop: '20%' }}>
+              <div className='teams__intro'>
+                  <div className='teams__title'> 
+                    <h2> If you have any questions or concerns, you can reach us at: support@getstew.com </h2>
+                  </div>
+                </div>
+            </div>
             </Content>
         </AuthedAppWrapper>
       }

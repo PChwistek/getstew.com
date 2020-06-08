@@ -9,16 +9,17 @@ import getServerHostname from '../utils/getServerHostname'
 import AuthedAppWrapper from '../components/AuthedAppWrapper'
 import Content from '../components/Content'
 import { withAuthSync } from '../utils/auth'
+import Button from '../components/Button'
 
 import "../style.scss"
 
-const Profile = props => {
+const PurchaseSuccess = props => {
   const { allowed } = props
 
   return(
     <Layout>
       <Head>
-        <title>stew | My Profile </title>
+        <title>stew | Purchase Success </title>
         <link rel="icon" href={ 'favicon.png' } type="image/png" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content="stew Support" />
@@ -26,7 +27,17 @@ const Profile = props => {
       { allowed && 
         <AuthedAppWrapper>
             <Content>
-              <h1> Some settings on Profile </h1>
+            <div className='teams__intro'>
+              <div className='teams__title'>
+                <img src='/sboy_cannons2.png' className='teams__cannons' />
+                <h2> You&apos;re all set. </h2>
+              </div>
+              <div className='teams__button'>
+                <Button primary onClick={ () => Router.push('/teams') }>
+                  Set up your team.
+                </Button>
+              </div>
+            </div>
             </Content>
         </AuthedAppWrapper>
       }
@@ -34,7 +45,7 @@ const Profile = props => {
   ) 
 }
 
-Profile.getInitialProps = async ctx => {
+PurchaseSuccess.getInitialProps = async ctx => {
   const { token } = nextCookie(ctx)
   const redirectOnError = () =>
     typeof window !== 'undefined'
@@ -62,8 +73,8 @@ Profile.getInitialProps = async ctx => {
   }
 }
 
-Profile.propTypes = {
+PurchaseSuccess.propTypes = {
   allowed: PropTypes.bool
 }
 
-export default withAuthSync(Profile)
+export default withAuthSync(PurchaseSuccess)

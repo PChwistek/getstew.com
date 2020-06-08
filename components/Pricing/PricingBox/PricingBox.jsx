@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Button from '../Button'
+import Button from '../../Button'
 
 const PricingBox = props => {
 
@@ -28,7 +28,7 @@ const PricingBox = props => {
       }
       <div className='pricing__box-container__button'>
         <div>
-          <Button primary onClick={ () => {} }>
+          <Button primary onClick={ props.onSelect }>
             { props.buttonText }
           </Button>
         </div>
@@ -40,6 +40,7 @@ const PricingBox = props => {
 PricingBox.propTypes = {
   title: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
+  onSelect: PropTypes.func,
   price: PropTypes.string,
   extra: PropTypes.string,
   freeUsers: PropTypes.string,

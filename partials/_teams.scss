@@ -1,7 +1,8 @@
 .teams {
 
   &__title {
-    padding-top: 10%;
+    padding-top: 10px;
+
   }
 
   &__intro {
@@ -19,4 +20,181 @@
     padding-top: 30px;
   }
 
+  &__seats {
+    display: flex;
+    height: 300px; 
+    justify-content: center;
+    align-items: center;
+
+    &__field {
+      display: flex;
+      min-width: 100px;
+      text-align: center;
+      justify-content: center;
+    }
+
+    &__modifier {
+      margin: 10px;
+    }
+
+    &__seat-adjust {
+      width: 32px;
+    }
+  }
+
+}
+
+.react-numeric-input {
+  font-family: $base-font-family;
+  font-size: $font-size-regular;
+}
+
+.teams-dash {
+
+  &__item {
+    background: $grey-background;
+    font-family: $base-font-family;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 30px;
+
+    &:first-child {
+      margin-left: 30px;
+    }
+
+    &:last-child {
+      margin-right: 30px;
+    }
+  }
+
+  &__invite-members {
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    &__input {
+      max-width: 300px;
+    }
+
+    &__container {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      border-radius: 5px;
+      max-height: 220px;
+      width: auto;
+      overflow-y: scroll;
+    }
+
+  }
+
+  &__members {
+    width: 100%;
+
+    &__item {
+      display: flex;
+      align-items: center;    
+    }
+  }
+
+  &__layout {
+    display: flex;
+    flex-direction: row;
+
+    &__body {
+      min-width: 50%;
+      flex-basis: 1;
+    }
+
+    h3 {
+      font-size: $font-size-large;
+      font-family: $base-font-family;
+      color: $text-color;
+      font-weight: 700;
+      line-height: 60px;    
+    }
+  }
+
+  &__edit {
+    padding-left: .5em;
+    margin-bottom: -.15em;
+    width: 1em;
+    cursor: pointer;
+  }
+
+  &__title {
+    display: flex;
+    font-size: $font-size-larger;
+    font-family: $base-font-family;
+    color: $text-color;
+    font-weight: 700;
+    line-height: 60px;
+    @include respond(phone) { // width < 1200?
+      font-size: $font-size-larger;
+      line-height: 42px;
+      padding-bottom: 10px;
+    }
+  }
+
+  &__toggle {
+    margin-left: auto;
+  }
+
+  &__done {
+    padding-left: .5em;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: $font-size-smaller;
+    font-weight: 300;
+  }
+
+  &__user {
+    width: 2.5em;
+    margin-right: 1em;
+  }
+
+  &__remove {
+    width: 1.5em;
+    margin-left: auto;
+    cursor: pointer;
+  }
+
+  &__change-container {
+    margin-top: 20px;
+  }
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  background: $brand-color;
+  font-family: $base-font-family;
+  font-size: $font-size-regular;
+  color: $white;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+
+  &__remove {
+    margin-top: 2px;
+    padding-left: 5px;
+    display: inline;
+    cursor: pointer;
+    img {
+      width: 16px;
+    }
+  }
+}
+
+.about-teams {
+
+  &__img-container {
+    margin-top: 4em;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__img {
+    width: 20em;
+  }
 }

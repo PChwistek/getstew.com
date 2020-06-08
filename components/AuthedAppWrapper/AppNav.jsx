@@ -25,26 +25,19 @@ const AuthedAppWrapper = props => {
             </Link>
           </div>
           <div>
-            <Link href={ '/profile' }>
+            <Link href={ '/support' }>
               <div className="authed-app-wrapper__nav__item">
-                <a> Profile </a>
-              </div>
-            </Link>
-          </div>
-          <div>
-            <Link href={ '/login' }>
-              <div className="authed-app-wrapper__nav__item" onClick={ logout }>
-                <a> Logout </a>
+                <a> Support </a>
               </div>
             </Link>
           </div>
         </div>
         <div className='authed-app-wrapper__nav__support' >
-          <Link href={ '/support' }>
-            <div className="authed-app-wrapper__nav__item">
-              <a> Support </a>
-            </div>
-          </Link>
+          <Link href={ '/login' }>
+              <div className="authed-app-wrapper__nav__item" onClick={ logout }>
+                <a> Logout </a>
+              </div>
+            </Link>
         </div>
       </div>
       <div className={ 'authed-app-wrapper__content'}>
@@ -56,7 +49,7 @@ const AuthedAppWrapper = props => {
 
 AuthedAppWrapper.propTypes = {
  children: PropTypes.node,
- logoSrc: String,
+ logoSrc: PropTypes.string,
 }
 
 export default AuthedAppWrapper

@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { useState } from 'react'
 import Router from 'next/router'
 import axios from 'axios'
 import nextCookie from 'next-cookies'
@@ -9,12 +10,48 @@ import getServerHostname from '../utils/getServerHostname'
 import AuthedAppWrapper from '../components/AuthedAppWrapper'
 import Content from '../components/Content'
 import { withAuthSync } from '../utils/auth'
-import Button from '../components/Button'
-
+import Checkout from '../components/Checkout'
 import "../style.scss"
+import OrgsDashboard from '../components/OrgsDashboard'
+import ConfirmModal from '../components/Modal/ConfirmModal'
+import TimedAlert from '../components/Modal/TimedAlert'
+
+const defaultModalState = { active: false, email: '', error: '' }
 
 const Teams = props => {
-  const { allowed } = props
+  const { allowed, config } = props
+
+  const [showConfirmMemberRemove, setShowConfirmMemberRemove] = useState(defaultModalState)
+  const [members, setMembers] = useState(props.orgData.members)
+  const [showResendAlert, setResendAlert] = useState({ show: false, error: '' })
+
+  function triggerResendAlert(error) {
+    setResendAlert({ show: true, error })
+    setTimeout(() => setResendAlert({show: false, error: '' }), 3000)
+  }
+
+  async function removeMember() {
+    try {
+      const response = await axios.post(`${getServerHostname()}/org/remove-member`, {
+        orgId: props.orgData._id,
+        email: showConfirmMemberRemove.email,
+      }, config)
+
+      if (response.data === true) {
+        const newMembers = members.filter(member => member.email !== showConfirmMemberRemove.email)
+        setMembers([...newMembers])
+        setShowConfirmMemberRemove(defaultModalState)
+      } 
+
+    } catch (error) {
+      setShowConfirmMemberRemove({ 
+        active: true, 
+        email: showConfirmMemberRemove.email, 
+        error: error.response.data.message 
+      })
+    }
+   
+  }
 
   return(
     <Layout>
@@ -24,23 +61,36 @@ const Teams = props => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content="my stew teams" />
       </Head>
+      <ConfirmModal 
+        show={ showConfirmMemberRemove.active } 
+        closeModal={ () => setShowConfirmMemberRemove(defaultModalState)}
+        onNoClick={ () => setShowConfirmMemberRemove(defaultModalState)}
+        onYesClick={ () => removeMember() }
+        desc={ `Are you sure you want to remove ${showConfirmMemberRemove.email} from this organization?`}
+        title='Are you sure?'
+        error= { showConfirmMemberRemove.error }
+      />
+      <TimedAlert show={ showResendAlert.show } error={ showResendAlert.error }>
+        <h3> { showResendAlert.error ? `${showResendAlert.error}` : 'Invite re-sent.' } </h3>
+      </TimedAlert>
       { allowed && 
         <AuthedAppWrapper>
-            <Content>
-              <div className='teams__intro'>
-                <div className='teams__title'> 
-                  <h2> Introducing... teams! </h2>
-                </div>
-                <div> 
-                  <img src='/new-team.png' className='teams__explosion' />
-                </div> 
-                <div className='teams__button'>
-                  <Button primary onClick={ () => {} }>
-                    Get Started
-                  </Button>
-                </div>
-              </div>
-            </Content>
+          <Content isDashboard>
+            {
+              props.orgData.hasOrg 
+              ? <OrgsDashboard 
+                  members={ members }
+                  _id={ props.orgData._id }
+                  isAdmin={ props.orgData.hasOrg }
+                  numberOfSeats= { props.orgData.numberOfSeats }
+                  config={ config } 
+                  onRemoveClick={ (active, email) => setShowConfirmMemberRemove({ active, email }) }
+                  afterEmailResend= { triggerResendAlert }
+                />
+              : <Checkout config={ config } />
+            }
+      
+          </Content>
         </AuthedAppWrapper>
       }
     </Layout>
@@ -59,10 +109,12 @@ Teams.getInitialProps = async ctx => {
       headers: { Authorization: `Bearer ${token}` }
     }
     
-    const response = await axios.get(`${getServerHostname()}/auth/validate`, config)
+    const response = await axios.get(`${getServerHostname()}/org/dashboard`, config)
     if (response.statusText >= 200 ** response.statusText < 400) {
       return {
         allowed: true,
+        orgData: response.data,
+        config,
       }
     } else {
       // https://github.com/developit/unfetch#caveats
@@ -76,7 +128,15 @@ Teams.getInitialProps = async ctx => {
 }
 
 Teams.propTypes = {
-  allowed: PropTypes.bool
+  allowed: PropTypes.bool,
+  config: PropTypes.shape({ headers: PropTypes.object }),
+  orgData: PropTypes.shape({
+    hasOrg: PropTypes.bool,
+    _id: PropTypes.string,
+    isAdmin: PropTypes.bool,
+    numberOfSeats: PropTypes.number,
+    members: PropTypes.array,
+  }),
 }
 
 export default withAuthSync(Teams)
