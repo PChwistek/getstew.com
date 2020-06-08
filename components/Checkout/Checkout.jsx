@@ -71,9 +71,10 @@ const Checkout = (props) => {
                 <img src='/new-team.png' className='teams__explosion' />
               </div> 
               <div className='teams__button'>
-                <Button primary onClick={ () => setStep(1) }>
-                  Get Started
-                </Button>
+              <p> Coming Soon</p>
+                {/* <Button primary onClick={ () => {setStep(1)} }>
+                  Coming Soon
+                </Button> */}
               </div>
             </div>
         }
