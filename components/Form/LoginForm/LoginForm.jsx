@@ -8,6 +8,8 @@ import Button from '../../Button'
 import { isValidEmail, isValidPassword } from '../../../utils/validations'
 import getServerHostname from '../../../utils/getServerHostname'
 
+const isProd = process.env.environment
+
 const LoginForm = (props) => {
 
   const [email, setEmail] = useState('')
@@ -83,6 +85,7 @@ const LoginForm = (props) => {
             setPassword={ setPassword }
             onEnterValidation={ isValidEmail }
             innerRef={ emailField }
+            autoComplete={ isProd ? 'email' : 'off' }
           /> 
         </div>
         <div className="split__form-item">
@@ -95,6 +98,7 @@ const LoginForm = (props) => {
             value={ password }
             validate={ isValidPassword } 
             innerRef={ passwordField }
+            autoComplete={ isProd ? 'current-password' : 'off' }
           />
         </div>
         <div className="split__form-item">

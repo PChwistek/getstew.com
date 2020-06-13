@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
 
+
 class TextField extends Component {
   constructor(props) {
     super(props);
@@ -57,7 +58,7 @@ class TextField extends Component {
 
   render() {
     const { active, error, label } = this.state
-    const { locked, type, value, autoFocus, innerRef } = this.props
+    const { locked, type, value, autoFocus, innerRef, autoComplete } = this.props
     const fieldClassName = `field ${(locked ? active : active || value) &&
       "active"} ${locked && !active && "locked"} && ${error && 'error'}`
 
@@ -74,7 +75,7 @@ class TextField extends Component {
           onFocus={() => !locked && this.setState({ active: true })}
           onBlur={() => !locked && this.setState({ active: false })}
           ref={ innerRef }
-          autoComplete="off"       
+          autoComplete={ autoComplete }      
         />
         <label htmlFor={1} className={error && "error"}>
           {error || label}
@@ -100,6 +101,7 @@ TextField.propTypes = {
   validate: PropTypes.func,
   setValue: PropTypes.func.isRequired,
   innerRef: PropTypes.any,
+  autoComplete: PropTypes.string,
 }
   
 export default TextField

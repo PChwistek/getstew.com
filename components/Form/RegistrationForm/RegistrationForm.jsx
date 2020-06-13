@@ -9,6 +9,9 @@ import Checkbox from '../../Checkbox'
 import { isValidEmail, isValidPassword } from '../../../utils/validations'
 import getServerHostname from '../../../utils/getServerHostname'
 
+const isProd = process.env.environment
+
+
 const RegistrationForm = (props) => {
 
   const [email, setEmail] = useState('')
@@ -93,6 +96,7 @@ const RegistrationForm = (props) => {
             handleKeyUp= { handleKeyUp }
             onEnterValidation={ isValidEmail }
             innerRef={ emailField }
+            autoComplete={ isProd ? 'email' : 'off' }
           /> 
         </div>
         <div className="split__form-item">
@@ -105,6 +109,7 @@ const RegistrationForm = (props) => {
             setValue={ setPassword }
             value={ password }
             innerRef={ passwordField }
+            autoComplete={ isProd ? 'new-password' : 'off' }
           />
         </div>
         <div className="split__form-item  split__form-item--checkbox">
