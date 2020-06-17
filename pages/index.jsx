@@ -39,7 +39,12 @@ class Index extends React.Component {
   }
 
   onButtonClick = () => {
-    this.toggleModal()
+    const { browser } = this.state
+    if (browser === 'Chrome') {
+      window.open('https://chrome.google.com/webstore/detail/stew/mpgembgbcmglafhihbhendibhekajjep')
+    } else {
+      this.toggleModal()
+    }
     logEvent('add to', 'click')
   }
 

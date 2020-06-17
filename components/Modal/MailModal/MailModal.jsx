@@ -12,7 +12,7 @@ const MailModal = props => {
           Sorry about that!
         </h2>
         <p>
-          stew is still in development. If you&apos;re interested, enter your email below to receive an update when we launch.
+          Stew is only available on Chrome. If you&apos;re interested, enter your email below to receive an update when Stew becomes available for your browser.
         </p>
         <br />
         <MailchimpSubscribe
