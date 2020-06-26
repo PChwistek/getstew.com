@@ -1,7 +1,7 @@
 import { useState, createRef, Fragment } from 'react'
 import axios from 'axios'
 import PropTypes from 'prop-types'
-import { login, loginNoRedirect } from '../../../utils/auth'
+import { login, loginNoRedirect, auth } from '../../../utils/auth'
 import TextField from '../../TextField'
 import Link from 'next/link'
 import Button from '../../Button'
@@ -28,7 +28,18 @@ const RegistrationForm = (props) => {
     if(validEmail && validPass) {
       const url = `${getServerHostname()}/auth/register`
       try {
-        const response = await axios.post(url, { email: email.toLowerCase(), password })
+        const response = await axios.post(url, { email: email.toLowerCase(), password, newsletter })
+        if (newsletter) axios.post('https://us4.api.mailchimp.com/3.0/lists/c65f16bba9/members/', { 
+          email: email.toLowerCase(),
+          status: "subscribed"
+        },
+        {
+          auth: {
+            username: 'phil',
+            password: '8d52e8b330c95ecac1e8218aaca81b0b-us4'        
+          }
+        }
+        )
         if (response.data) {
           const { data: { access_token } } = response
           if(!props.noRedirect) {
