@@ -1,7 +1,7 @@
 import { useState, createRef, Fragment } from 'react'
 import axios from 'axios'
 import PropTypes from 'prop-types'
-import { login, loginNoRedirect } from '../../../utils/auth'
+import { login, loginNoRedirect, auth } from '../../../utils/auth'
 import TextField from '../../TextField'
 import Link from 'next/link'
 import Button from '../../Button'
@@ -31,7 +31,7 @@ const RegistrationForm = (props) => {
     if(validEmail && validPass) {
       const url = `${getServerHostname()}/auth/register`
       try {
-        const response = await axios.post(url, { email: email.toLowerCase(), password })
+        const response = await axios.post(url, { email: email.toLowerCase(), password, newsletter })
         if (response.data) {
           const { data: { access_token } } = response
           if(!props.noRedirect) {
