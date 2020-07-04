@@ -22,11 +22,11 @@ export default function landingHeader(props) {
                   <a> Teams </a>
                 </div>
               </Link>
-              <Link href={ '/pricing' }>
+              {/* <Link href={ '/pricing' }>
                 <div className="header header__item">
                   <a> Pricing </a>
                 </div>
-              </Link>
+              </Link> */}
               <Link href={'/dashboard' }>
                 <div className="header header__item">
                   <a> Account </a> 
