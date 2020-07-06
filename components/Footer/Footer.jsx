@@ -13,6 +13,8 @@ export default function footer() {
               </div>
               <div className='footer__company-info'>
               © 2020 Stew, LLC.
+              <br />
+              (916) 538-0353
               </div>
             </div>
           </div>
