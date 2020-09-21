@@ -142,6 +142,11 @@ $font-size-tiny: 0.6em;
   .link {
     color: $link-color;
     cursor: pointer;
+    &--small {
+      color: $link-color;
+      cursor: pointer;
+      font-size: $font-size-regular !important;
+    }
   }
 }
 
