@@ -1,0 +1,38 @@
+.faq {
+
+  &__intro {
+    padding-top: 60px;
+  }
+
+  &__body {
+    padding-top: 60px;
+    display: flex;
+    width: 500px;
+    flex-direction: column;
+    margin: auto;
+  }
+
+  &__question {
+    margin: auto;
+    text-align: left;
+    width: 500px;
+    padding: 15px;
+  }
+
+  &__answer {
+
+    &--hidden {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &__chevron {
+    width: 16px;
+    margin-left: 8px;
+    margin-bottom: 5px;
+    cursor: pointer;
+
+  }
+}
