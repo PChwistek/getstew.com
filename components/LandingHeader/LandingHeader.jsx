@@ -17,9 +17,9 @@ export default function landingHeader(props) {
           {
             !props.hideItems &&
               <div className="header header__items">
-              <Link href={ '/about-teams' }>
+              <Link href={ '/faq' }>
                 <div className="header header__item">
-                  <a> Teams </a>
+                  <a> FAQ </a>
                 </div>
               </Link>
               {/* <Link href={ '/pricing' }>

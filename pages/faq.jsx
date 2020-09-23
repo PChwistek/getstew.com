@@ -10,57 +10,57 @@ import "../style.scss"
 const questions = [
   {
     question: 'What is Stew?',
-    answer: 'Stew is a blah blah blah blah blah blah blah blah',
+    answer: 'Stew is a browser extension that allows users to save multiple tabs and windows to launch later. It also allows you to share these configurations with others via URL.',
     index: 0,
   },
   {
     question: 'How does Stew work?',
-    answer: 'Stew works blah blahbah',
+    answer: 'Stew lives in your browser and only runs when you open the Stew extension. When live, it takes a snapshot of your current windows and tabs for you to edit, save, and share.',
     index: 1,
   },
   {
     question: 'What browsers does Stew support?',
-    answer: 'Stew is available on blah blah blah',
+    answer: 'Stew is currently only available on Chrome. Firefox support is in the pipeline.',
     index: 2,
   },
   {
     question: 'What is a recipe?',
-    answer: 'Stew works blah blahbah',
+    answer: 'Recipes are what Stew calls a collection of tabs and windows. They\'re meant to be used later, like a cooking recipe. You can even share your recipes.',
     index: 3
   },
   {
-    question: 'Are my tabs secure?',
-    answer: 'Stew works blah blahbah',
+    question: 'Is my browsing secure?',
+    answer: 'Stew only saves the browsing information users include in recipes. All recipes are set to private by default.',
     index: 4,
   },
   {
     question: 'Does Stew sell my data?',
-    answer: 'Stew works blah blahbah',
+    answer: 'No, Stew does not sell user data.',
     index: 5,
   },
+  // {
+  //   question: 'How do I create an account?',
+  //   answer: 'Stew works blah blahbah',
+  //   index: 6,
+  // },
   {
-    question: 'How do I create an account?',
-    answer: 'Stew works blah blahbah',
-    index: 6,
-  },
-  {
-    question: 'Can I un-share a recipe?',
-    answer: 'Stew works blah blahbah',
+    question: 'How can I share a recipe?',
+    answer: 'Whenever a user views a created recipe in the extension, there\'s a share button on the bottom bar. Once selecting share, users can copy a URL that they can share with other users.',
     index: 7,
   },
   {
     question: 'How do I add a shared recipe?',
-    answer: 'Stew works blah blahbah',
+    answer: 'If you\'re logged into the Stew web app, you can click "add to library." This action will automatically add the recipe to your extension.',
     index: 8,
   },
   {
-    question: 'What are the benefits of using Stew?',
-    answer: 'Stew works blah blahbah',
+    question: 'Who uses Stew?',
+    answer: 'Stew is used by teams, students, writers, and basically anyone who completes work in the browser.',
     index: 9,
   },
   {
     question: 'What are the benefits of using Stew?',
-    answer: 'Stew works blah blahbah',
+    answer: 'Stew makes it easy for you to re-use browser-based workspaces. This can not only save you time, but can also make it easier for you to concentrate on your work as you minimize the cost of task-switching.',
     index: 10,
   }
 ]
