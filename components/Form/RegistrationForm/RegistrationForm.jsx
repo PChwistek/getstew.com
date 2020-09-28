@@ -95,6 +95,17 @@ const RegistrationForm = (props) => {
       <img src={ '/stew-logo.png' } className={ 'split__image split__image--mobile' }/>
       <div className={ props.responsive ? 'content__app split__form--responsive' :'content__app split__form' }>
       { !props.hideTitle && <h2> Sign Up </h2> }
+        <div>
+          <GoogleLogin
+            clientId='804631623349-i35rpqa3p5b6vfj3c9kohunbutcg9g6d.apps.googleusercontent.com'
+            buttonText='Register with Google'
+            onSuccess={ (response) => onSuccessOAuth(response) }
+            onFailure={ () => console.log('failed')  }
+            cookiePolicy={ 'single_host_origin' }
+            className={ 'split__form-oauth'}
+          />
+        </div>
+        <p className={ 'split__form-or'}> Or </p>
         <div className={ 'error-text'}> { error } </div>
         <div className="split__form-item">
           <TextField
@@ -147,16 +158,6 @@ const RegistrationForm = (props) => {
                 </div>
               </div>
         }
-        <div>
-          <GoogleLogin
-            clientId='804631623349-i35rpqa3p5b6vfj3c9kohunbutcg9g6d.apps.googleusercontent.com'
-            buttonText='Register with Google'
-            onSuccess={ (response) => onSuccessOAuth(response) }
-            onFailure={ () => console.log('failed')  }
-            cookiePolicy={ 'single_host_origin' }
-            className={ 'split__form-oauth'}
-          />
-        </div>
         </div>
     </Fragment>
   )
