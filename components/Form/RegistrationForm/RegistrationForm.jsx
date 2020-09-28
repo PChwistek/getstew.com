@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Button from '../../Button'
 import Checkbox from '../../Checkbox'
 import { isValidEmail, isValidPassword } from '../../../utils/validations'
+import { GoogleLogin } from 'react-google-login'
 import getServerHostname from '../../../utils/getServerHostname'
 
 const isProd = process.env.environment
@@ -80,6 +81,15 @@ const RegistrationForm = (props) => {
     }
   }
 
+  function onSuccessOAuth (response) {
+    const { accessToken, profileObj: { email }, tokenId } = response
+    console.log('accessToken', accessToken)
+    console.log('email', email)
+    console.log('tokenId', tokenId)
+
+  }
+
+
   return (
     <Fragment>
       <img src={ '/stew-logo.png' } className={ 'split__image split__image--mobile' }/>
@@ -137,6 +147,16 @@ const RegistrationForm = (props) => {
                 </div>
               </div>
         }
+        <div>
+          <GoogleLogin
+            clientId='804631623349-i35rpqa3p5b6vfj3c9kohunbutcg9g6d.apps.googleusercontent.com'
+            buttonText='Register with Google'
+            onSuccess={ (response) => onSuccessOAuth(response) }
+            onFailure={ () => console.log('failed')  }
+            cookiePolicy={ 'single_host_origin' }
+            className={ 'split__form-oauth'}
+          />
+        </div>
         </div>
     </Fragment>
   )

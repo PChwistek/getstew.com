@@ -366,6 +366,11 @@
     }
   }
 
+  &__form-oauth {
+    margin-top: 20px;
+    width: 100%;
+  }
+
   &__small-text {
     font-family: $base-font-family;
     font-size: $font-size-smaller; 

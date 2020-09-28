@@ -6,6 +6,7 @@ import TextField from '../../TextField'
 import Link from 'next/link'
 import Button from '../../Button'
 import { isValidEmail, isValidPassword } from '../../../utils/validations'
+import { GoogleLogin } from 'react-google-login'
 import getServerHostname from '../../../utils/getServerHostname'
 
 const isProd = process.env.environment
@@ -40,6 +41,14 @@ const LoginForm = (props) => {
         setError(err.status === 401 || 'No account with these credentials exists.')        
       }
     } 
+  }
+
+  function onSuccessOAuth (response) {
+    const { accessToken, profileObj: { email }, tokenId } = response
+    console.log('accessToken', accessToken)
+    console.log('email', email)
+    console.log('tokenId', tokenId)
+
   }
 
   function handleKeyUp(e) {
@@ -124,6 +133,16 @@ const LoginForm = (props) => {
             </div>
             </div>
         }
+        <div>
+          <GoogleLogin
+            clientId='804631623349-i35rpqa3p5b6vfj3c9kohunbutcg9g6d.apps.googleusercontent.com'
+            buttonText='Login with Google'
+            onSuccess={ (response) => onSuccessOAuth(response) }
+            onFailure={ () => console.log('failed')  }
+            cookiePolicy={ 'single_host_origin' }
+            className={ 'split__form-oauth'}
+          />
+        </div>
       </div>
     </Fragment>
   )
