@@ -48,12 +48,12 @@ export default function footer() {
               Company
             </div>
             <div className='footer__company-info'>
-              <Link href='https://stew-landing.s3.us-east-2.amazonaws.com/Stew+-+Privacy+Policy.pdf'> 
+              <Link href='//stew-landing.s3.us-east-2.amazonaws.com/Stew+-+Privacy+Policy.pdf'> 
                 <a> Privacy Policy  </a>
               </Link>
             </div>
             <div className='footer__company-info'>
-              <Link href='https://stew-landing.s3.us-east-2.amazonaws.com/Stew+-+Terms+of+Use.pdf'>
+              <Link href='//stew-landing.s3.us-east-2.amazonaws.com/Stew+-+Terms+of+Use.pdf'>
                 <a> Terms of Use  </a>
               </Link>
             </div>
