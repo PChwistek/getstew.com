@@ -81,12 +81,26 @@ const RegistrationForm = (props) => {
     }
   }
 
-  function onSuccessOAuth (response) {
-    const { accessToken, profileObj: { email }, tokenId } = response
-    console.log('accessToken', accessToken)
-    console.log('email', email)
-    console.log('tokenId', tokenId)
+  async function onSuccessOAuth (response) {
+    const { profileObj: { email }, tokenId } = response
+    const url = `${getServerHostname()}/auth/oauth`
+      try {
+        const response = await axios.post(url, { email: email.toLowerCase(), tokenId, newsletter: false })
+        if (response.status >= 200 && response.status < 400) {
+          const { access_token } = response.data
+          if(!props.noRedirect) {
+            await login({ token: access_token })
+          } else{
+            await loginNoRedirect({ token: access_token })
+          }
+        } 
+      } catch(err) {
+        setError(err.status === 401 || 'No account with these credentials exists.')        
+      }
+  }
 
+  async function onFailureOAuth () {
+    setError('Could not connect to selected Google OAuth account.')        
   }
 
 
@@ -100,7 +114,7 @@ const RegistrationForm = (props) => {
             clientId='804631623349-i35rpqa3p5b6vfj3c9kohunbutcg9g6d.apps.googleusercontent.com'
             buttonText='Register with Google'
             onSuccess={ (response) => onSuccessOAuth(response) }
-            onFailure={ () => console.log('failed')  }
+            onFailure={ () => onFailureOAuth() }
             cookiePolicy={ 'single_host_origin' }
             className={ 'split__form-oauth'}
           />
