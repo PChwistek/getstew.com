@@ -6,6 +6,7 @@ import TextField from '../../TextField'
 import Link from 'next/link'
 import Button from '../../Button'
 import { isValidEmail, isValidPassword } from '../../../utils/validations'
+import { GoogleLogin } from 'react-google-login'
 import getServerHostname from '../../../utils/getServerHostname'
 
 const isProd = process.env.environment
@@ -42,6 +43,28 @@ const LoginForm = (props) => {
     } 
   }
 
+  async function onSuccessOAuth (response) {
+    const { profileObj: { email }, tokenId } = response
+    const url = `${getServerHostname()}/auth/oauth`
+      try {
+        const response = await axios.post(url, { email: email.toLowerCase(), tokenId, newsletter: false })
+        if (response.status >= 200 && response.status < 400) {
+          const { access_token } = response.data
+          if(!props.noRedirect) {
+            await login({ token: access_token })
+          } else{
+            await loginNoRedirect({ token: access_token })
+          }
+        } 
+      } catch(err) {
+        setError(err.status === 401 || 'No account with these credentials exists.')        
+      }
+  }
+
+  async function onFailureOAuth () {
+    setError('Could not connect to selected Google OAuth account.')        
+  }
+
   function handleKeyUp(e) {
     e.which = e.which || e.keyCode
     if (e.which == 13) {
@@ -73,6 +96,17 @@ const LoginForm = (props) => {
       <img src={ '/stew-logo.png' } className={ 'split__image split__image--mobile' }/>
       <div className={ props.responsive ? 'content__app split__form--responsive' :'content__app split__form'}>
         { !props.hideTitle && <h2> Sign In </h2>}
+        <div>
+          <GoogleLogin
+            clientId='804631623349-i35rpqa3p5b6vfj3c9kohunbutcg9g6d.apps.googleusercontent.com'
+            buttonText='Login with Google'
+            onSuccess={ (response) => onSuccessOAuth(response) }
+            onFailure={ () => onFailureOAuth()  }
+            cookiePolicy={ 'single_host_origin' }
+            className={ 'split__form-oauth'}
+          />
+        </div>
+        <p className={ 'split__form-or'}> Or </p>
         <div className={ 'error-text'}> { error } </div>
         <div className="split__form-item">
           <TextField 

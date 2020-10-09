@@ -321,7 +321,7 @@
     width: 300px;
     left: 50px;
     position: absolute;
-    top:30%;
+    top: 20%;
     @include respond(phone) { // width < 1200?
       text-align: center;
       left: 0px;
@@ -335,6 +335,12 @@
       width: 60%;
       padding-left: 30px;
     }
+  }
+
+  &__form-or{
+    font-weight: 500 !important;
+    text-align: center;
+    padding-top: 15px;
   }
 
   &__form--responsive {
@@ -364,6 +370,11 @@
       text-align: left !important;
       font-size: $font-size-regular;
     }
+  }
+
+  &__form-oauth {
+    margin-top: 20px;
+    width: 100%;
   }
 
   &__small-text {
