@@ -61,7 +61,8 @@ const LoginForm = (props) => {
       }
   }
 
-  async function onFailureOAuth () {
+  async function onFailureOAuth (err) {
+    console.log('err', err)
     setError('Could not connect to selected Google OAuth account.')        
   }
 
@@ -101,7 +102,7 @@ const LoginForm = (props) => {
             clientId='804631623349-i35rpqa3p5b6vfj3c9kohunbutcg9g6d.apps.googleusercontent.com'
             buttonText='Login with Google'
             onSuccess={ (response) => onSuccessOAuth(response) }
-            onFailure={ () => onFailureOAuth()  }
+            onFailure={ (response) => onFailureOAuth(response)  }
             cookiePolicy={ 'single_host_origin' }
             className={ 'split__form-oauth'}
           />

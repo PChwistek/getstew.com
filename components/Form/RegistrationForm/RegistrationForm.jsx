@@ -12,7 +12,6 @@ import getServerHostname from '../../../utils/getServerHostname'
 
 const isProd = process.env.environment
 
-
 const RegistrationForm = (props) => {
 
   const [email, setEmail] = useState('')
@@ -99,7 +98,8 @@ const RegistrationForm = (props) => {
       }
   }
 
-  async function onFailureOAuth () {
+  async function onFailureOAuth (err) {
+    console.log('error', err)
     setError('Could not connect to selected Google OAuth account.')        
   }
 
@@ -114,7 +114,7 @@ const RegistrationForm = (props) => {
             clientId='804631623349-i35rpqa3p5b6vfj3c9kohunbutcg9g6d.apps.googleusercontent.com'
             buttonText='Register with Google'
             onSuccess={ (response) => onSuccessOAuth(response) }
-            onFailure={ () => onFailureOAuth() }
+            onFailure={ (response) => onFailureOAuth(response) }
             cookiePolicy={ 'single_host_origin' }
             className={ 'split__form-oauth'}
           />
