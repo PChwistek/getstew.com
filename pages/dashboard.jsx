@@ -10,8 +10,8 @@ import getServerHostname from '../utils/getServerHostname'
 import AuthedAppWrapper from '../components/AuthedAppWrapper'
 import Content from '../components/Content'
 import AlertModal from '../components/Modal/AlertModal'
+import RecipeList from '../components/RecipeList'
 import { withAuthSync } from '../utils/auth'
-
 import "../style.scss"
 
 const AccountPage = props => {
@@ -33,10 +33,11 @@ const AccountPage = props => {
               <div style={ { textAlign: 'center', paddingTop: '20%' }}>
                   <h2> { username ? `Welcome, ${username}.` : 'Welcome.' } </h2>
                   <div>
-                    <p> Imagine a nice dashboard here :D </p>
-                    <div className='account__whisper'> psst... you can use the extension now... </div>
+                    <p> { 'You\'ll find more information here once you have a bit more activity on Stew.' } </p>
+                    <div className='account__whisper'> psst... go create some recipes in the extension ... </div>
                   </div>
               </div>
+              <RecipeList config={ config } />
             </Content>
           </AuthedAppWrapper>
       }
