@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react'
-import dynamic from 'next/dynamic'
 import getServerHostname from '../../utils/getServerHostname'
+import { Card, CardBody, CardFooter, CardHeader, CardImg, CardTitle, Button } from 'shards-react'
 import axios from 'axios'
-
-const ReactTinyLink = dynamic(
-  () => import('react-tiny-link').then(mod => mod.ReactTinyLink),
-  { ssr: false }
-)
 
 export const RecipeList = ( { config }) => {
 
@@ -18,13 +13,24 @@ export const RecipeList = ( { config }) => {
       axios.get(`${getServerHostname()}/recipe/byAuthor/`, config)
         .then(response => {
           const { data } = response
-          console.log('the recipes', data)
           setCheckedForRecipes(true)
           setRecipes(data)
         })
     }
   }, [checkedForRecipes])
 
+  function convertListToString(tags) {
+    let result = ''
+    for (let index = 0; index < tags.length; index++) {
+      const theTag = tags[index]
+      if (index === tags.length - 1) {
+        result += `${theTag}`
+      } else {
+        result += `${theTag}, `
+      }
+    }
+    return result
+  }
 
   return (
     <div className='recipe-list'>
@@ -33,15 +39,12 @@ export const RecipeList = ( { config }) => {
         {
           recipes.map( (recipe, index) => (
             <div key={ index } className='recipe-list__item'>
-              <ReactTinyLink
-                cardSize="large"
-                showGraphic={ true }
-                header={ recipe.name }
-                description={ "Your recipe..." }
-                maxLine={ 2 }
-                onClick={ () => console.log('clicked recipe', recipe)}
-                url={ recipe.config[0].tabs[0].url }
-              />
+              <Card style={{ maxWidth: "300px", cursor: 'pointer' }}>
+                <CardBody>
+                  <CardTitle> { recipe.name } </CardTitle>
+                </CardBody>
+                <CardFooter> Tags: { convertListToString(recipe.tags)}</CardFooter>
+              </Card>
             </div>
           ))
         }

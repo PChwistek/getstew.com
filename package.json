@@ -23,7 +23,7 @@
     "react-google-login": "^5.1.21",
     "react-mailchimp-subscribe": "^2.1.0",
     "react-text-loop": "^2.3.0",
-    "react-tiny-link": "^3.6.0"
+    "shards-react": "^1.0.3"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
