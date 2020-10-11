@@ -167,3 +167,8 @@ $font-size-tiny: 0.6em;
   color: $error-color;
   font-size: $font-size-regular;
 }
+
+.card-title {
+  font-family: $base-font-family !important;
+  color: $text-color !important;
+}
