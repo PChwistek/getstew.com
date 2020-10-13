@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import getServerHostname from '../../utils/getServerHostname'
-import { Card, CardBody, CardFooter, CardHeader, CardImg, CardTitle, Button } from 'shards-react'
+import { useRouter } from 'next/router'
+import { Card, CardBody, CardFooter, CardTitle } from 'shards-react'
 import axios from 'axios'
 
 export const RecipeList = ( { config }) => {
 
   const [recipes, setRecipes] = useState([])
   const [checkedForRecipes, setCheckedForRecipes] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     if(!checkedForRecipes) {
@@ -55,6 +57,10 @@ export const RecipeList = ( { config }) => {
     return `${total} tabs`
   }
 
+  function goToDetail(recipe) {
+    router.push(`/recipe/${recipe._id}`)
+  }
+
   return (
     <div className='recipe-list'>
       <h3> Your Recipes </h3>
@@ -62,9 +68,9 @@ export const RecipeList = ( { config }) => {
         {
           recipes.map( (recipe, index) => (
             <div key={ index } className='recipe-list__item'>
-              <Card style={{ cursor: 'pointer' }}>
+              <Card style={{ cursor: 'pointer' }} onClick={ () => goToDetail(recipe)}>
                 <CardBody>
-                  <CardTitle> <h4> { recipe.name } </h4> </CardTitle>
+                  <CardTitle> { recipe.name } </CardTitle>
                   <p>{getWindows(recipe.config)}, {getLinks(recipe.config)}</p>
                 </CardBody>
                 <CardFooter> Tags: { convertListToString(recipe.tags)}</CardFooter>
