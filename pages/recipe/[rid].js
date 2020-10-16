@@ -7,21 +7,31 @@ import PropTypes from 'prop-types'
 import Header from '../../components/LandingHeader'
 import Layout from '../../components/Layout'
 import Head from 'next/head'
-import getServerHostname from '../../utils/getServerHostname'
+import getServerHostname, { getWebsiteHostname } from '../../utils/getServerHostname'
 import { getDaysFrom } from '../../utils/getDaysFromDate'
 import { withSoftAuthSync } from '../../utils/auth'
 import LoginPrompt from '../../components/LoginPrompt/LoginPrompt'
+import TimedAlert from '../../components/TimedAlert'
 import AuthedAppWrapper from '../../components/AuthedAppWrapper'
 import "../../style.scss"
 
 const RecipeDetail = (props) => {
-  const { name, author, dateModified, config, linkPermissions = [] } = props.recipe
+  const { name, author, dateModified, config, linkPermissions = [], shareableId } = props.recipe
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [copiedVisible, setCopiedVisible] = useState(false)
   const [privacyLevelSelected, setPrivacyLevelSelected] = useState(linkPermissions.length > 0 ? linkPermissions[0] : 'any')
   const { allowed } = props
 
   function handleCardClick(url) {
     window.open(url, '_ blank');
+  }
+
+  function copyToClipboard() {
+    navigator.clipboard.writeText(`${getWebsiteHostname()}/shared/${shareableId}`)
+      .then(() => {
+        setCopiedVisible(true)
+        setTimeout(() => { setCopiedVisible(false) }, 1500)
+      })
   }
 
   function getPermissionText() {
@@ -65,24 +75,31 @@ const RecipeDetail = (props) => {
                     <div className={ 'content__shared__half content__shared__half--left'}>
                       <h1> { name } </h1>
                       <p> Last updated { getDaysFrom(dateModified) } by { author } </p>
-                      <h3> Link Sharing </h3>
-                      <Dropdown open={ isDropdownOpen } toggle={ () => setIsDropdownOpen(!isDropdownOpen) }>
-                        <DropdownToggle> { getPermissionText() } </DropdownToggle>
-                        <DropdownMenu>
-                          <DropdownItem 
-                            active={ privacyLevelSelected === 'any' }
-                            onClick={ () => handlePermissionSelection('any')}
-                          > Anyone </DropdownItem>
-                          <DropdownItem 
-                            active={ privacyLevelSelected === 'stew' }
-                            onClick={ () => handlePermissionSelection('stew')}
-                          > Stew Users Only </DropdownItem>
-                          <DropdownItem 
-                            active={ privacyLevelSelected === 'off' }
-                            onClick={ () => handlePermissionSelection('off')}
-                          > Just me </DropdownItem>
-                        </DropdownMenu>
-                      </Dropdown>
+                      <h3> Get shareable link <img src={'/link.png'} className='copy-link' onClick={ copyToClipboard } /> </h3>
+                      <TimedAlert 
+                        visible={ copiedVisible }
+                        text={ 'Shareable Link Copied'}
+                      />                      
+                      <p> Who can view your recipe via shareable link? </p>
+                      <div style={ { marginTop: '-30px !important' } }>
+                        <Dropdown open={ isDropdownOpen } toggle={ () => setIsDropdownOpen(!isDropdownOpen) }>
+                          <DropdownToggle> { getPermissionText() } </DropdownToggle>
+                          <DropdownMenu>
+                            <DropdownItem 
+                              active={ privacyLevelSelected === 'any' }
+                              onClick={ () => handlePermissionSelection('any')}
+                            > Anyone </DropdownItem>
+                            <DropdownItem 
+                              active={ privacyLevelSelected === 'stew' }
+                              onClick={ () => handlePermissionSelection('stew')}
+                            > Stew Users Only </DropdownItem>
+                            <DropdownItem 
+                              active={ privacyLevelSelected === 'off' }
+                              onClick={ () => handlePermissionSelection('off')}
+                            > Just me </DropdownItem>
+                          </DropdownMenu>
+                        </Dropdown>
+                      </div>
                     </div>
                     <div className={ 'content__shared__half content__shared__half--right'} style={ { paddingBottom: '100px' }}>
                       <div>
