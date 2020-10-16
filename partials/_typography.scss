@@ -102,6 +102,18 @@ $font-size-tiny: 0.6em;
     }
   }
 
+  h3 {
+    font-size: $font-size-large;
+    font-family: $base-font-family;
+    font-weight: 700;
+    line-height: 60px;
+    @include respond(phone) { // width < 1200?
+      font-size: $font-size-large;
+      line-height: 42px;
+      padding-bottom: 10px;
+    }
+  }
+
   p {
     font-size: $font-size-large;
     font-family: $oxygen;
@@ -154,4 +166,9 @@ $font-size-tiny: 0.6em;
   font-family: $base-font-family;
   color: $error-color;
   font-size: $font-size-regular;
+}
+
+.card-title {
+  font-family: $base-font-family !important;
+  color: $text-color !important;
 }

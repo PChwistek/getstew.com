@@ -2,7 +2,7 @@
   font-family: $base-font-family;
   text-align: center;
   @include absCenter();
-  height: 500px;
+  height: 600px;
   width: 600px;
   margin: auto;
   background: $white;
@@ -19,7 +19,6 @@
     display: flex;
     text-align: center;
     justify-content: center;
-    padding-top: 40px;
 
     &__selection {
       padding: 15px;
