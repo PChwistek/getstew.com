@@ -22,16 +22,16 @@ export default function footer() {
             <div className='footer__row-item__title'>
               Product
             </div>
-            <div className='footer__company-info'>
+            {/* <div className='footer__company-info'>
               <Link href='/about-teams'> 
                 <a> Teams </a>
               </Link>
-            </div>
-            <div className='footer__company-info'>
+            </div> */}
+            {/* <div className='footer__company-info'>
               <Link href='/pricing'> 
                 <a> Pricing </a>
               </Link>
-            </div>
+            </div> */}
             <div className='footer__company-info'>
               <Link href='/faq'> 
                 <a> FAQ </a>  
