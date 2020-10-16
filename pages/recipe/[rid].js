@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import Router from 'next/router'
 import nextCookie from 'next-cookies'
+import { Card, CardBody,  Dropdown, DropdownToggle,DropdownMenu,DropdownItem } from "shards-react"
 import PropTypes from 'prop-types'
 import Header from '../../components/LandingHeader'
 import Layout from '../../components/Layout'
 import Head from 'next/head'
 import getServerHostname from '../../utils/getServerHostname'
-import Button from '../../components/Button'
 import { getDaysFrom } from '../../utils/getDaysFromDate'
 import { withSoftAuthSync } from '../../utils/auth'
 import LoginPrompt from '../../components/LoginPrompt/LoginPrompt'
@@ -15,13 +15,42 @@ import AuthedAppWrapper from '../../components/AuthedAppWrapper'
 import "../../style.scss"
 
 const RecipeDetail = (props) => {
-  const { name, author, dateModified, config } = props.recipe
+  const { name, author, dateModified, config, linkPermissions = [] } = props.recipe
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [privacyLevelSelected, setPrivacyLevelSelected] = useState(linkPermissions.length > 0 ? linkPermissions[0] : 'any')
   const { allowed } = props
+
+  function handleCardClick(url) {
+    window.open(url, '_ blank');
+  }
+
+  function getPermissionText() {
+    if (privacyLevelSelected === 'any') {
+      return 'Anyone'
+    } else if (privacyLevelSelected === 'stew') {
+      return 'Stew Users Only'
+    }
+    return 'Just me'
+  }
+
+  async function handlePermissionSelection(privacyLevel) {
+    setPrivacyLevelSelected(privacyLevel)
+    const { _id, repos, orgId } = props.recipe
+    const newLinkPermissions = []
+    newLinkPermissions.push(privacyLevel)
+    axios
+      .patch(`${getServerHostname()}/recipe/permissions`, {
+        _id,
+        linkPermissions: newLinkPermissions,
+        repos,
+        orgId,
+      }, props.axiosConfig)
+  }
 
   return (
       <Layout>
         <Head>
-          <title>stew | shared </title>
+          <title>stew | Recipe - {name} </title>
           <link rel="icon" href={ '/favicon.png' } type="image/png" />
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <meta name="description" content="Click here to add the recipe to your library."/>
@@ -36,8 +65,26 @@ const RecipeDetail = (props) => {
                     <div className={ 'content__shared__half content__shared__half--left'}>
                       <h1> { name } </h1>
                       <p> Last updated { getDaysFrom(dateModified) } by { author } </p>
+                      <h3> Link Sharing </h3>
+                      <Dropdown open={ isDropdownOpen } toggle={ () => setIsDropdownOpen(!isDropdownOpen) }>
+                        <DropdownToggle> { getPermissionText() } </DropdownToggle>
+                        <DropdownMenu>
+                          <DropdownItem 
+                            active={ privacyLevelSelected === 'any' }
+                            onClick={ () => handlePermissionSelection('any')}
+                          > Anyone </DropdownItem>
+                          <DropdownItem 
+                            active={ privacyLevelSelected === 'stew' }
+                            onClick={ () => handlePermissionSelection('stew')}
+                          > Stew Users Only </DropdownItem>
+                          <DropdownItem 
+                            active={ privacyLevelSelected === 'off' }
+                            onClick={ () => handlePermissionSelection('off')}
+                          > Just me </DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
                     </div>
-                    <div className={ 'content__shared__half content__shared__half--right'}>
+                    <div className={ 'content__shared__half content__shared__half--right'} style={ { paddingBottom: '100px' }}>
                       <div>
                         { config.map((win, winIndex) => (
                           <div key={ winIndex }>
@@ -48,14 +95,12 @@ const RecipeDetail = (props) => {
                             {
                               (win && win.tabs.length > 0) && win.tabs.map( (tab, tabIndex) => (
                                 <div className='tab__row' key={ 'row' + tabIndex }>
-                                    <div className='tab__body'>
-                                      <img src={ tab.favIconUrl || '/chrome.png' } className='tab__fav' />
-                                        <p className='tab__title'>
-                                          <a href={ tab.url } className={ 'tab__title' } target="blank">
-                                            { tab.title }          
-                                          </a>
-                                        </p>
-                                    </div>
+                                  <Card className='tab__card' onClick={ () => handleCardClick(tab.url) }>
+                                    <CardBody>
+                                      <img src={ tab.favIconUrl || '/chrome.png' } className='tab__fav' /> 
+                                       { tab.title } 
+                                    </CardBody>
+                                  </Card>
                                 </div>
                               ))
                             }

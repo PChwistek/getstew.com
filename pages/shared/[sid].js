@@ -4,6 +4,7 @@ import Router from 'next/router'
 import nextCookie from 'next-cookies'
 import PropTypes from 'prop-types'
 import Header from '../../components/LandingHeader'
+import { Card, CardBody } from "shards-react"
 import Layout from '../../components/Layout'
 import Head from 'next/head'
 import getServerHostname from '../../utils/getServerHostname'
@@ -30,6 +31,11 @@ const Shared = (props) => {
       }
     }
   }
+
+  function handleCardClick(url) {
+    window.open(url, '_ blank');
+  }
+
 
   return (
       <Layout>
@@ -72,14 +78,12 @@ const Shared = (props) => {
                             {
                               (win && win.tabs.length > 0) && win.tabs.map( (tab, tabIndex) => (
                                 <div className='tab__row' key={ 'row' + tabIndex }>
-                                    <div className='tab__body'>
-                                      <img src={ tab.favIconUrl || '/chrome.png' } className='tab__fav' />
-                                        <p className='tab__title'>
-                                          <a href={ tab.url } className={ 'tab__title' } target="blank">
-                                            { tab.title }          
-                                          </a>
-                                        </p>
-                                    </div>
+                                  <Card className='tab__card' onClick={ () => handleCardClick(tab.url) }>
+                                    <CardBody>
+                                      <img src={ tab.favIconUrl || '/chrome.png' } className='tab__fav' /> 
+                                       { tab.title } 
+                                    </CardBody>
+                                  </Card>
                                 </div>
                               ))
                             }

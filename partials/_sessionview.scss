@@ -15,11 +15,10 @@
 .tab {
 
   &__row {
-    display: flex;
     align-items: center;
     margin-left: 30px;
-    width: fit-content;
     cursor: pointer;
+    margin-top: 10px;
   }
 
   &__row:hover &__remove {
@@ -28,6 +27,7 @@
 
   &__fav {
     width: 24px;
+    margin-right: 10px;
   }
 
   &__row:hover &__out {
@@ -119,4 +119,5 @@
 
 .window-icon {
   height: 48px;
+  margin-right: 10px;
 }
