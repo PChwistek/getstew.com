@@ -39,13 +39,13 @@ class Index extends React.Component {
   }
 
   onButtonClick = () => {
-    const { browser } = this.state
-    if (browser === 'Chrome') {
+    // const { browser } = this.state
+    // if (browser === 'Chrome') {
       window.open('https://chrome.google.com/webstore/detail/stew/mpgembgbcmglafhihbhendibhekajjep')
-    } else {
-      this.toggleModal()
-    }
-    logEvent('add to', 'click')
+    // } else {
+    //   this.toggleModal()
+    // }
+    // logEvent('add to', 'click')
   }
 
   resize = () => {
