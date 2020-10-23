@@ -10,7 +10,7 @@ import getServerHostname from '../utils/getServerHostname'
 import AuthedAppWrapper from '../components/AuthedAppWrapper'
 import Content from '../components/Content'
 import { withAuthSync } from '../utils/auth'
-import Checkout from '../components/Checkout'
+import CreateOrg from '../components/CreateOrg'
 import "../style.scss"
 import OrgsDashboard from '../components/OrgsDashboard'
 import ConfirmModal from '../components/Modal/ConfirmModal'
@@ -87,9 +87,8 @@ const Teams = props => {
                   onRemoveClick={ (active, email) => setShowConfirmMemberRemove({ active, email }) }
                   afterEmailResend= { triggerResendAlert }
                 />
-              : <Checkout config={ config } />
+              : <CreateOrg config={ config } />
             }
-      
           </Content>
         </AuthedAppWrapper>
       }
