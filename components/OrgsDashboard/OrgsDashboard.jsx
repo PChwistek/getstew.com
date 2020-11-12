@@ -14,7 +14,7 @@ const OrgsDashboard = (props) => {
   const [toInviteEmails, setToInviteEmails] = useState([])
   const [editingMembers, setEditingMembers] = useState(false)
   const [editingRepos, setEditingRepos] = useState(false)
-
+  console.log(props)
   function addEmailToInvite() {
     const temp = toInviteEmails
     temp.push(memberEmail)
@@ -78,9 +78,10 @@ const OrgsDashboard = (props) => {
                 <img src='/cog.png' className='teams-dash__edit' />
               </span>
           </h2>
+          <p> Plan: { props.plan } </p>
           <div className='teams-dash__change-container'>
             { isAdmin &&           
-              <Button secondary onClick={ handleToPortal }> Payment Details </Button>
+              <Button secondary onClick={ handleToPortal }> { props.plan === 'free' ? 'Upgrade' : 'Payment Details' } </Button>
             }
           </div>
         </div>
@@ -186,6 +187,7 @@ OrgsDashboard.propTypes = {
   isAdmin: PropTypes.bool,
   numberOfSeats: PropTypes.number,
   members: PropTypes.arrayOf(PropTypes.string),
+  plan: PropTypes.string,
   config: PropTypes.shape({ 
     headers: PropTypes.object,  
   }),

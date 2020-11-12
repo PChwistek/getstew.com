@@ -86,6 +86,7 @@ const Teams = props => {
                   config={ config } 
                   onRemoveClick={ (active, email) => setShowConfirmMemberRemove({ active, email }) }
                   afterEmailResend= { triggerResendAlert }
+                  plan={ props.orgData.plan }
                 />
               : <CreateOrg config={ config } />
             }
@@ -135,6 +136,7 @@ Teams.propTypes = {
     isAdmin: PropTypes.bool,
     numberOfSeats: PropTypes.number,
     members: PropTypes.array,
+    plan: PropTypes.string,
   }),
 }
 
