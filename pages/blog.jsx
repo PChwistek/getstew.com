@@ -5,6 +5,7 @@ import Hero from '../components/Hero'
 import Intro from '../components/Intro'
 import Footer from '../components/Footer'
 import Content from '../components/Content'
+import { useRouter } from 'next/router'
 import { Card, CardBody, CardFooter, CardTitle, CardImg } from 'shards-react'
 import "../style.scss"
 
@@ -20,6 +21,9 @@ export async function getStaticProps() {
 }
 
 export default function Blog({ allPostsData }) {
+  const router = useRouter()
+
+
   return (
     <Layout>
       <Head>
@@ -36,10 +40,10 @@ export default function Blog({ allPostsData }) {
         />
         <Content>
           <div className='blog-list'>
-            {allPostsData.map(({ id, date, title }) => (
+            {allPostsData.map(({ id, date, title, photo }) => (
               <div key={ id } className='blog-list__item'>
-                <Card style={{ cursor: 'pointer' }}>
-                  <CardImg src='https://images.unsplash.com/photo-1574852859542-1b41217a7815?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2500&q=80' className='blog-list__image'/>
+                <Card style={{ cursor: 'pointer' }} onClick={() => router.push('/posts/' + id )}>
+                  <CardImg src={ photo } className='blog-list__image'/>
                   <CardBody>
                     <CardTitle> { title } </CardTitle>
                   </CardBody>
