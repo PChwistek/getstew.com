@@ -17,3 +17,15 @@
     height: 150px;
   }
 }
+
+.blog-post {
+  
+  &__image {
+    object-fit: cover;
+    height: 400px;
+  }
+  &__top {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}

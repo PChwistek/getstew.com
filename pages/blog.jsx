@@ -33,7 +33,7 @@ export default function Blog({ allPostsData }) {
         <meta name="description" content="stew | Blog" />
       </Head>
       <Header heroPhotoPath={ '/stew-title.png' } />
-      <Hero type={ "grey" }>
+      <Hero type={ "grey-lg" }>
         <Intro 
           slogan="The Stew Blog"
           description="Improving internet productivity"
