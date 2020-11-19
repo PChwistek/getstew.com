@@ -45,7 +45,7 @@ class Index extends React.Component {
     // } else {
     //   this.toggleModal()
     // }
-    // logEvent('add to', 'click')
+    logEvent('add to', 'click')
   }
 
   resize = () => {
