@@ -2,8 +2,18 @@ import PropTypes from 'prop-types'
 
 const Content = props => {
 
+  function getProperStyle() {
+    if (props.isDashboard) {
+      return 'content content__dashboard'
+    } else if (props.isBlog) {
+      return 'content content__blog'
+    }
+
+    return 'content'
+  }
+
   return (
-    <div className={ props.isDashboard ? 'content content__dashboard': "content"  }>
+    <div className={ getProperStyle() }>
       { props.children }
     </div>
   )
@@ -12,6 +22,7 @@ const Content = props => {
 Content.propTypes = {
   children: PropTypes.node,
   isDashboard: PropTypes.bool,
+  isBlog: PropTypes.bool,
 }
 
 

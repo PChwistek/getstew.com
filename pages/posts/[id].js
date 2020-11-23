@@ -18,18 +18,19 @@ export default function Post({ postData }) {
         <meta name="description" content="stew | Blog" />
       </Head>
       <Header heroPhotoPath={ '/stew-title.png' } />
-      <Hero type={ "grey-lg" }>
-        <Intro 
-          slogan={ postData.title}
-          description={ postData.date }
-        />
+        <div className={ 'blog-post__title' }>
+          <Intro 
+            slogan={ postData.title}
+            description={ postData.date }
+          />
+        </div>
         <div className='blog-post__top'>
           <img src={ postData.photo } className='blog-post__image' />
         </div>
-        <Content>
+        <Content isBlog>
           <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
         </Content>
-      </Hero>
+        <div className='blog-post__bottom' />
       <Footer />
     </Layout>
   )
