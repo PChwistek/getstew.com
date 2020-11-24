@@ -1,0 +1,40 @@
+.blog-list {
+  height: 100%;
+  display: flex;
+
+  &__body {
+    display: flex;
+    flex-wrap: wrap; 
+  }
+
+  &__item {
+    width: 330px;
+    margin: 15px;
+  }
+
+  &__image {
+    object-fit: cover;
+    height: 150px;
+  }
+}
+
+.blog-post {
+  
+  &__image {
+    object-fit: cover;
+    height: 400px;
+  }
+
+  &__title {
+    padding-top: 5%;
+  }
+
+  &__top {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  &__bottom {
+    padding-bottom: 80px;
+  }
+}

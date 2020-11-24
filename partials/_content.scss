@@ -17,4 +17,22 @@
     margin: 80px;
   }
 
+  &__blog {
+    width: 800px;
+    @include respond(phone) { // width < 1200?
+      width: 450px;
+    }
+
+    p {
+      font-size: 1.25em;
+      line-height: 32px;
+    }
+
+    ul {
+      font-size: 1.25em;
+      line-height: 32px;
+      font-family: $oxygen;
+    }
+  }
+
 }

@@ -57,11 +57,11 @@ export default function footer() {
                 <a> Terms of Use  </a>
               </Link>
             </div>
-            {/* <div className='footer__company-info'>
+            <div className='footer__company-info'>
               <Link href='/blog'>
                 <a> Blog </a> 
               </Link>
-            </div> */}
+            </div>
             <div className='footer__company-info'>
               <Link  href='/contact'> 
                 <a> Contact </a> 

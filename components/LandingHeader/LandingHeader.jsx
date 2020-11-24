@@ -17,16 +17,16 @@ export default function landingHeader(props) {
           {
             !props.hideItems &&
               <div className="header header__items">
+              <Link href={ '/blog' }>
+                <div className="header header__item">
+                  <a> Blog </a>
+                </div>
+              </Link>
               <Link href={ '/faq' }>
                 <div className="header header__item">
                   <a> FAQ </a>
                 </div>
               </Link>
-              {/* <Link href={ '/pricing' }>
-                <div className="header header__item">
-                  <a> Pricing </a>
-                </div>
-              </Link> */}
               <Link href={'/dashboard' }>
                 <div className="header header__item">
                   <a> Account </a> 
